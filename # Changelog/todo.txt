@@ -1,0 +1,37 @@
+﻿#-------------------------------------------------
+# Bugs
+#-------------------------------------------------
+
+#-------------------------------------------------
+# Ideas
+#-------------------------------------------------
+Each final boss in each 'level' will award a Fragment of the Dark Soul, this boosts damage by a flat value. Reinforcement is removed.
+
+#-------------------------------------------------
+# WIP
+#-------------------------------------------------
+5111863 High Wall 80000000
+5111872 Grand Archives 80000001
+
+5111862 Undead Settlement 80000002
+5111861 Road of Sacrifices / Farron Keep 80000003
+
+5111860 Catacombs of Carthus / Smouldering Lake 80000004
+
+5111869 Cathedral of the Deep 80000005
+5111870 Cemetery / Untended Graves (Blighted Cemetery) 80000006
+
+5111871 Archdragon Peak 80000007
+
+5111868 Irithyll 80000008
+5111867 Irithyll Dungeon / Profaned Capital (Profaned Depths) 80000009
+
+5111866 Painted World of Ariandel 80000010
+
+5111865 Dreg Heap 80000011
+5111864 Ringed City 80000012
+
+2160 Hollow Fragment
+
+ID,Name,equipId,value,mtrlId,eventFlag_forStock,eventFlag_forRelease,sellQuantity,pad1,equipType,pad2,setNum,value_Add,value_Magnification,
+9100000,[Weapons],10170000,-1,200000,-1,-1,1,0,0,[255|255],0,0,1

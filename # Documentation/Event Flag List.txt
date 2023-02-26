@@ -1,0 +1,42 @@
+﻿#-----------------------------------------------------------------
+# Vanilla Ranges
+#-----------------------------------------------------------------
+6300 Defeated: Dancer of the Boreal Valley
+6301 Defeated: Pontiff's Left Eye
+6302 Defeated: Consumed King Oceiros
+6303 Defeated: Curse-rotted Greatwood
+6304 Defeated: Nameless King
+6306 Defeated: Crystal Sage
+6307 Defeated: Abyss Watchers
+6308 Defeated: Dragonslayer Armour
+6309 Defeated: Twin Princes
+6311 Defeated: Deacons of the Deep
+6312 Obtained Rosaria's Soul
+6313 Defeated: Pontiff Sulyvahn
+6314 Defeated: Aldrich
+6315 Defeated: Wolnir
+6317 Defeated: Old Demon King
+6318 Defeated: Yhorm the Giant
+6320 Defeated: Champion Gundyr
+6321 Defeated: Soul of Cinder
+6330 Obtained Soul of a Demon
+6331 Obtained Soul of a Stray Demon
+6322 Defeated: Sister Friede
+6324 Defeated: Demon Prince
+6326 Defeated: Darkeater Midir
+6327 Defeated: Slave Knight Gael
+
+#-----------------------------------------------------------------
+# Mod Ranges
+#-----------------------------------------------------------------
+25000000 
+25000100 Journey Finalized
+25000101 Journey Type: Hollow
+25000102 Journey Type: Explorer
+25000103 Journey Type: Conqueror
+25000104 Journey Type: Accursed
+
+25000110 Custom Loadout: Selected
+25000111 Custom Loadout: Itemlot Option
+25000112 Custom Loadout: Free Souls Option
+25000113 Custom Loadout: Hollow Fragment Itemlot

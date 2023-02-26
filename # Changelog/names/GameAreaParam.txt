@@ -1,0 +1,89 @@
+﻿ID,Name
+0,null
+1,null
+100,null
+200,null
+201,null
+202,null
+203,null
+301,null
+302,null
+303,null
+400,null
+401,null
+402,null
+500,null
+501,null
+502,null
+600,null
+601,null
+602,null
+801,null
+1000800,null
+1010700,null
+1010750,null
+1010800,null
+1100160,null
+1200800,null
+1200801,null
+1210401,null
+1210800,null
+1210820,null
+1210840,null
+1300800,null
+1310800,null
+1400800,null
+1410400,null
+1410600,null
+1410700,null
+1410800,null
+1500800,null
+1510650,null
+1510801,null
+1510811,null
+1600800,null
+1700800,null
+1800800,null
+1810800,null
+1810810,null
+2010800,null
+2910400,null
+2920800,null
+3000800,Vordt of the Boreal Valley
+3000830,Oceiros- the Consumed King
+3000899,Dancer of the Boreal Valley
+3010800,Dragonslayer Armour
+3010850,Twisted Knight
+3100800,Curse-rotted Greatwood
+3100870,Aborr
+3200800,Ancient Wyvern
+3200851,The Nameless King
+3200870,Trio of Explorers
+3300801,Abyss Watchers
+3300850,Crystal Sage
+3410830,The Twin Princes
+3410870,Mirror Knight
+3500800,Deacons of the Deep
+3500810,Cathedral Guardian
+3700800,Pontiff Sulyvahn
+3700850,Aldrich- Devourer of Gods
+3700870,Lordran Remnants
+3800800,High Lord Wolnir
+3800830,Old Demon King
+3900800,Yhorm the Giant
+3900860,Fallen Protector
+4000800,Corrupted Gundyr
+4000830,Champion Gundyr
+4000850,The Marauder
+4100800,Soul of Cinder
+4500800,Sister Friede
+4500860,Princess Yngvil
+4500960,Prince Dorthinus
+5000801,The Demon Prince
+5000802,The Demon Prince
+5100800,Halflight- Spear of the Church
+5100850,Darkeater Midir
+5110800,Slave Knight Gael
+9901010,null
+9990000,null
+9990010,null
