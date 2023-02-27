@@ -150,9 +150,12 @@ $Event(0, Default, function() {
     InitializeEvent(2, 9020, 14500161, 14500162, 14500162, 6952, 45);
     
     // Mod
+    SetSpEffect(10000, 200000000);
+    
     InitializeEvent(0, 10000, 0); // Darksign Warp
     InitializeEvent(0, 10001, 0); // Journey Type Effect: Player
     InitializeEvent(0, 10002, 0); // Journey Type Effect: Enemy
+    InitializeEvent(0, 10003, 0); // Level Adjustments
 });
 
 $Event(50, Default, function() {
@@ -287,9 +290,9 @@ $Event(230, Restart, function() {
 });
 
 $Event(231, Restart, function() {
-    EndIf(PlayerInMap(40, 0));
-    SetMapCeremony(40, 0, 10);
-    EndEvent();
+    //EndIf(PlayerInMap(40, 0));
+    //SetMapCeremony(40, 0, 10);
+    //EndEvent();
 });
 
 $Event(232, Default, function() {
@@ -1431,21 +1434,33 @@ $Event(10002, Default, function() {
     // Explorer
     if(EventFlag(25000102))
     {
-        SetSpEffect(6001000, 200101010);
-        SetSpEffect(6001000, 200101011);
+        SetSpEffect(3605800, 200101010);
+        SetSpEffect(3605800, 200101011);
     }
     
     // Conqueror
     if(EventFlag(25000103))
     {
-        SetSpEffect(6001000, 200102010);
+        SetSpEffect(3605800, 200102010);
     }
     
     // Accursed
     if(EventFlag(25000104))
     {
-        SetSpEffect(6001000, 200103010);
+        SetSpEffect(3605800, 200103010);
     }
+    
+    // Loops so generated enemies are given the SpEffects.
+    WaitFixedTimeSeconds(1.0);
+    
+    RestartEvent();
+});
+
+// Level Adjustments
+$Event(10003, Default, function() {
+    SetSpEffect(3605810, 200200000);
+    SetSpEffect(3605820, 200200010);
+    SetSpEffect(3605830, 200200020);
     
     // Loops so generated enemies are given the SpEffects.
     WaitFixedTimeSeconds(1.0);

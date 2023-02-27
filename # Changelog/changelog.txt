@@ -21,6 +21,8 @@
 #-------------------------------------------------
 # Weapons
 #-------------------------------------------------
+- Weapons are no longer reinforced. Instead the base damage and scaling has been set to the maximum value. This means the effectiveness of your weapon is now tied directly to your stats.
+- The stat effectiveness curve has been made more linear, so high damage requires more stat investment.
 
 #-------------------------------------------------
 # Catalysts
@@ -41,6 +43,7 @@
 #-------------------------------------------------
 # Items
 #-------------------------------------------------
+- All reinforcement treasures have been replaced with suitable consumable soul items.
 
 #-------------------------------------------------
 # Misc
