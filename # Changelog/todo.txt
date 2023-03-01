@@ -13,7 +13,14 @@ Add message on first boss kill that tells the player they can use the Darksign t
 #-------------------------------------------------
 # WIP
 #-------------------------------------------------
+Add NG+ cycle trigger based on killing final boss
+ Appears at World's End bonfire
+
+Add Slave Knight Gael boss fight as final boss
+ Requires all bosses to have been killed first
+ 
 Design Blighted Cemetery level
 
 Add TAE Window for charged heavy attacks in TAE (112200900)
 Add TAE Window for skill attacks in TAE (XXX)
+

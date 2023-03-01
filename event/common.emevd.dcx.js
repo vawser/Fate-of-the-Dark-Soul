@@ -168,6 +168,19 @@ $Event(0, Default, function() {
     InitializeEvent(0, 10021, 0); // Imbued Artifacts
     InitializeEvent(0, 10022, 0); // Imbued Artifacts
     InitializeEvent(0, 10023, 0); // Imbued Artifacts
+    
+    // Ashes Unlocks
+    InitializeEvent(0, 10025, 2107, 70000100); // Mortician's Ashes
+    InitializeEvent(1, 10025, 2108, 70000101); // Dreamchaser's Ashes
+    InitializeEvent(2, 10025, 2109, 70000102); // Paladin's Ashes
+    InitializeEvent(3, 10025, 2110, 70000103); // Grave Warden's Ashes
+    InitializeEvent(4, 10025, 2146, 70000104); // Excrement-covered Ashes
+    InitializeEvent(5, 10025, 2147, 70000105); // Prisoner Chief's Ashes
+    InitializeEvent(6, 10025, 2148, 70000106); // Xanthous Ashes
+    InitializeEvent(7, 10025, 2149, 70000107); // Hollow's Ashes
+    InitializeEvent(8, 10025, 2151, 70000108); // Dragon Chaser's Ashes
+    InitializeEvent(9, 10025, 2152, 70000109); // Easterner's Ashes  
+    InitializeEvent(10, 10025, 2154, 70000120); // Captain's Ashes
        
     // Tome Unlocks
     InitializeEvent( 0, 10010, 200300100, 2174, 200); // Sage's Scroll
@@ -196,8 +209,79 @@ $Event(0, Default, function() {
     InitializeEvent(32, 10010, 200300402, 2202, 380); // Afflicted Scroll
     
     // Forge
-    InitializeEvent(0, 13000, 20000, 20001, 20002, 25000200, 25000201, 25000202); // Life Ring 
+    InitializeEvent( 1, 13000, 20000, 20001, 20002, 25000200, 25000201, 25000202); // Life Ring
+    InitializeEvent( 2, 13000, 20010, 20011, 20012, 25000205, 25000206, 25000207); // Chloranthy Ring
+    InitializeEvent( 3, 13000, 20020, 20021, 20022, 25000210, 25000211, 25000212); // Havel's Ring
+    InitializeEvent( 4, 13000, 20030, 20031, 20032, 25000215, 25000216, 25000217); // Ring of Favor
+    InitializeEvent( 5, 13000, 20040, 20041, 20042, 25000220, 25000221, 25000222); // Ring of Steel Protection
+    InitializeEvent( 6, 13000, 20050, 20051, 20052, 25000225, 25000226, 25000227); // Flame Stoneplate Ring
+    InitializeEvent( 7, 13000, 20060, 20061, 20062, 25000230, 25000231, 25000232); // Thunder Stoneplate Ring
+    InitializeEvent( 8, 13000, 20070, 20071, 20072, 25000235, 25000236, 25000237); // Magic Stoneplate Ring
+    InitializeEvent( 9, 13000, 20080, 20081, 20082, 25000240, 25000241, 25000242); // Dark Stoneplate Ring
+    InitializeEvent(10, 13000, 20090, 20091, 20092, 25000245, 25000246, 25000247); // Speckled Stoneplate Ring
+    InitializeEvent(11, 13000, 20100, 20101, 20102, 25000250, 25000251, 25000252); // Bloodbite Ring
+    InitializeEvent(12, 13000, 20110, 20111, 20112, 25000255, 25000256, 25000257); // Poisonbite Ring
+    InitializeEvent(13, 13000, 20120, 20121, 20122, 25000260, 25000261, 25000262); // Cursebite Ring
+    InitializeEvent(14, 13000, 20130, 20131, 20132, 25000265, 25000266, 25000267); // Fleshbite Ring
+    InitializeEvent(15, 13000, 20140, 20141, 20142, 25000270, 25000271, 25000272); // Birchwood Ring
+    InitializeEvent(16, 13000, 20150, 20151, 20152, 25000275, 25000276, 25000277); // Scholar Ring
+    InitializeEvent(17, 13000, 20160, 20161, 20162, 25000280, 25000281, 25000282); // Priestess Ring
+    InitializeEvent(18, 13000, 20170, 20171, 20172, 25000285, 25000286, 25000287); // Red Tearstone Ring
+    InitializeEvent(19, 13000, 20180, 20181, 20182, 25000290, 25000291, 25000292); // Blue Tearstone Ring
+    InitializeEvent(20, 13000, 20190, 20191, 20192, 25000295, 25000296, 25000297); // Wolf Ring
     
+    InitializeEvent(21, 13000, 20230, 20231, 20232, 25000300, 25000301, 25000302); // Young Dragon Ring
+    InitializeEvent(22, 13000, 20240, 20241, 20242, 25000305, 25000306, 25000307); // Great Swamp Ring
+    InitializeEvent(23, 13000, 20250, 20251, 20252, 25000310, 25000311, 25000312); // Morne's Ring
+    InitializeEvent(24, 13000, 20270, 20271, 20272, 25000315, 25000316, 25000317); // Lingering Dragoncrest Ring
+    InitializeEvent(25, 13000, 20280, 20281, 20282, 25000320, 25000321, 25000322); // Sage Ring
+    InitializeEvent(26, 13000, 20300, 20301, 20302, 25000325, 25000326, 25000327); // Dusk Crown Ring
+    InitializeEvent(27, 13000, 20320, 20321, 20322, 25000330, 25000331, 25000332); // Deep Ring
+    InitializeEvent(28, 13000, 20330, 20331, 20332, 25000335, 25000336, 25000337); // Darkmoon Ring
+    InitializeEvent(29, 13000, 20340, 20341, 20342, 25000340, 25000341, 25000342); // Bellowing Dragoncrest Ring
+    InitializeEvent(30, 13000, 20350, 20351, 20352, 25000345, 25000346, 25000347); // Witch's Ring
+    InitializeEvent(31, 13000, 20360, 20361, 20362, 25000350, 25000351, 25000352); // Ring of the Sun's First Born
+    InitializeEvent(32, 13000, 20370, 20371, 20372, 25000355, 25000356, 25000357); // Hawk Ring
+    InitializeEvent(33, 13000, 20390, 20391, 20392, 25000360, 25000361, 25000362); // Covetous Gold Serpent Ring
+    InitializeEvent(34, 13000, 20400, 20401, 20402, 25000365, 25000366, 25000367); // Covetous Silver Serpent Ring
+    InitializeEvent(35, 13000, 20410, 20411, 20412, 25000370, 25000371, 25000372); // Sun Princess Ring
+    InitializeEvent(36, 13000, 20430, 20431, 20432, 25000375, 25000376, 25000377); // Skull Ring
+    InitializeEvent(37, 13000, 20450, 20451, 20452, 25000380, 25000381, 25000382); // Carthus Milkring
+    InitializeEvent(38, 13000, 20460, 20461, 20462, 25000385, 25000386, 25000387); // Knight's Ring
+    InitializeEvent(39, 13000, 20470, 20471, 20472, 25000390, 25000391, 25000392); // Hunter's Ring
+    InitializeEvent(40, 13000, 20480, 20481, 20482, 25000395, 25000396, 25000397); // Knight Slayer's Ring
+    
+    InitializeEvent(41, 13000, 20490, 20491, 20492, 25000400, 25000401, 25000402); // Magic Clutch Ring
+    InitializeEvent(42, 13000, 20500, 20501, 20502, 25000405, 25000406, 25000407); // Lightning Clutch Ring
+    InitializeEvent(43, 13000, 20510, 20511, 20512, 25000410, 25000411, 25000412); // Fire Clutch Ring
+    InitializeEvent(44, 13000, 20520, 20521, 20522, 25000415, 25000416, 25000417); // Dark Clutch Ring
+    InitializeEvent(45, 13000, 20540, 20541, 20542, 25000420, 25000421, 25000422); // Flynn's Ring
+    InitializeEvent(46, 13000, 20550, 20551, 20552, 25000425, 25000426, 25000427); // Prisoner's Chain
+    InitializeEvent(47, 13000, 20590, 20591, 20592, 25000430, 25000431, 25000432); // Ring of the Evil Eye
+    InitializeEvent(48, 13000, 20610, 20611, 20612, 25000435, 25000436, 25000437); // Farron Ring
+    InitializeEvent(49, 13000, 20620, 20621, 20622, 25000440, 25000441, 25000442); // Aldrich's Ruby
+    InitializeEvent(50, 13000, 20630, 20631, 20632, 25000445, 25000446, 25000447); // Aldrich's Sapphire
+    InitializeEvent(51, 13000, 20660, 20661, 20662, 25000450, 25000451, 25000452); // Lloyd's Sword Ring
+    InitializeEvent(52, 13000, 20670, 20671, 20672, 25000455, 25000456, 25000457); // Lloyd's Shield Ring
+    InitializeEvent(53, 13000, 20700, 20701, 20702, 25000460, 25000461, 25000462); // Estus Ring
+    InitializeEvent(54, 13000, 20710, 20711, 20712, 25000465, 25000466, 25000467); // Ashen Estus Ring
+    InitializeEvent(55, 13000, 20730, 20731, 20732, 25000470, 25000471, 25000472); // Carthus Bloodring
+    InitializeEvent(56, 13000, 20750, 20751, 20752, 25000475, 25000476, 25000477); // Pontiff's Right Eye
+    InitializeEvent(57, 13000, 20790, 20791, 20792, 25000480, 25000481, 25000482); // Pontiff's Left Eye
+    InitializeEvent(58, 13000, 20830, 20831, 20832, 25000485, 25000486, 25000487); // Dragonscale Ring
+    InitializeEvent(59, 13000, 21000, 21001, 21002, 25000490, 25000491, 25000492); // Chillbite Ring
+    InitializeEvent(60, 13000, 21010, 21011, 21012, 25000495, 25000496, 25000497); // Bestial Fang
+    
+    InitializeEvent(61, 13000, 21020, 21021, 21022, 25000500, 25000501, 25000502); // Ironwood Band
+    InitializeEvent(62, 13000, 21030, 21031, 21032, 25000505, 25000506, 25000507); // Demonbane Oil
+    InitializeEvent(63, 13000, 21040, 21041, 21042, 25000510, 25000511, 25000512); // Deathbane Oil
+    InitializeEvent(64, 13000, 21050, 21051, 21052, 25000515, 25000516, 25000517); // Hollowbane Oil
+    InitializeEvent(65, 13000, 21060, 21061, 21062, 25000520, 25000521, 25000522); // Cursebane Oil
+    InitializeEvent(66, 13000, 21070, 21071, 21072, 25000525, 25000526, 25000527); // Beastbane Oil
+    InitializeEvent(67, 13000, 21080, 21081, 21082, 25000530, 25000531, 25000532); // Korg's Talon
+    InitializeEvent(68, 13000, 21090, 21091, 21092, 25000535, 25000536, 25000537); // Dashmaster's Bell
+    
+    //InitializeEvent(0, 13000, 20000, 20001, 20002, 25000540, 25000541, 25000542); // 
 });
 
 $Event(50, Default, function() {
@@ -1942,6 +2026,15 @@ $Event(10023, Default, function() {
     }
 });
 
+// Ashes
+$Event(10025, Default, function(X0_4, X4_4) {
+    EndIf(EventFlag(X4_4));
+    
+    if(PlayerHasItem(ItemType.Goods, X0_4))
+    {
+        SetEventFlag(X4_4, ON);
+    }
+});
 //--------------------------------------
 // Talisman Forge
 //--------------------------------------

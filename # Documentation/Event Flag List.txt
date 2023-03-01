@@ -43,6 +43,10 @@
 25000112 Custom Loadout: Free Souls Option
 25000113 Custom Loadout: Hollow Fragment Itemlot
 
+25000120 Ready for Final Boss
+
+25000130 NG+ Allowed
+
 25000200 Life Ring 
 25000201 Life Ring +1
 25000203 Life Ring +2

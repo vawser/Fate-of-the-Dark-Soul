@@ -607,7 +607,7 @@ def t511102_x50():
         
         # Forge with Darkness
         if GetTalkListEntryResult() == 1:
-            OpenTranspositionShop(810000, 810999)
+            OpenTranspositionShop(8100000, 8109999)
             assert not (CheckSpecificPersonMenuIsOpen(18, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
             continue
         else:

@@ -596,8 +596,8 @@ def t511101_x50():
     while True:
         ClearTalkListData()
         
-       # Infuse Weapon
-        AddTalkListData(1, 15010001, -1)
+        # Resurrection
+        AddTalkListData(1, 80010000, -1)
         
         # Leave
         AddTalkListData(99, 80000999, -1)
@@ -605,27 +605,9 @@ def t511101_x50():
         ShowShopMessage(1)
         assert not (CheckSpecificPersonMenuIsOpen(1, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
         
-        # Infuse Weapon
+        # Resurrection
         if GetTalkListEntryResult() == 1:
-            CombineMenuFlagAndEventFlag(6001, 344)
-            CombineMenuFlagAndEventFlag(6001, 337)
-            CombineMenuFlagAndEventFlag(6001, 334)
-            CombineMenuFlagAndEventFlag(300, 332)
-            CombineMenuFlagAndEventFlag(300, 333)
-            CombineMenuFlagAndEventFlag(300, 342)
-            CombineMenuFlagAndEventFlag(301, 335)
-            CombineMenuFlagAndEventFlag(301, 345)
-            CombineMenuFlagAndEventFlag(301, 340)
-            CombineMenuFlagAndEventFlag(302, 336)
-            CombineMenuFlagAndEventFlag(302, 338)
-            CombineMenuFlagAndEventFlag(302, 339)
-            CombineMenuFlagAndEventFlag(303, 341)
-            CombineMenuFlagAndEventFlag(303, 343)
-            CombineMenuFlagAndEventFlag(303, 346)
-            CombineMenuFlagAndEventFlag(6000, 347)
-            CombineMenuFlagAndEventFlag(6001, 331)
-            OpenEquipmentChangeOfPurposeShop()
-            continue
+            return 0
         else:
             return 0
             

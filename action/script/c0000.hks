@@ -5,10 +5,13 @@
 ------------------------------------------
 -- Mod: Functions
 ------------------------------------------
+-- Debug Ionc
+-- act(AddSpEffect, 119900000)
 function UpdateTalismanEffects()
     -- Dashmaster's Bell
     if env(GetSpEffectID, 113000000) == TRUE then
         act(SetMovementScaleMult, 1.1)
+        
     end
     
     -- Dashmaster's Bell +1

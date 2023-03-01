@@ -318,6 +318,9 @@ def t511000_x12():
         ClearTalkListData()
         """State 2"""
         
+        # Level Up
+        AddTalkListData(6, 15002000, -1)
+        
         # Attune Spell
         AddTalkListData(2, 15000130, -1)
         
@@ -334,7 +337,7 @@ def t511000_x12():
         AddTalkListData(5, 15002002, -1)
         
         # Begin journey <?nextLoopCount?>
-        AddTalkListDataIf(GetEventStatus(9920) == 1 or GetEventStatus(9921) == 1 or GetEventStatus(9922) == 1 or GetEventStatus(9923) == 1, 20, 15000331, -1)
+        AddTalkListDataIf(GetEventStatus(25000130) == 1, 20, 15000331, -1)
 
         # Leave
         AddTalkListData(99, 15000005, -1)
@@ -377,6 +380,10 @@ def t511000_x12():
         elif GetTalkListEntryResult() == 5:
             assert (t511000_x21() and not (CheckSpecificPersonMenuIsOpen(8, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0)))
             continue
+        # Level up
+        elif GetTalkListEntryResult() == 6:
+            OpenSoul()
+            assert not (CheckSpecificPersonMenuIsOpen(10, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
         # Begin journey <?nextLoopCount?>
         elif GetTalkListEntryResult() == 20:
             if GetEventStatus(2051) == 1 or IsMultiplayerInProgress() == 1:
@@ -387,6 +394,8 @@ def t511000_x12():
                 if call.Get() == 0:
                     SetEventState(74000012, 1)
                     SetEventState(14005617, 0)
+                    SetEventState(9902, 1)
+                    SetEventState(9901, 1)
                     assert GetCurrentStateElapsedTime() > 10
                     Goto('L2')
                 elif call.Get() == 1:

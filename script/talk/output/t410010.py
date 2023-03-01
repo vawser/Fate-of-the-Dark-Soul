@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 def t410010_1():
     """State 0,1"""
-    t410010_x3()
+    t410010_x4()
     Quit()
 
 def t410010_x0():
@@ -29,7 +29,21 @@ def t410010_x0():
     """State 8"""
     return 0
 
-def t410010_x1(actionbutton1=_, flag1=6001, flag2=6000):
+def t410010_x1(gesture1=17, z1=9019, flag3=6067):
+    """State 0,1"""
+    if GetEventStatus(flag3) == 1:
+        """State 2"""
+        pass
+    else:
+        """State 3,4"""
+        AcquireGesture(gesture1)
+        OpenItemAcquisitionMenu(3, z1, 1)
+        SetEventState(flag3, 1)
+        assert not IsMenuOpen(63) and GetCurrentStateElapsedFrames() > 1
+    """State 5"""
+    return 0
+
+def t410010_x2(actionbutton1=_, flag1=6001, flag2=6000):
     """State 0"""
     while True:
         """State 1"""
@@ -38,13 +52,7 @@ def t410010_x1(actionbutton1=_, flag1=6001, flag2=6000):
         """State 2"""
         assert CompareBonfireState(1)
         """State 4"""
-        if GetEventStatus(flag2) == 1:
-            """State 5"""
-            assert GetEventStatus(flag1) == 1 and not GetEventStatus(flag2)
-            """State 6"""
-            assert GetCurrentStateElapsedTime() > 1
-        elif GetEventStatus(flag1) == 1 and not GetEventStatus(flag2):
-            pass
+        assert GetEventStatus(flag1) == 1 and not GetEventStatus(flag2)
         """State 3"""
         if CompareBonfireState(0):
             pass
@@ -55,10 +63,10 @@ def t410010_x1(actionbutton1=_, flag1=6001, flag2=6000):
             pass
         elif not GetEventStatus(flag1) or GetEventStatus(flag2) == 1:
             pass
-    """State 7"""
+    """State 5"""
     return 0
 
-def t410010_x2(action1=10010713):
+def t410010_x3(action1=10010713):
     """State 0,1"""
     # action:10010713:"Game installation incomplete.\nCannot travel between bonfires."
     OpenGenericDialog(1, action1, 1, 0, 1)
@@ -66,27 +74,27 @@ def t410010_x2(action1=10010713):
     """State 2"""
     return 0
 
-def t410010_x3():
+def t410010_x4():
     """State 0"""
     while True:
         """State 1"""
-        call = t410010_x4()
+        call = t410010_x5()
         assert IsMultiplayerInProgress() == 1
         """State 2"""
-        call = t410010_x7()
+        call = t410010_x8()
         assert not IsMultiplayerInProgress()
     """Unused"""
     """State 3"""
     return 0
 
-def t410010_x4():
+def t410010_x5():
     """State 0,1"""
     if CompareBonfireLevel(5, 0) == 1:
         """State 2"""
         Label('L0')
     else:
-        """State 3,14"""
-        call = t410010_x1(actionbutton1=6100, flag1=6001, flag2=6000)
+        """State 3,15"""
+        call = t410010_x2(actionbutton1=6100, flag1=6001, flag2=6000)
         if call.Done():
             """State 7"""
             TurnCharacterToFaceEntity(-1, 10000, -1)
@@ -94,13 +102,15 @@ def t410010_x4():
             """State 4"""
             OfferHumanity()
             assert CompareBonfireLevel(5, 0) == 1
+            """State 11"""
+            RequestUnlockTrophy(41)
             """State 9"""
             UpdatePlayerRespawnPoint()
             Goto('L0')
         elif CompareBonfireLevel(5, 0) == 1:
             pass
-    """State 13"""
-    assert t410010_x1(actionbutton1=6101, flag1=6001, flag2=6000)
+    """State 14"""
+    assert t410010_x2(actionbutton1=6101, flag1=6001, flag2=6000)
     """State 5"""
     ClearPlayerDamageInfo()
     """State 6"""
@@ -110,29 +120,29 @@ def t410010_x4():
     assert GetCurrentStateElapsedFrames() > 1 and GetWhetherChrEventAnimHasEnded(10000) == 1
     """State 10"""
     UpdatePlayerRespawnPoint()
-    """State 11"""
+    """State 12"""
     StartBonfireAnimLoop()
-    call = t410010_x8()
+    call = t410010_x9()
     def ExitPause():
         EndBonfireKindleAnimLoop()
     if call.Done():
         Goto('L0')
     elif HasPlayerBeenAttacked() == 1 or GetDistanceToPlayer() > 3 or CompareBonfireState(0):
-        """State 12"""
-        assert t410010_x9()
+        """State 13"""
+        assert t410010_x10()
         Goto('L0')
     """Unused"""
-    """State 15"""
+    """State 16"""
     return 0
 
-def t410010_x5():
+def t410010_x6():
     """State 0,6"""
     call = t410010_x0()
     if call.Done() and CompareBonfireLevel(5, 0) == 1:
         pass
     elif call.Done():
         """State 2,7"""
-        call = t410010_x1(actionbutton1=6100, flag1=6001, flag2=6000)
+        call = t410010_x2(actionbutton1=6100, flag1=6001, flag2=6000)
         if call.Done():
             """State 4"""
             TurnCharacterToFaceEntity(-1, 10000, -1)
@@ -150,87 +160,161 @@ def t410010_x5():
     """State 8"""
     return 0
 
-def t410010_x6():
+def t410010_x7():
     """State 0,1"""
     assert t410010_x0()
     """State 2"""
     return 0
 
-def t410010_x7():
+def t410010_x8():
     """State 0"""
     while True:
         """State 1"""
-        call = t410010_x5()
+        call = t410010_x6()
         assert IsClientPlayer() == 1
         """State 2"""
-        call = t410010_x6()
+        call = t410010_x7()
         assert not IsClientPlayer()
     """Unused"""
     """State 3"""
     return 0
 
-def t410010_x8():
-    """State 0,10"""
+def t410010_x9():
     assert GetCurrentStateElapsedTime() > 2
-    """State 17"""
+
+    assert t410010_x1(gesture1=17, z1=9019, flag3=6067)
+
     MainBonfireMenuFlag()
     while True:
-        """State 1"""
+    
         ClearTalkListData()
-        """State 2"""
-        # action:15000150:"Travel"
-        AddTalkListData(1, 15000150, -1)
-        # action:15000130:"Attune Spell"
-        AddTalkListData(2, 15000130, -1)
-        # action:15000220:"Organize Storage Box"
-        AddTalkListData(3, 15000220, -1)
-        # action:15000005:"Leave"
+        
+        # Level Up
+        AddTalkListData(4, 15002000, -1)
+        
+        # Attune Spell
+        AddTalkListData(1, 15000130, -1)
+        
+        # Organize Storage Box
+        AddTalkListData(2, 15000220, -1)
+        
+        # Allot Estus
+        AddTalkListData(3, 15002002, -1)
+        
+        # Leave
         AddTalkListData(99, 15000005, -1)
-        """State 4"""
+        
         ShowShopMessage(1)
-        if GetTalkListEntryResult() == 1:
-            """State 3"""
-            if GetEventStatus(2030) == 1:
-                """State 18,8"""
-                StartWarpMenuInit(-1)
-                assert not (CheckSpecificPersonMenuIsOpen(2, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
-                """State 12"""
-                if WasWarpMenuDestinationSelected() == 1:
-                    break
-                else:
-                    """State 13"""
-                    continue
-            else:
-                """State 16,21"""
-                # action:10010713:"Game installation incomplete.\nCannot travel between bonfires."
-                assert t410010_x2(action1=10010713)
-                continue
-        elif GetTalkListEntryResult() == 2:
-            """State 6,7"""
-            OpenMagicEquip(1000, 1000)
-            assert not (CheckSpecificPersonMenuIsOpen(11, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
-            continue
-        elif GetTalkListEntryResult() == 3:
-            """State 14,15"""
+        
+        # Organize Storage Box
+        if GetTalkListEntryResult() == 2:
+            ForceCloseMenu()
             OpenRepository()
-            assert not (CheckSpecificPersonMenuIsOpen(3, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
+            assert (not CheckSpecificPersonGenericDialogIsOpen(2) and not (CheckSpecificPersonMenuIsOpen(-1,
+                    2) == 1 and not CheckSpecificPersonGenericDialogIsOpen(2)))
             continue
-        elif (GetTalkListEntryResult() == 99 or not (CheckSpecificPersonMenuIsOpen(1, 0) == 1 and not
-              CheckSpecificPersonGenericDialogIsOpen(0))):
-            """State 5,22"""
-            return 0
+         # Attune Spell
+        elif GetTalkListEntryResult() == 1:
+            OpenMagicEquip(1000, 1000)
+            assert (not CheckSpecificPersonGenericDialogIsOpen(2) and not (CheckSpecificPersonMenuIsOpen(-1,
+                    2) == 1 and not CheckSpecificPersonGenericDialogIsOpen(2)))
+            continue
+        # Allot Estus
+        elif GetTalkListEntryResult() == 3:
+            assert (t410010_x21() and not (CheckSpecificPersonMenuIsOpen(8, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0)))
+            continue
+        # Level up
         elif GetTalkListEntryResult() == 4:
-            """State 19,20"""
-            SetEventState(14105501, 1)
-        """State 9"""
-        Label('L0')
-        Quit()
-    """State 11"""
-    Goto('L0')
+            OpenSoul()
+            assert not (CheckSpecificPersonMenuIsOpen(10, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
+        # Leave
+        elif GetTalkListEntryResult() == 99 or not GetTalkListEntryResult():
+            pass
+            
+    SetEventState(74000013, 1)
 
-def t410010_x9():
+    Quit()
+
+def t410010_x10():
     """State 0,1"""
     assert t410010_x0()
     """State 2"""
     return 0
 
+
+def t410010_x21():
+    """State 0,6"""
+    call = t410010_x22(0)
+    if call.Get() == 1:
+        """State 1,7"""
+        call = t410010_x22(1)
+        if call.Get() == 1:
+            """State 3,4"""
+            OpenEstusAllotMenu()
+            assert not (CheckSpecificPersonMenuIsOpen(14, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
+        elif call.Done():
+            """State 5,9"""
+            # action:13002014:"No <?gdsparam@190?> in inventory"
+            assert t410010_x23(action1=13002014)
+    elif call.Done():
+        """State 2,8"""
+        # action:13002013:"No <?gdsparam@150?> in inventory"
+        assert t410010_x23(action1=13002013)
+    """State 10"""
+    return 0
+    
+def t410010_x22(offset=_):
+    """State 0,1"""
+    if (not IsEquipmentIDObtained(3, 150 + 1 + offset * 40 + 0 * 2) and not IsEquipmentIDObtained(3,
+        150 + 1 + offset * 40 + 1 * 2) and not IsEquipmentIDObtained(3, 150 + 1 + offset * 40 +
+        2 * 2) and not IsEquipmentIDObtained(3, 150 + 1 + offset * 40 + 3 * 2) and not IsEquipmentIDObtained(3,
+        150 + 1 + offset * 40 + 4 * 2) and not IsEquipmentIDObtained(3, 150 + 1 + offset * 40 +
+        5 * 2) and not IsEquipmentIDObtained(3, 150 + 1 + offset * 40 + 6 * 2) and not IsEquipmentIDObtained(3,
+        150 + 1 + offset * 40 + 7 * 2) and not IsEquipmentIDObtained(3, 150 + 1 + offset * 40 +
+        8 * 2) and not IsEquipmentIDObtained(3, 150 + 1 + offset * 40 + 9 * 2)):
+        """State 2"""
+        if (not IsEquipmentIDObtained(3, 150 + 1 + offset * 40 + 10 * 2) and not IsEquipmentIDObtained(3,
+            150 + 1 + offset * 40 + 11 * 2) and not IsEquipmentIDObtained(3, 150 + 12 + offset
+            * 40 + 12 * 2) and not IsEquipmentIDObtained(3, 150 + 1 + offset * 40 + 13 * 2) and not
+            IsEquipmentIDObtained(3, 150 + 1 + offset * 40 + 14 * 2) and not IsEquipmentIDObtained(3,
+            150 + 1 + offset * 40 + 15 * 2) and not IsEquipmentIDObtained(3, 150 + 1 + offset *
+            40 + 16 * 2) and not IsEquipmentIDObtained(3, 150 + 1 + offset * 40 + 17 * 2) and not
+            IsEquipmentIDObtained(3, 150 + 1 + offset * 40 + 18 * 2) and not IsEquipmentIDObtained(3,
+            150 + 1 + offset * 40 + 19 * 2)):
+            """State 3"""
+            if (not IsEquipmentIDObtained(3, 150 + 0 + offset * 40 + 0 * 2) and not IsEquipmentIDObtained(3,
+                150 + 0 + offset * 40 + 1 * 2) and not IsEquipmentIDObtained(3, 150 + 0 + offset
+                * 40 + 2 * 2) and not IsEquipmentIDObtained(3, 150 + 0 + offset * 40 + 3 * 2) and
+                not IsEquipmentIDObtained(3, 150 + 0 + offset * 40 + 4 * 2) and not IsEquipmentIDObtained(3,
+                150 + 0 + offset * 40 + 5 * 2) and not IsEquipmentIDObtained(3, 150 + 0 + offset
+                * 40 + 6 * 2) and not IsEquipmentIDObtained(3, 150 + 0 + offset * 40 + 7 * 2) and
+                not IsEquipmentIDObtained(3, 150 + 0 + offset * 40 + 8 * 2) and not IsEquipmentIDObtained(3,
+                150 + 0 + offset * 40 + 9 * 2)):
+                """State 4"""
+                if (not IsEquipmentIDObtained(3, 150 + 0 + offset * 40 + 10 * 2) and not IsEquipmentIDObtained(3,
+                    150 + 0 + offset * 40 + 11 * 2) and not IsEquipmentIDObtained(3, 150 + 0 +
+                    offset * 40 + 12 * 2) and not IsEquipmentIDObtained(3, 150 + 0 + offset * 40 +
+                    13 * 2) and not IsEquipmentIDObtained(3, 150 + 0 + offset * 40 + 14 * 2) and not
+                    IsEquipmentIDObtained(3, 150 + 0 + offset * 40 + 15 * 2) and not IsEquipmentIDObtained(3,
+                    150 + 0 + offset * 40 + 16 * 2) and not IsEquipmentIDObtained(3, 150 + 0 +
+                    offset * 40 + 17 * 2) and not IsEquipmentIDObtained(3, 150 + 0 + offset * 40 +
+                    18 * 2) and not IsEquipmentIDObtained(3, 150 + 0 + offset * 40 + 19 * 2)):
+                    """State 5"""
+                    return 0
+                else:
+                    pass
+            else:
+                pass
+        else:
+            pass
+    else:
+        pass
+    """State 6"""
+    return 1
+
+def t410010_x23(action1=_):
+    """State 0,1"""
+    OpenGenericDialog(7, action1, 1, 0, 1)
+    assert not CheckSpecificPersonGenericDialogIsOpen(0)
+    """State 2"""
+    return 0

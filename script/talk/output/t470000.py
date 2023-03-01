@@ -83,6 +83,9 @@ def t470000_x4():
         """State 2"""
         call = t470000_x8()
         assert not IsMultiplayerInProgress()
+    """Unused"""
+    """State 3"""
+    return 0
 
 def t470000_x5():
     """State 0,1"""
@@ -124,11 +127,13 @@ def t470000_x5():
         EndBonfireKindleAnimLoop()
     if call.Done():
         Goto('L0')
-    elif (HasPlayerBeenAttacked() == 1 or GetDistanceToPlayer() > 3 or CompareBonfireState(0) or GetEventStatus(25009600)
-          == 1):
+    elif HasPlayerBeenAttacked() == 1 or GetDistanceToPlayer() > 3 or CompareBonfireState(0):
         """State 13"""
         assert t470000_x10()
         Goto('L0')
+    """Unused"""
+    """State 16"""
+    return 0
 
 def t470000_x6():
     """State 0,6"""
@@ -151,6 +156,9 @@ def t470000_x6():
             pass
     """State 1"""
     Quit()
+    """Unused"""
+    """State 8"""
+    return 0
 
 def t470000_x7():
     """State 0,1"""
@@ -167,136 +175,64 @@ def t470000_x8():
         """State 2"""
         call = t470000_x7()
         assert not IsClientPlayer()
+    """Unused"""
+    """State 3"""
+    return 0
 
 def t470000_x9():
-    """State 0,10"""
     assert GetCurrentStateElapsedTime() > 2
-    """State 21"""
+
     assert t470000_x1(gesture1=17, z1=9019, flag3=6067)
-    """State 17"""
+
     MainBonfireMenuFlag()
     while True:
-        """State 1"""
+    
         ClearTalkListData()
-        """State 2"""
-        AddTalkListData(30, 99090001, -1)
-        # action:15000150:"Travel"
-        AddTalkListData(1, 15000150, -1)
-        # action:15002000:"Level Up"
-        AddTalkListData(10, 15002000, -1)
-        # action:15000130:"Attune Spell"
-        AddTalkListData(2, 15000130, -1)
-        # action:15010002:"Reinforce Weapon"
-        AddTalkListDataIf(not GetEventStatus(25000055), 18, 15010002, -1)
-        # action:15010001:"Infuse Weapon"
-        AddTalkListData(17, 15010001, -1)
-        # action:15010003:"Repair Equipment"
-        AddTalkListData(19, 15010003, -1)
-        # action:15010005:""
-        AddTalkListData(20, 15010005, -1)
-        # action:15010006:""
-        AddTalkListData(21, 15010006, -1)
-        # action:15000220:"Organize Storage Box"
-        AddTalkListData(3, 15000220, -1)
-        # action:15000005:"Leave"
+        
+        # Level Up
+        AddTalkListData(4, 15002000, -1)
+        
+        # Attune Spell
+        AddTalkListData(1, 15000130, -1)
+        
+        # Organize Storage Box
+        AddTalkListData(2, 15000220, -1)
+        
+        # Allot Estus
+        AddTalkListData(3, 15002002, -1)
+        
+        # Leave
         AddTalkListData(99, 15000005, -1)
-        """State 4"""
+        
         ShowShopMessage(1)
-        if GetTalkListEntryResult() == 1:
-            """State 3"""
-            if GetEventStatus(2030) == 1:
-                """State 18,8"""
-                StartWarpMenuInit(-1)
-                assert GetCurrentStateElapsedFrames() > 1
-                """State 12"""
-                if WasWarpMenuDestinationSelected() == 1:
-                    break
-                elif not (CheckSpecificPersonMenuIsOpen(-1, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0)):
-                    """State 13"""
-                    pass
-            else:
-                """State 16,20"""
-                # action:10010713:"Game installation incomplete.\nCannot travel between bonfires."
-                assert t470000_x3(action1=10010713)
-        elif GetTalkListEntryResult() == 2:
-            """State 6,7"""
-            OpenMagicEquip(1000, 1000)
-            assert not (CheckSpecificPersonMenuIsOpen(11, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
-        elif GetTalkListEntryResult() == 3:
-            """State 14,15"""
+        
+        # Organize Storage Box
+        if GetTalkListEntryResult() == 2:
+            ForceCloseMenu()
             OpenRepository()
-            assert not (CheckSpecificPersonMenuIsOpen(3, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
-        elif GetTalkListEntryResult() == 10:
-            """State 70,71"""
+            assert (not CheckSpecificPersonGenericDialogIsOpen(2) and not (CheckSpecificPersonMenuIsOpen(-1,
+                    2) == 1 and not CheckSpecificPersonGenericDialogIsOpen(2)))
+            continue
+         # Attune Spell
+        elif GetTalkListEntryResult() == 1:
+            OpenMagicEquip(1000, 1000)
+            assert (not CheckSpecificPersonGenericDialogIsOpen(2) and not (CheckSpecificPersonMenuIsOpen(-1,
+                    2) == 1 and not CheckSpecificPersonGenericDialogIsOpen(2)))
+            continue
+        # Allot Estus
+        elif GetTalkListEntryResult() == 3:
+            assert (t470000_x21() and not (CheckSpecificPersonMenuIsOpen(8, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0)))
+            continue
+        # Level up
+        elif GetTalkListEntryResult() == 4:
             OpenSoul()
-            assert (not CheckSpecificPersonGenericDialogIsOpen(2) and not (CheckSpecificPersonMenuIsOpen(-1,
-                    2) == 1 and not CheckSpecificPersonGenericDialogIsOpen(2)))
-        elif GetTalkListEntryResult() == 22:
-            """State 97,98"""
-            OpenEstusAllotMenu()
-            assert not (CheckSpecificPersonMenuIsOpen(14, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
-        elif GetTalkListEntryResult() == 17:
-            """State 84,85"""
-            CombineMenuFlagAndEventFlag(6001, 344)
-            CombineMenuFlagAndEventFlag(6001, 337)
-            CombineMenuFlagAndEventFlag(6001, 334)
-            CombineMenuFlagAndEventFlag(300, 332)
-            CombineMenuFlagAndEventFlag(300, 333)
-            CombineMenuFlagAndEventFlag(300, 342)
-            CombineMenuFlagAndEventFlag(301, 335)
-            CombineMenuFlagAndEventFlag(301, 345)
-            CombineMenuFlagAndEventFlag(301, 340)
-            CombineMenuFlagAndEventFlag(302, 336)
-            CombineMenuFlagAndEventFlag(302, 338)
-            CombineMenuFlagAndEventFlag(302, 339)
-            CombineMenuFlagAndEventFlag(303, 341)
-            CombineMenuFlagAndEventFlag(303, 343)
-            CombineMenuFlagAndEventFlag(303, 346)
-            CombineMenuFlagAndEventFlag(6000, 347)
-            CombineMenuFlagAndEventFlag(6001, 331)
-            CombineMenuFlagAndEventFlag(6001, 232)
-            CombineMenuFlagAndEventFlag(6001, 233)
-            CombineMenuFlagAndEventFlag(6001, 234)
-            CombineMenuFlagAndEventFlag(6001, 235)
-            """State 86"""
-            OpenEquipmentChangeOfPurposeShop()
-            assert (not CheckSpecificPersonGenericDialogIsOpen(2) and not (CheckSpecificPersonMenuIsOpen(-1,
-                    2) == 1 and not CheckSpecificPersonGenericDialogIsOpen(2)))
-        elif GetTalkListEntryResult() == 18:
-            """State 87,88"""
-            CombineMenuFlagAndEventFlag(6001, 232)
-            CombineMenuFlagAndEventFlag(6001, 233)
-            CombineMenuFlagAndEventFlag(6001, 234)
-            CombineMenuFlagAndEventFlag(6001, 235)
-            """State 89"""
-            OpenEnhanceShop(0)
-            assert (not CheckSpecificPersonGenericDialogIsOpen(2) and not (CheckSpecificPersonMenuIsOpen(-1,
-                    2) == 1 and not CheckSpecificPersonGenericDialogIsOpen(2)))
-        elif GetTalkListEntryResult() == 19:
-            """State 90"""
-            OpenRepairShop()
-            assert (not CheckSpecificPersonGenericDialogIsOpen(2) and not (CheckSpecificPersonMenuIsOpen(-1,
-                    2) == 1 and not CheckSpecificPersonGenericDialogIsOpen(2)))
-        elif GetTalkListEntryResult() == 20:
-            """State 91,92"""
-            OpenRegularShop(36000, 36999)
-            assert (not CheckSpecificPersonGenericDialogIsOpen(2) and not (CheckSpecificPersonMenuIsOpen(-1,
-                    2) == 1 and not CheckSpecificPersonGenericDialogIsOpen(2)))
-        elif GetTalkListEntryResult() == 21:
-            """State 93,94"""
-            OpenSellShop(-1, -1)
-            assert (not CheckSpecificPersonGenericDialogIsOpen(2) and not (CheckSpecificPersonMenuIsOpen(-1,
-                    2) == 1 and not CheckSpecificPersonGenericDialogIsOpen(2)))
-        elif GetTalkListEntryResult() == 30:
-            """State 23"""
-            assert t470000_x20()
-        elif (GetTalkListEntryResult() == 99 or not (CheckSpecificPersonMenuIsOpen(1, 0) == 1 and not
-              CheckSpecificPersonGenericDialogIsOpen(0))):
-            """State 5,22"""
-            return 0
-    """State 11,19"""
+            assert not (CheckSpecificPersonMenuIsOpen(10, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
+        # Leave
+        elif GetTalkListEntryResult() == 99 or not GetTalkListEntryResult():
+            pass
+            
     SetEventState(74000013, 1)
-    """State 9"""
+
     Quit()
 
 def t470000_x10():
@@ -305,216 +241,80 @@ def t470000_x10():
     """State 2"""
     return 0
 
-def t470000_x20():
-    while True:
-        """State 0"""
-        MainBonfireMenuFlag()
-        ClearTalkListData()
-        AddTalkListData(1, 99090011, -1)
-        AddTalkListData(2, 99090012, -1)
-        AddTalkListData(3, 99090013, -1)
-        AddTalkListData(4, 99090014, -1)
-        AddTalkListData(5, 99090015, -1)
-        AddTalkListData(99, 15000190, -1)
-        assert (not CheckSpecificPersonGenericDialogIsOpen(2) and not (CheckSpecificPersonMenuIsOpen(-1,
-                2) == 1 and not CheckSpecificPersonGenericDialogIsOpen(2)))
-        """State 1"""
-        ShowShopMessage(1)
-        if GetTalkListEntryResult() == 1:
-            """State 2"""
-            assert t470000_x21()
-        elif GetTalkListEntryResult() == 2:
-            """State 3"""
-            assert t470000_x22()
-        elif GetTalkListEntryResult() == 3:
-            """State 4"""
-            assert t470000_x23()
-        elif GetTalkListEntryResult() == 4:
-            """State 5"""
-            assert t470000_x24()
-        elif GetTalkListEntryResult() == 5:
-            """State 6"""
-            assert t470000_x25()
-        elif GetTalkListEntryResult() == 99:
-            """State 7"""
-            ReportConversationEndToHavokBehavior()
-            return 0
-        elif not (CheckSpecificPersonMenuIsOpen(-1, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0)):
-            """State 8"""
-            return 0
 
 def t470000_x21():
-    while True:
-        """State 0"""
-        MainBonfireMenuFlag()
-        ClearTalkListData()
-        AddTalkListData(1, 99060001, -1)
-        AddTalkListDataIf(not GetEventStatus(25009610), 2, 99060002, -1)
-        AddTalkListDataIf(GetEventStatus(25009610) == 1, 3, 99090010, -1)
-        AddTalkListData(99, 15000190, -1)
-        assert (not CheckSpecificPersonGenericDialogIsOpen(2) and not (CheckSpecificPersonMenuIsOpen(-1,
-                2) == 1 and not CheckSpecificPersonGenericDialogIsOpen(2)))
-        """State 1"""
-        ShowShopMessage(1)
-        if GetTalkListEntryResult() == 1:
-            """State 2"""
-            OpenGenericDialog(1, 99090021, 0, 0, 0)
-        elif GetTalkListEntryResult() == 2:
+    """State 0,6"""
+    call = t470000_x22(0)
+    if call.Get() == 1:
+        """State 1,7"""
+        call = t470000_x22(1)
+        if call.Get() == 1:
+            """State 3,4"""
+            OpenEstusAllotMenu()
+            assert not (CheckSpecificPersonMenuIsOpen(14, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
+        elif call.Done():
+            """State 5,9"""
+            # action:13002014:"No <?gdsparam@190?> in inventory"
+            assert t470000_x23(action1=13002014)
+    elif call.Done():
+        """State 2,8"""
+        # action:13002013:"No <?gdsparam@150?> in inventory"
+        assert t470000_x23(action1=13002013)
+    """State 10"""
+    return 0
+    
+def t470000_x22(offset=_):
+    """State 0,1"""
+    if (not IsEquipmentIDObtained(3, 150 + 1 + offset * 40 + 0 * 2) and not IsEquipmentIDObtained(3,
+        150 + 1 + offset * 40 + 1 * 2) and not IsEquipmentIDObtained(3, 150 + 1 + offset * 40 +
+        2 * 2) and not IsEquipmentIDObtained(3, 150 + 1 + offset * 40 + 3 * 2) and not IsEquipmentIDObtained(3,
+        150 + 1 + offset * 40 + 4 * 2) and not IsEquipmentIDObtained(3, 150 + 1 + offset * 40 +
+        5 * 2) and not IsEquipmentIDObtained(3, 150 + 1 + offset * 40 + 6 * 2) and not IsEquipmentIDObtained(3,
+        150 + 1 + offset * 40 + 7 * 2) and not IsEquipmentIDObtained(3, 150 + 1 + offset * 40 +
+        8 * 2) and not IsEquipmentIDObtained(3, 150 + 1 + offset * 40 + 9 * 2)):
+        """State 2"""
+        if (not IsEquipmentIDObtained(3, 150 + 1 + offset * 40 + 10 * 2) and not IsEquipmentIDObtained(3,
+            150 + 1 + offset * 40 + 11 * 2) and not IsEquipmentIDObtained(3, 150 + 12 + offset
+            * 40 + 12 * 2) and not IsEquipmentIDObtained(3, 150 + 1 + offset * 40 + 13 * 2) and not
+            IsEquipmentIDObtained(3, 150 + 1 + offset * 40 + 14 * 2) and not IsEquipmentIDObtained(3,
+            150 + 1 + offset * 40 + 15 * 2) and not IsEquipmentIDObtained(3, 150 + 1 + offset *
+            40 + 16 * 2) and not IsEquipmentIDObtained(3, 150 + 1 + offset * 40 + 17 * 2) and not
+            IsEquipmentIDObtained(3, 150 + 1 + offset * 40 + 18 * 2) and not IsEquipmentIDObtained(3,
+            150 + 1 + offset * 40 + 19 * 2)):
             """State 3"""
-            SetEventState(25009610, 1)
-            SetEventState(25009611, 0)
-            SetEventState(25009612, 0)
-            SetEventState(25009613, 0)
-            SetEventState(25009614, 0)
-        elif GetTalkListEntryResult() == 3:
-            """State 4"""
-            SetEventState(25009600, 1)
-            return 0
-        elif GetTalkListEntryResult() == 99:
-            """State 5"""
-            ReportConversationEndToHavokBehavior()
-            return 0
-        elif not (CheckSpecificPersonMenuIsOpen(-1, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0)):
-            """State 6"""
-            return 0
+            if (not IsEquipmentIDObtained(3, 150 + 0 + offset * 40 + 0 * 2) and not IsEquipmentIDObtained(3,
+                150 + 0 + offset * 40 + 1 * 2) and not IsEquipmentIDObtained(3, 150 + 0 + offset
+                * 40 + 2 * 2) and not IsEquipmentIDObtained(3, 150 + 0 + offset * 40 + 3 * 2) and
+                not IsEquipmentIDObtained(3, 150 + 0 + offset * 40 + 4 * 2) and not IsEquipmentIDObtained(3,
+                150 + 0 + offset * 40 + 5 * 2) and not IsEquipmentIDObtained(3, 150 + 0 + offset
+                * 40 + 6 * 2) and not IsEquipmentIDObtained(3, 150 + 0 + offset * 40 + 7 * 2) and
+                not IsEquipmentIDObtained(3, 150 + 0 + offset * 40 + 8 * 2) and not IsEquipmentIDObtained(3,
+                150 + 0 + offset * 40 + 9 * 2)):
+                """State 4"""
+                if (not IsEquipmentIDObtained(3, 150 + 0 + offset * 40 + 10 * 2) and not IsEquipmentIDObtained(3,
+                    150 + 0 + offset * 40 + 11 * 2) and not IsEquipmentIDObtained(3, 150 + 0 +
+                    offset * 40 + 12 * 2) and not IsEquipmentIDObtained(3, 150 + 0 + offset * 40 +
+                    13 * 2) and not IsEquipmentIDObtained(3, 150 + 0 + offset * 40 + 14 * 2) and not
+                    IsEquipmentIDObtained(3, 150 + 0 + offset * 40 + 15 * 2) and not IsEquipmentIDObtained(3,
+                    150 + 0 + offset * 40 + 16 * 2) and not IsEquipmentIDObtained(3, 150 + 0 +
+                    offset * 40 + 17 * 2) and not IsEquipmentIDObtained(3, 150 + 0 + offset * 40 +
+                    18 * 2) and not IsEquipmentIDObtained(3, 150 + 0 + offset * 40 + 19 * 2)):
+                    """State 5"""
+                    return 0
+                else:
+                    pass
+            else:
+                pass
+        else:
+            pass
+    else:
+        pass
+    """State 6"""
+    return 1
 
-def t470000_x22():
-    while True:
-        """State 0"""
-        MainBonfireMenuFlag()
-        ClearTalkListData()
-        AddTalkListData(1, 99060001, -1)
-        AddTalkListDataIf(not GetEventStatus(25009611), 2, 99060002, -1)
-        AddTalkListDataIf(GetEventStatus(25009611) == 1, 3, 99090010, -1)
-        AddTalkListData(99, 15000190, -1)
-        assert (not CheckSpecificPersonGenericDialogIsOpen(2) and not (CheckSpecificPersonMenuIsOpen(-1,
-                2) == 1 and not CheckSpecificPersonGenericDialogIsOpen(2)))
-        """State 1"""
-        ShowShopMessage(1)
-        if GetTalkListEntryResult() == 1:
-            """State 2"""
-            OpenGenericDialog(1, 99090022, 0, 0, 0)
-        elif GetTalkListEntryResult() == 2:
-            """State 3"""
-            SetEventState(25009610, 0)
-            SetEventState(25009611, 1)
-            SetEventState(25009612, 0)
-            SetEventState(25009613, 0)
-            SetEventState(25009614, 0)
-        elif GetTalkListEntryResult() == 3:
-            """State 4"""
-            SetEventState(25009600, 1)
-            return 0
-        elif GetTalkListEntryResult() == 99:
-            """State 5"""
-            ReportConversationEndToHavokBehavior()
-            return 0
-        elif not (CheckSpecificPersonMenuIsOpen(-1, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0)):
-            """State 6"""
-            return 0
-
-def t470000_x23():
-    while True:
-        """State 0"""
-        MainBonfireMenuFlag()
-        ClearTalkListData()
-        AddTalkListData(1, 99060001, -1)
-        AddTalkListDataIf(not GetEventStatus(25009612), 2, 99060002, -1)
-        AddTalkListDataIf(GetEventStatus(25009612) == 1, 3, 99090010, -1)
-        AddTalkListData(99, 15000190, -1)
-        assert (not CheckSpecificPersonGenericDialogIsOpen(2) and not (CheckSpecificPersonMenuIsOpen(-1,
-                2) == 1 and not CheckSpecificPersonGenericDialogIsOpen(2)))
-        """State 1"""
-        ShowShopMessage(1)
-        if GetTalkListEntryResult() == 1:
-            """State 2"""
-            OpenGenericDialog(1, 99090023, 0, 0, 0)
-        elif GetTalkListEntryResult() == 2:
-            """State 3"""
-            SetEventState(25009610, 0)
-            SetEventState(25009611, 0)
-            SetEventState(25009612, 1)
-            SetEventState(25009613, 0)
-            SetEventState(25009614, 0)
-        elif GetTalkListEntryResult() == 3:
-            """State 4"""
-            SetEventState(25009600, 1)
-            return 0
-        elif GetTalkListEntryResult() == 99:
-            """State 5"""
-            ReportConversationEndToHavokBehavior()
-            return 0
-        elif not (CheckSpecificPersonMenuIsOpen(-1, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0)):
-            """State 6"""
-            return 0
-
-def t470000_x24():
-    while True:
-        """State 0"""
-        MainBonfireMenuFlag()
-        ClearTalkListData()
-        AddTalkListData(1, 99060001, -1)
-        AddTalkListDataIf(not GetEventStatus(25009613), 2, 99060002, -1)
-        AddTalkListDataIf(GetEventStatus(25009613) == 1, 3, 99090010, -1)
-        AddTalkListData(99, 15000190, -1)
-        assert (not CheckSpecificPersonGenericDialogIsOpen(2) and not (CheckSpecificPersonMenuIsOpen(-1,
-                2) == 1 and not CheckSpecificPersonGenericDialogIsOpen(2)))
-        """State 1"""
-        ShowShopMessage(1)
-        if GetTalkListEntryResult() == 1:
-            """State 2"""
-            OpenGenericDialog(1, 99090024, 0, 0, 0)
-        elif GetTalkListEntryResult() == 2:
-            """State 3"""
-            SetEventState(25009610, 0)
-            SetEventState(25009611, 0)
-            SetEventState(25009612, 0)
-            SetEventState(25009613, 1)
-            SetEventState(25009614, 0)
-        elif GetTalkListEntryResult() == 3:
-            """State 4"""
-            SetEventState(25009600, 1)
-            return 0
-        elif GetTalkListEntryResult() == 99:
-            """State 5"""
-            ReportConversationEndToHavokBehavior()
-            return 0
-        elif not (CheckSpecificPersonMenuIsOpen(-1, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0)):
-            """State 6"""
-            return 0
-
-def t470000_x25():
-    while True:
-        """State 0"""
-        MainBonfireMenuFlag()
-        ClearTalkListData()
-        AddTalkListData(1, 99060001, -1)
-        AddTalkListDataIf(not GetEventStatus(25009614), 2, 99060002, -1)
-        AddTalkListDataIf(GetEventStatus(25009614) == 1, 3, 99090010, -1)
-        AddTalkListData(99, 15000190, -1)
-        assert (not CheckSpecificPersonGenericDialogIsOpen(2) and not (CheckSpecificPersonMenuIsOpen(-1,
-                2) == 1 and not CheckSpecificPersonGenericDialogIsOpen(2)))
-        """State 1"""
-        ShowShopMessage(1)
-        if GetTalkListEntryResult() == 1:
-            """State 2"""
-            OpenGenericDialog(1, 99090025, 0, 0, 0)
-        elif GetTalkListEntryResult() == 2:
-            """State 3"""
-            SetEventState(25009610, 0)
-            SetEventState(25009611, 0)
-            SetEventState(25009612, 0)
-            SetEventState(25009613, 0)
-            SetEventState(25009614, 1)
-        elif GetTalkListEntryResult() == 3:
-            """State 4"""
-            SetEventState(25009600, 1)
-            return 0
-        elif GetTalkListEntryResult() == 99:
-            """State 5"""
-            ReportConversationEndToHavokBehavior()
-            return 0
-        elif not (CheckSpecificPersonMenuIsOpen(-1, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0)):
-            """State 6"""
-            return 0
-
+def t470000_x23(action1=_):
+    """State 0,1"""
+    OpenGenericDialog(7, action1, 1, 0, 1)
+    assert not CheckSpecificPersonGenericDialogIsOpen(0)
+    """State 2"""
+    return 0

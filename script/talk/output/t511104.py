@@ -599,6 +599,9 @@ def t511104_x50():
         # Begin Transposition
         AddTalkListData(1, 15003000, -1)
         
+        # Infuse Weapon
+        AddTalkListData(2, 15010001, -1)
+        
         # Leave
         AddTalkListData(99, 80000999, -1)
         
@@ -609,6 +612,27 @@ def t511104_x50():
         if GetTalkListEntryResult() == 1:
             OpenTranspositionShop(30000, 30999)
             assert not (CheckSpecificPersonMenuIsOpen(18, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
+        # Infuse Weapon
+        elif GetTalkListEntryResult() == 2:
+            CombineMenuFlagAndEventFlag(6001, 344)
+            CombineMenuFlagAndEventFlag(6001, 337)
+            CombineMenuFlagAndEventFlag(6001, 334)
+            CombineMenuFlagAndEventFlag(300, 332)
+            CombineMenuFlagAndEventFlag(300, 333)
+            CombineMenuFlagAndEventFlag(300, 342)
+            CombineMenuFlagAndEventFlag(301, 335)
+            CombineMenuFlagAndEventFlag(301, 345)
+            CombineMenuFlagAndEventFlag(301, 340)
+            CombineMenuFlagAndEventFlag(302, 336)
+            CombineMenuFlagAndEventFlag(302, 338)
+            CombineMenuFlagAndEventFlag(302, 339)
+            CombineMenuFlagAndEventFlag(303, 341)
+            CombineMenuFlagAndEventFlag(303, 343)
+            CombineMenuFlagAndEventFlag(303, 346)
+            CombineMenuFlagAndEventFlag(6000, 347)
+            CombineMenuFlagAndEventFlag(6001, 331)
+            OpenEquipmentChangeOfPurposeShop()
+            assert not (CheckSpecificPersonMenuIsOpen(7, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
         else:
             return 0
             
