@@ -13,32 +13,7 @@ Add message on first boss kill that tells the player they can use the Darksign t
 #-------------------------------------------------
 # WIP
 #-------------------------------------------------
-400 Lost Soul [250]
-401 Lost Soul [500]
-402 Lost Soul [750]
-403 Lost Soul [1000]
-404 Lost Soul [1500]
-405 Lost Soul [2000]
-406 Lost Soul [3000]
-407 Lost Soul [4000]
-408 Lost Soul [5000]
-409 Lost Soul [6000]
-410 Lost Soul [7000]
-411 Lost Soul [8000]
-412 Lost Soul [9000]
-413 Lost Soul [10000] 
-414 Lost Soul [11000]
-415 Lost Soul [12000]
-416 Lost Soul [13000]
-417 Lost Soul [14000]
-418 Lost Soul [15000]
-419 Lost Soul [25000]
-420 Lost Soul [30000]
+Design Blighted Cemetery level
 
-1000
-1001
-1002
-1003
-1030
-1020
-
+Add TAE Window for charged heavy attacks in TAE (112200900)
+Add TAE Window for skill attacks in TAE (XXX)

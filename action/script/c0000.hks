@@ -1,10 +1,95 @@
 ﻿-------------------------------
--- Cinders: Global Variables
+-- Mod: Global Variables
 -------------------------------
 
 ------------------------------------------
--- Cinders: Functions
+-- Mod: Functions
 ------------------------------------------
+function UpdateTalismanEffects()
+    -- Dashmaster's Bell
+    if env(GetSpEffectID, 113000000) == TRUE then
+        act(SetMovementScaleMult, 1.1)
+    end
+    
+    -- Dashmaster's Bell +1
+    if env(GetSpEffectID, 113000100) == TRUE then
+        act(SetMovementScaleMult, 1.15)
+    end
+    
+    -- Dashmaster's Bell +2
+    if env(GetSpEffectID, 113000200) == TRUE then
+        act(SetMovementScaleMult, 1.2)
+    end
+    
+    -- Dashmaster's Bell +3
+    if env(GetSpEffectID, 113000300) == TRUE then
+        act(SetMovementScaleMult, 1.25)
+    end
+    
+    -- Bestial Fang
+    if env(GetSpEffectID, 112200000) == TRUE then
+        -- TAE Window to activate in
+        if env(GetSpEffectID, 112200900) == TRUE then
+            act(AddSpEffect, 112200001)
+        end
+    end
+    
+    -- Bestial Fang +1
+    if env(GetSpEffectID, 112200100) == TRUE then
+        -- TAE Window to activate in
+        if env(GetSpEffectID, 112200900) == TRUE then
+            act(AddSpEffect, 112200101)
+        end
+    end
+    
+    -- Bestial Fang +2
+    if env(GetSpEffectID, 112200200) == TRUE then
+        -- TAE Window to activate in
+        if env(GetSpEffectID, 112200900) == TRUE then
+            act(AddSpEffect, 112200201)
+        end
+    end
+    
+    -- Bestial Fang +3
+    if env(GetSpEffectID, 112200300) == TRUE then
+        -- TAE Window to activate in
+        if env(GetSpEffectID, 112200900) == TRUE then
+            act(AddSpEffect, 112200301)
+        end
+    end
+    
+    -- Birchwood Ring
+    if env(GetSpEffectID, 112014000) == TRUE then
+        -- TAE Window to activate in
+        if env(GetSpEffectID, 112014900) == TRUE then
+            act(AddSpEffect, 112014001)
+        end
+    end
+    
+    -- Birchwood Ring +1
+    if env(GetSpEffectID, 112014100) == TRUE then
+        -- TAE Window to activate in
+        if env(GetSpEffectID, 112014900) == TRUE then
+            act(AddSpEffect, 112014101)
+        end
+    end
+    
+    -- Birchwood Ring +2
+    if env(GetSpEffectID, 112014200) == TRUE then
+        -- TAE Window to activate in
+        if env(GetSpEffectID, 112014900) == TRUE then
+            act(AddSpEffect, 112014201)
+        end
+    end
+    
+    -- Birchwood Ring +3
+    if env(GetSpEffectID, 112014300) == TRUE then
+        -- TAE Window to activate in
+        if env(GetSpEffectID, 112014900) == TRUE then
+            act(AddSpEffect, 112014301)
+        end
+    end
+end
 
 ------------------------------------------
 -- Core: Functions
@@ -12984,6 +13069,7 @@ function Update()
     GetConstVariable()
     SetStyleSpecialEffect()
     UpdateOldMonkState()
+    UpdateTalismanEffects()
     
     act(SwitchMotion, FALSE)
     act(LockonSystemUnableToTurnAngle, 0, 0)

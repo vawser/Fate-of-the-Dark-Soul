@@ -3,8 +3,8 @@
 #----------------------------------
 # m51_1
 511100 Filianore - Journey Menu
-511101 The Last Pilgrim - 
-511102 Slave Knight Gael - Castigations
+511101 The Last Pilgrim - Infusion
+511102 Slave Knight Gael - Castigations / Forge
 511103 Beautiful Pulpa - Cosmetic Menu
 511104 Fallen Pygmy - Transposition Menu
 511105

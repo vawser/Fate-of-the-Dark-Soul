@@ -150,12 +150,54 @@ $Event(0, Default, function() {
     InitializeEvent(2, 9020, 14500161, 14500162, 14500162, 6952, 45);
     
     // Mod
-    SetSpEffect(10000, 200000000);
+    //SetSpEffect(10000, 200000000);
+    //AwardItemLot(10);
+    
+    // Infusion Flags
+    SetEventFlag(300, ON);
+    SetEventFlag(301, ON);
+    SetEventFlag(302, ON);
+    SetEventFlag(303, ON);
     
     InitializeEvent(0, 10000, 0); // Darksign Warp
     InitializeEvent(0, 10001, 0); // Journey Type Effect: Player
     InitializeEvent(0, 10002, 0); // Journey Type Effect: Enemy
     InitializeEvent(0, 10003, 0); // Level Adjustments
+    
+    InitializeEvent(0, 10020, 0); // Imbued Artifacts
+    InitializeEvent(0, 10021, 0); // Imbued Artifacts
+    InitializeEvent(0, 10022, 0); // Imbued Artifacts
+    InitializeEvent(0, 10023, 0); // Imbued Artifacts
+       
+    // Tome Unlocks
+    InitializeEvent( 0, 10010, 200300100, 2174, 200); // Sage's Scroll
+    InitializeEvent( 1, 10010, 200300101, 2177, 210); // Golden Scroll
+    InitializeEvent( 2, 10010, 200300102, 2175, 220); // Logan's Scroll
+    InitializeEvent( 3, 10010, 200300103, 2176, 230); // Crystal Scroll
+    InitializeEvent( 4, 10010, 200300104, 2170, 330); // Apprentice's Scroll
+    InitializeEvent( 5, 10010, 200300105, 2171, 340); // Scholar's Scroll
+    InitializeEvent( 6, 10010, 200300106, 2172, 350); // Farron Scroll
+    InitializeEvent( 7, 10010, 200300107, 2173, 360); // Assassin's Scroll
+    
+    InitializeEvent(10, 10010, 200300200, 2180, 240); // Braille Divine Tome of Carim
+    InitializeEvent(11, 10010, 200300201, 2181, 250); // Braille Divine Tome of 
+    InitializeEvent(12, 10010, 200300202, 2182, 390); // Saint's Braille Divine Tome 
+    InitializeEvent(13, 10010, 200300203, 2183, 400); // Braille Divine Tome of Sunlight
+    
+    InitializeEvent(20, 10010, 200300300, 2190, 260); // Great Swamp Pyromancy Tome
+    InitializeEvent(21, 10010, 200300301, 2191, 270); // Carthus Pyromancy Tome
+    InitializeEvent(22, 10010, 200300302, 2192, 280); // Izalith Pyromancy Tome
+    InitializeEvent(23, 10010, 200300303, 2193, 290); // Quelana Pyromancy Tome
+    InitializeEvent(24, 10010, 200300304, 2194, 300); // Grave Warden Pyromancy Tome
+    InitializeEvent(25, 10010, 200300305, 2195, 370); // Grave Warden Pyromancy Tome
+    
+    InitializeEvent(30, 10010, 200300400, 2200, 310); // Deep Braille Divine Tome
+    InitializeEvent(31, 10010, 200300401, 2201, 320); // Londor Braille Divine Tome
+    InitializeEvent(32, 10010, 200300402, 2202, 380); // Afflicted Scroll
+    
+    // Forge
+    InitializeEvent(0, 13000, 20000, 20001, 20002, 25000200, 25000201, 25000202); // Life Ring 
+    
 });
 
 $Event(50, Default, function() {
@@ -1464,6 +1506,460 @@ $Event(10003, Default, function() {
     
     // Loops so generated enemies are given the SpEffects.
     WaitFixedTimeSeconds(1.0);
+    
+    RestartEvent();
+});
+
+// Tome Unlock
+$Event(10010, Default, function(X0_4, X4_4, X8_4) {
+    WaitFor(CharacterHasSpEffect(10000, X0_4, ComparisonType.Equal, 1));
+    
+    RemoveItemFromPlayer(ItemType.Goods, X4_4, -99);
+    AwardItemLot(X8_4);
+});
+
+// Imbued Artifact - 1
+$Event(10020, Default, function() {
+    StoreItemAmountHeldInEventValue(ItemType.Goods, 2161, 25000000, 90);
+
+    if(EventValue(25000000, 90) >= 1)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 2)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 3)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 4)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 5)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 6)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 7)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 8)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 9)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 10)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 11)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 12)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 13)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 14)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 15)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 16)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 17)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 18)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 19)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 20)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 21)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 22)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 23)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 24)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 25)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+});
+
+// Imbued Artifact - 2
+$Event(10021, Default, function() {
+    StoreItemAmountHeldInEventValue(ItemType.Goods, 2161, 25000000, 90);
+    
+    if(EventValue(25000000, 90) >= 26)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 27)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 28)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 29)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 30)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 31)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 32)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 33)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 34)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 35)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 36)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 37)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 38)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 39)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 40)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 41)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 42)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 43)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 44)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 45)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 46)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 47)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 48)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 49)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 50)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+});
+
+// Imbued Artifact - 3
+$Event(10022, Default, function() {
+    StoreItemAmountHeldInEventValue(ItemType.Goods, 2161, 25000000, 90);
+    
+    if(EventValue(25000000, 90) >= 51)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 52)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 53)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 54)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 55)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 56)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 57)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 58)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 59)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 60)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 61)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 62)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 63)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 64)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 65)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 66)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 67)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 68)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 69)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 70)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 71)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 72)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 73)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 74)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 75)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+});
+
+// Imbued Artifact - 4
+$Event(10023, Default, function() {
+    StoreItemAmountHeldInEventValue(ItemType.Goods, 2161, 25000000, 90);
+    
+    if(EventValue(25000000, 90) >= 76)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 77)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 78)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 79)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 80)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 81)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 82)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 83)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 84)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 85)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 86)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 87)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 88)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 89)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 90)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 91)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 92)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 93)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 94)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 95)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 96)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 97)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 98)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 99)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+    if(EventValue(25000000, 90) >= 100)
+    {
+        SetSpEffect(10000, 200000120);
+    }
+});
+
+//--------------------------------------
+// Talisman Forge
+//--------------------------------------
+// Track which accessories the player has. This is to toggle the visibility of entries in the Talisman Forge shop.
+$Event(13000, Default, function(X0_4, X4_4, X8_4, X12_4, X16_4, X20_4) {
+    if(PlayerHasItem(ItemType.Ring, X0_4)) {
+        SetEventFlag(X12_4, ON);
+    }
+    
+    if(PlayerHasItem(ItemType.Ring, X4_4)) {
+        SetEventFlag(X16_4, ON);
+    }
+    
+    if(PlayerHasItem(ItemType.Ring, X8_4)) {
+        SetEventFlag(X20_4, ON);
+    }
+    
+    WaitFixedTimeSeconds(1);
     
     RestartEvent();
 });

@@ -1,0 +1,445 @@
+﻿# Life Ring
++0 Effect: Boosts maximum HP by 10%.
++1 Effect: Boosts maximum HP by 15%.
++2 Effect: Boosts maximum HP by 20%.
++3 Effect: Boosts maximum HP by 25%.
+    
+# Chloranthy Ring
++0 Effect: Raises stamina recovery speed by 10.
++1 Effect: Raises stamina recovery speed by 13.
++2 Effect: Raises stamina recovery speed by 16.
++3 Effect: Raises stamina recovery speed by 20.
+    
+# Havel's Ring
++0 Effect: Boosts maximum equipment load by 15%.
++1 Effect: Boosts maximum equipment load by 20%.
++2 Effect: Boosts maximum equipment load by 25%.
++3 Effect: Boosts maximum equipment load by 30%.
+
+# Ring of Favor
++0 Effect: Raises maximum HP, stamina, and equip load by 5%.
++1 Effect: Raises maximum HP, stamina, and equip load by 6%.
++2 Effect: Raises maximum HP, stamina, and equip load by 7%.
++3 Effect: Raises maximum HP, stamina, and equip load by 8%.
+    
+# Ring of Steel Protection
++0 Effect: Boosts physical damage absorption by 5%.
++1 Effect: Boosts physical damage absorption by 10%.
++2 Effect: Boosts physical damage absorption by 15%.
++3 Effect: Boosts physical damage absorption by 20%.
+    
+# Flame Stoneplate Ring
++0 Effect: Boosts fire damage absorption by 10%.
++1 Effect: Boosts fire damage absorption by 15%.
++2 Effect: Boosts fire damage absorption by 20%.
++3 Effect: Boosts fire damage absorption by 25%.
+
+# Thunder Stoneplate Ring
++0 Effect: Boosts lightning damage absorption by 10%.
++1 Effect: Boosts lightning damage absorption by 15%.
++2 Effect: Boosts lightning damage absorption by 20%.
++3 Effect: Boosts lightning damage absorption by 25%.
+
+# Magic Stoneplate Ring
++0 Effect: Boosts magic damage absorption by 10%.
++1 Effect: Boosts magic damage absorption by 15%.
++2 Effect: Boosts magic damage absorption by 20%.
++3 Effect: Boosts magic damage absorption by 25%.
+
+# Dark Stoneplate Ring
++0 Effect: Boosts dark damage absorption by 10%.
++1 Effect: Boosts dark damage absorption by 15%.
++2 Effect: Boosts dark damage absorption by 20%.
++3 Effect: Boosts dark damage absorption by 25%.
+
+# Speckled Stoneplate Ring
++0 Effect: Boosts non-physical damage absorption by 5%.
++1 Effect: Boosts non-physical damage absorption by 10%.
++2 Effect: Boosts non-physical damage absorption by 15%.
++3 Effect: Boosts non-physical damage absorption by 20%.
+
+# Bloodbite Ring
++0 Effect: Raises bleed resistance by 200.
++1 Effect: Raises bleed resistance by 400.
++2 Effect: Raises bleed resistance by 600.
++3 Effect: Raises bleed resistance by 800.
+    
+# Poisonbite Ring
++0 Effect: Raises poison resistance by 200.
++1 Effect: Raises poison resistance by 400.
++2 Effect: Raises poison resistance by 600.
++3 Effect: Raises poison resistance by 800.
+
+# Cursebite Ring
++0 Effect: Raises curse resistance by 200.
++1 Effect: Raises curse resistance by 400.
++2 Effect: Raises curse resistance by 600.
++3 Effect: Raises curse resistance by 800.
+
+# Fleshbite Ring
++0 Effect: Raises poison, bleed, frost and curse resistance by 100.
++1 Effect: Raises poison, bleed, frost and curse resistance by 200.
++2 Effect: Raises poison, bleed, frost and curse resistance by 300.
++3 Effect: Raises poison, bleed, frost and curse resistance by 400.
+
+# Birchwood Ring
++0 Effect: Boosts the attack power of skills by 10%.
++1 Effect: Boosts the attack power of skills by 15%.
++2 Effect: Boosts the attack power of skills by 20%.
++3 Effect: Boosts the attack power of skills by 25%.
+    
+# Scholar Ring
++0 Effect: Raises intelligence by 4.
++1 Effect: Raises intelligence by 6.
++2 Effect: Raises intelligence by 8.
++3 Effect: Raises intelligence by 10.
+    
+# Priestess Ring
++0 Effect: Raises faith by 4.
++1 Effect: Raises faith by 6.
++2 Effect: Raises faith by 8.
++3 Effect: Raises faith by 10.
+
+# Red Tearstone Ring
++0 Effect: Raises attack power by 15% when HP is below 20%.
++1 Effect: Raises attack power by 20% when HP is below 20%.
++2 Effect: Raises attack power by 25% when HP is below 20%.
++3 Effect: Raises attack power by 30% when HP is below 20%.
+    
+# Blue Tearstone Ring
++0 Effect: Raises damage absorption by 50% when HP is below 20%.
++1 Effect: Raises damage absorption by 50% when HP is below 25%.
++2 Effect: Raises damage absorption by 50% when HP is below 30%.
++3 Effect: Raises damage absorption by 50% when HP is below 35%.
+
+# Wolf Ring
++0 Effect: Raises poise by 25%.
++1 Effect: Raises poise by 30%.
++2 Effect: Raises poise by 35%.
++3 Effect: Raises poise by 40%.
+    
+# Leo Ring
++0 Effect: Enhances the counterattacks that are unique to thrusting weapons by 15%.
+
+# Ring of Sacrifice
++0 Effect: Prevents soul loss upon death, but will be lost itself in exchange.
+
+# Young Dragon Ring
++0 Effect: Lowers FP consumed by sorceries by 15%.
++1 Effect: Lowers FP consumed by sorceries by 20%.
++2 Effect: Lowers FP consumed by sorceries by 25%.
++3 Effect: Lowers FP consumed by sorceries by 30%.
+    
+# Bellowing Dragoncrest Ring
++0 Effect: Boosts the attack power of sorceries by 10%.
++1 Effect: Boosts the attack power of sorceries by 15%.
++2 Effect: Boosts the attack power of sorceries by 20%.
++3 Effect: Boosts the attack power of sorceries by 25%.
+
+# Great Swamp Ring
++0 Effect: Lowers FP consumed by pyromancies by 15%.
++1 Effect: Lowers FP consumed by pyromancies by 20%.
++2 Effect: Lowers FP consumed by pyromancies by 25%.
++3 Effect: Lowers FP consumed by pyromancies by 30%.
+
+# Witch's Ring
++0 Effect: Boosts the attack power of pyromancies by 10%.
++1 Effect: Boosts the attack power of pyromancies by 15%.
++2 Effect: Boosts the attack power of pyromancies by 20%.
++3 Effect: Boosts the attack power of pyromancies by 25%.
+
+# Morne's Ring
++0 Effect: Lowers FP consumed by miracles by 15%.
++1 Effect: Lowers FP consumed by miracles by 20%.
++2 Effect: Lowers FP consumed by miracles by 25%.
++3 Effect: Lowers FP consumed by miracles by 30%.
+
+# Ring of the Sun's First Born
++0 Effect: Boosts the attack power of miracles by 10%.
++1 Effect: Boosts the attack power of miracles by 15%.
++2 Effect: Boosts the attack power of miracles by 20%.
++3 Effect: Boosts the attack power of miracles by 25%.
+
+# Lingering Dragoncrest Ring
++0 Effect: Extends the duration of sorceries, pyromancies and miracles by 25%.
++1 Effect: Extends the duration of sorceries, pyromancies and miracles by 50%.
++2 Effect: Extends the duration of sorceries, pyromancies and miracles by 75%.
++3 Effect: Extends the duration of sorceries, pyromancies and miracles by 100%.
+    
+# Sage Ring
++0 Effect: Shortens the casting time of sorceries, pyromancies and miracles, granting 20 cast speed.
++1 Effect: Shortens the casting time of ssorceries, pyromancies and miracles, granting 30 cast speed.
++2 Effect: Shortens the casting time of sorceries, pyromancies and miracles, granting 40 cast speed.
++3 Effect: Shortens the casting time of sorceries, pyromancies and miracles, granting 50 cast speed.
+    
+# Slumbering Dragoncrest Ring
++0 Effect: Eliminates all sound made by the wearer during movement.
+
+# Dusk Crown Ring
++0 Effect: Reduces FP consumption of sorceries, pyromancies and miracles by 25% but reduces max HP by 15%.
++1 Effect: Reduces FP consumption of sorceries, pyromancies and miracles by 30% but reduces max HP by 15%.
++2 Effect: Reduces FP consumption of sorceries, pyromancies and miracles by 35% but reduces max HP by 15%.
++3 Effect: Reduces FP consumption of sorceries, pyromancies and miracles by 40% but reduces max HP by 15%.
+    
+# Saint's Ring
++0 Effect: Allows attunement of 2 additional spells.
+
+# Deep Ring
++0 Effect: Boosts the attack power of dark sorceries, pyromancies and miracles by 10%.
++1 Effect: Boosts the attack power of dark sorceries, pyromancies and miracles by 15%.
++2 Effect: Boosts the attack power of dark sorceries, pyromancies and miracles by 20%.
++3 Effect: Boosts the attack power of dark sorceries, pyromancies and miracles by 25%.
+
+# Darkmoon Ring
++0 Effect: Restores 1 FP per second.
++1 Effect: Restores 2 FP per second.
++2 Effect: Restores 3 FP per second.
++3 Effect: Restores 4 FP per second.
+
+# Hawk Ring
++0 Effect: Increases the effective range of bows by 50 meters.
++1 Effect: Increases the effective range of bows by 75 meters.
++2 Effect: Increases the effective range of bows by 100 meters.
++3 Effect: Increases the effective range of bows by 125 meters.
+    
+# Hornet Ring
++0 Effect: Boosts critical attacks.
+    
+# Covetous Gold Serpent Ring
++0 Effect: Enhances item discovery by 60.
++1 Effect: Enhances item discovery by 80.
++2 Effect: Enhances item discovery by 100.
++3 Effect: Enhances item discovery by 120.
+    
+# Covetous Silver Serpent Ring
++0 Effect: Increases the amount of souls obtained from defeating enemies by 15%.
++1 Effect: Increases the amount of souls obtained from defeating enemies by 20%.
++2 Effect: Increases the amount of souls obtained from defeating enemies by 25%.
++3 Effect: Increases the amount of souls obtained from defeating enemies by 30%.
+    
+# Sun Princess Ring
++0 Effect: Restores 2 HP per second.
++1 Effect: Restores 4 HP per second.
++2 Effect: Restores 6 HP per second.
++3 Effect: Restores 8 HP per second.
+
+# Silvercat Ring
++0 Effect: Grants immunity to fall damage, but does not prevent death from a high fall.
+
+# Skull Ring
++0 Effect: Raises physical attack power by 10%, but lowers physical damage absorption by 15%.
++1 Effect: Raises physical attack power by 15%, but lowers physical damage absorption by 15%.
++2 Effect: Raises physical attack power by 20%, but lowers physical damage absorption by 15%.
++3 Effect: Raises physical attack power by 25%, but lowers physical damage absorption by 15%.
+
+# Untrue White Ring
++0 Effect: Makes the bearer take on the appearance of a summoned phantom.
+
+# Carthus Milkring
++0 Effect: Boosts maximum stamina by 10% and obscures the wearer while rolling.
++1 Effect: Boosts maximum stamina by 15% and obscures the wearer while rolling.
++2 Effect: Boosts maximum stamina by 20% and obscures the wearer while rolling.
++3 Effect: Boosts maximum stamina by 25% and obscures the wearer while rolling.
+    
+# Knight's Ring
++0 Effect: Raises strength by 4.
++1 Effect: Raises strength by 6.
++2 Effect: Raises strength by 8.
++3 Effect: Raises strength by 10.
+
+# Hunter's Ring
++0 Effect: Raises dexterity by 4.
++1 Effect: Raises dexterity by 6.
++2 Effect: Raises dexterity by 8.
++3 Effect: Raises dexterity by 10.
+
+# Knight Slayer's Ring
++0 Effect: Enhances stamina-reducing attacks against a blocking opponent by 20%.
++1 Effect: Enhances stamina-reducing attacks against a blocking opponent by 30%.
++2 Effect: Enhances stamina-reducing attacks against a blocking opponent by 40%.
++3 Effect: Enhances stamina-reducing attacks against a blocking opponent by 50%.
+    
+# Magic Clutch Ring
++0 Effect: Raises magic attack power by 15%, but lowers physical damage absorption by 15%.
++1 Effect: Raises magic attack power by 20%, but lowers physical damage absorption by 15%.
++2 Effect: Raises magic attack power by 25%, but lowers physical damage absorption by 15%.
++3 Effect: Raises magic attack power by 30%, but lowers physical damage absorption by 15%.
+    
+# Lightning Clutch Ring
++0 Effect: Raises lightning attack power by 15%, but lowers physical damage absorption by 15%.
++1 Effect: Raises lightning attack power by 20%, but lowers physical damage absorption by 15%.
++2 Effect: Raises lightning attack power by 25%, but lowers physical damage absorption by 15%.
++3 Effect: Raises lightning attack power by 30%, but lowers physical damage absorption by 15%.
+
+# Fire Clutch Ring
++0 Effect: Raises fire attack power by 15%, but lowers physical damage absorption by 15%.
++1 Effect: Raises fire attack power by 20%, but lowers physical damage absorption by 15%.
++2 Effect: Raises fire attack power by 25%, but lowers physical damage absorption by 15%.
++3 Effect: Raises fire attack power by 30%, but lowers physical damage absorption by 15%.
+
+# Dark Clutch Ring
++0 Effect: Raises dark attack power by 15%, but lowers physical damage absorption by 15%.
++1 Effect: Raises dark attack power by 20%, but lowers physical damage absorption by 15%.
++2 Effect: Raises dark attack power by 25%, but lowers physical damage absorption by 15%.
++3 Effect: Raises dark attack power by 30%, but lowers physical damage absorption by 15%.
+
+# Flynn's Ring
++0 Effect: Raises attack power by 15% with lower equipment load.
++1 Effect: Raises attack power by 20% with lower equipment load.
++2 Effect: Raises attack power by 25% with lower equipment load.
++3 Effect: Raises attack power by 30% with lower equipment load.
+    
+# Prisoner's Chain
++0 Effect: Raises vigor, vitality, and endurance by 3, but lowers physical damage absorption by 10%.
++1 Effect: Raises vigor, vitality, and endurance by 4, but lowers physical damage absorption by 10%.
++2 Effect: Raises vigor, vitality, and endurance by 5, but lowers physical damage absorption by 10%.
++3 Effect: Raises vigor, vitality, and endurance by 6, but lowers physical damage absorption by 10%.
+
+# Untrue Dark Ring
++0 Effect: Makes the bearer take on the appearance of a regular phantom.
+
+# Obscuring Ring
++0 Effect: Completely conceals the wearer's presence while at a distance from foes.
+
+# Ring of the Evil Eye
++0 Effect: Restores HP upon defeating enemies, restoring 3% HP and 30 HP with each kill.
++1 Effect: Restores HP upon defeating enemies, restoring 4% HP and 40 HP with each kill.
++2 Effect: Restores HP upon defeating enemies, restoring 5% HP and 50 HP with each kill.
++3 Effect: Restores HP upon defeating enemies, restoring 6% HP and 60 HP with each kill.
+    
+# Calamity Ring
++0 Effect: Constantly attracts enemies' aggression.
+
+# Farron Ring
++0 Effect: Lowers FP consumed by skills by 25%.
++1 Effect: Lowers FP consumed by skills by 30%.
++2 Effect: Lowers FP consumed by skills by 35%.
++3 Effect: Lowers FP consumed by skills by 40%.
+    
+# Aldrich's Ruby
++0 Effect: Critical hits restore HP, restoring 10% HP and 75 HP.
++1 Effect: Critical hits restore HP, restoring 15% HP and 150 HP.
++2 Effect: Critical hits restore HP, restoring 20% HP and 225 HP.
++3 Effect: Critical hits restore HP, restoring 25% HP and 300 HP.
+    
+# Aldrich's Sapphire
++0 Effect: Critical hits restore FP, restoring 25 FP.
++1 Effect: Critical hits restore FP, restoring 50 FP.
++2 Effect: Critical hits restore FP, restoring 75 FP.
++3 Effect: Critical hits restore FP, restoring 100 FP.
+    
+# Lloyd's Sword Ring
++0 Effect: Raises attack power by 10% when HP is at maximum.
++1 Effect: Raises attack power by 15% when HP is at maximum.
++2 Effect: Raises attack power by 20% when HP is at maximum.
++3 Effect: Raises attack power by 25% when HP is at maximum.
+
+# Lloyd's Shield Ring
++0 Effect: Raises damage absorption by 20% when HP is at maximum.
++1 Effect: Raises damage absorption by 30% when HP is at maximum.
++2 Effect: Raises damage absorption by 40% when HP is at maximum.
++3 Effect: Raises damage absorption by 50% when HP is at maximum.
+    
+# Estus Ring
++0 Effect: Boosts HP restoration from the Estus Flask by 20%.
++1 Effect: Boosts HP restoration from the Estus Flask by 30%.
++2 Effect: Boosts HP restoration from the Estus Flask by 40%.
++3 Effect: Boosts HP restoration from the Estus Flask by 50%.
+    
+# Ashen Estus Ring
++0 Effect: Boosts FP restoration from the Ashen Estus Flask by 20%.
++1 Effect: Boosts FP restoration from the Ashen Estus Flask by 30%.
++2 Effect: Boosts FP restoration from the Ashen Estus Flask by 40%.
++3 Effect: Boosts FP restoration from the Ashen Estus Flasks by 50%.
+    
+# Horsehoof Ring
++0 Effect: Boosts kick effect
+
+# Carthus Bloodring
++0 Effect: Improves the effectiveness of dodge rolls, but increases damage taken by 30%.
++1 Effect: Improves the effectiveness of dodge rolls, but increases damage taken by 20%.
++2 Effect: Improves the effectiveness of dodge rolls, but increases damage taken by 10%.
++3 Effect: Improves the effectiveness of dodge rolls.
+
+# Reversal Ring
++0 Effect: Causes males to perform female actions, and vice-versa.
+
+# Pontiff's Right Eye
++0 Effect: Raises attack power with successive attacks, up to 10% additional attack power.
++1 Effect: Raises attack power with successive attacks, up to 15% additional attack power.
++2 Effect: Raises attack power with successive attacks, up to 20% additional attack power.
++3 Effect: Raises attack power with successive attacks, up to 25% additional attack power.
+    
+# Pontiff's Left Eye
++0 Effect: Successive attacks restore HP, restoring 3% HP and 30 HP with each attack.
++1 Effect: Successive attacks restore HP, restoring 4% HP and 40 HP with each attack.
++2 Effect: Successive attacks restore HP, restoring 5% HP and 50 HP with each attack.
++3 Effect: Successive attacks restore HP, restoring 6% HP and 60 HP with each attack.
+    
+# Dragonscale Ring
++0 Effect: Boosts maximum FP by 10%.
++1 Effect: Boosts maximum FP by 15%.
++2 Effect: Boosts maximum FP by 20%.
++3 Effect: Boosts maximum FP by 25%.
+
+# Chillbite Ring
++0 Effect: Raises frost resistance by 200.
++1 Effect: Raises frost resistance by 400.
++2 Effect: Raises frost resistance by 600.
++3 Effect: Raises frost resistance by 800.
+
+# NEW - Need to be implemented first
+# Bestial Fang (6008)
++0 Effect: Enhances charged attacks by 15%.
++1 Effect: Enhances charged attacks by 20%.
++2 Effect: Enhances charged attacks by 25%.
++3 Effect: Enhances charged attacks by 30%.
+
+# Ironwood Ring (5005)
++0 Effect: Boosts guarding ability by 20%.
++1 Effect: Boosts guarding ability by 30%.
++2 Effect: Boosts guarding ability by 40%.
++3 Effect: Boosts guarding ability by 50%.
+
+# Demonbane Oil (7111)
++0 Effect: Raises attack power by 10% against Demonic enemies.
++1 Effect: Raises attack power by 15% against Demonic enemies.
++2 Effect: Raises attack power by 20% against Demonic enemies.
++3 Effect: Raises attack power by 25% against Demonic enemies.
+
+# Deathbane Oil (7109)
++0 Effect: Raises attack power by 10% against Undead enemies.
++1 Effect: Raises attack power by 15% against Undead enemies.
++2 Effect: Raises attack power by 20% against Undead enemies.
++3 Effect: Raises attack power by 25% against Undead enemies.
+
+# Hollowbane Oil (7110)
++0 Effect: Raises attack power by 10% against Hollow enemies.
++1 Effect: Raises attack power by 15% against Hollow enemies.
++2 Effect: Raises attack power by 20% against Hollow enemies.
++3 Effect: Raises attack power by 25% against Hollow enemies.
+
+# Cursebane Oil (7117)
++0 Effect: Raises attack power by 10% against Abyssal enemies.
++1 Effect: Raises attack power by 15% against Abyssal enemies.
++2 Effect: Raises attack power by 20% against Abyssal enemies.
++3 Effect: Raises attack power by 25% against Abyssal enemies.
+
+# Beastbane Oil (7115)
++0 Effect: Raises attack power by 10% against Bestial enemies.
++1 Effect: Raises attack power by 15% against Bestial enemies.
++2 Effect: Raises attack power by 20% against Bestial enemies.
++3 Effect: Raises attack power by 25% against Bestial enemies.
+
+# Korg's Talon (7128)
++0 Effect: Reduces weapon stamina consumption by 15%.
++1 Effect: Reduces weapon stamina consumption by 20%.
++2 Effect: Reduces weapon stamina consumption by 25%.
++3 Effect: Reduces weapon stamina consumption by 30%.
+
+# Dashmaster's Bell (5070)
++0 Effect: Increases movement speed by 10%.
++1 Effect: Increases movement speed by 15%.
++2 Effect: Increases movement speed by 20%.
++3 Effect: Increases movement speed by 25%.
+

@@ -13,7 +13,10 @@
 #-------------------------------------------------
 # Enemies
 #-------------------------------------------------
-
+- Each boss will drop an Imbued Artifact as a one-time drop. 
+ - This item will increase damage by 1%.
+ - It can stack up to 100 times.
+ 
 #-------------------------------------------------
 # World
 #-------------------------------------------------
@@ -43,7 +46,8 @@
 #-------------------------------------------------
 # Items
 #-------------------------------------------------
-- All reinforcement treasures have been replaced with suitable consumable soul items.
+- All reinforcement treasures have been replaced with Hollow Fragments.
+- Removed all gems. Infusions are done via Hollow Fragments.
 
 #-------------------------------------------------
 # Misc

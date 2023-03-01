@@ -29,7 +29,9 @@
 #-----------------------------------------------------------------
 # Mod Ranges
 #-----------------------------------------------------------------
-25000000 
+25000000 Imbued Artifact Count start
+25000099 Imbued Artifact Count end
+
 25000100 Journey Finalized
 25000101 Journey Type: Hollow
 25000102 Journey Type: Explorer
@@ -41,3 +43,322 @@
 25000112 Custom Loadout: Free Souls Option
 25000113 Custom Loadout: Hollow Fragment Itemlot
 
+25000200 Life Ring 
+25000201 Life Ring +1
+25000203 Life Ring +2
+
+25000205 Chloranthy Ring
+25000206 Chloranthy Ring +1
+25000207 Chloranthy Ring +2
+
+25000210 Havel's Ring
+25000211 Havel's Ring +1
+25000212 Havel's Ring +2
+
+25000215 Ring of Favor
+25000216 Ring of Favor +1
+25000217 Ring of Favor +2
+
+25000220 Ring of Steel Protection
+25000221 Ring of Steel Protection +1
+25000222 Ring of Steel Protection +2
+
+25000225 Flame Stoneplate Ring
+25000226 Flame Stoneplate Ring +1
+25000227 Flame Stoneplate Ring +2
+
+25000230 Thunder Stoneplate Ring
+25000231 Thunder Stoneplate Ring +1
+25000232 Thunder Stoneplate Ring +2
+
+25000235 Magic Stoneplate Ring
+25000236 Magic Stoneplate Ring +1
+25000237 Magic Stoneplate Ring +2
+
+25000240 Dark Stoneplate Ring
+25000241 Dark Stoneplate Ring +1
+25000242 Dark Stoneplate Ring +2
+
+25000245 Speckled Stoneplate Ring
+25000246 Speckled Stoneplate Ring +1
+25000247 Speckled Stoneplate Ring +2
+
+25000250 Bloodbite Ring
+25000251 Bloodbite Ring +1
+25000252 Bloodbite Ring +2
+
+25000255 Poisonbite Ring
+25000256 Poisonbite Ring +1
+25000257 Poisonbite Ring +2
+
+25000260 Cursebite Ring
+25000261 Cursebite Ring +1
+25000262 Cursebite Ring +2
+
+25000265 Fleshbite Ring
+25000266 Fleshbite Ring +1
+25000267 Fleshbite Ring +2
+
+25000270 Birchwood Ring
+25000271 Birchwood Ring +1
+25000272 Birchwood Ring +2
+
+25000275 Scholar Ring
+25000276 Scholar Ring +1
+25000277 Scholar Ring +2
+
+25000280 Priestess Ring
+25000281 Priestess Ring +1
+25000282 Priestess Ring +2
+
+25000285 Red Tearstone Ring
+25000286 Red Tearstone Ring +1
+25000287 Red Tearstone Ring +2
+
+25000290 Blue Tearstone Ring
+25000291 Blue Tearstone Ring +1
+25000292 Blue Tearstone Ring +2
+
+25000295 Wolf Ring
+25000296 Wolf Ring +1
+25000297 Wolf Ring +2
+
+25000300 Young Dragon Ring
+25000301 Young Dragon Ring +1
+25000303 Young Dragon Ring +2
+
+25000305 Great Swamp Ring
+25000306 Great Swamp Ring +1
+25000307 Great Swamp Ring +2
+
+25000310 Morne's Ring
+25000311 Morne's Ring +1
+25000312 Morne's Ring +2
+
+25000315 Lingering Dragoncrest Ring
+25000316 Lingering Dragoncrest Ring +1
+25000317 Lingering Dragoncrest Ring +2
+
+25000320 Sage Ring
+25000321 Sage Ring +1
+25000322 Sage Ring +2
+
+25000325 Dusk Crown Ring
+25000326 Dusk Crown Ring +1
+25000327 Dusk Crown Ring +2
+
+25000330 Deep Ring
+25000331 Deep Ring +1
+25000332 Deep Ring +2
+
+25000335 Darkmoon Ring
+25000336 Darkmoon Ring +1
+25000337 Darkmoon Ring +2
+
+25000340 Bellowing Dragoncrest Ring
+25000341 Bellowing Dragoncrest Ring +1
+25000342 Bellowing Dragoncrest Ring +2
+
+25000345 Witch's Ring
+25000346 Witch's Ring +1
+25000347 Witch's Ring +2
+
+25000350 Ring of the Sun's First Born
+25000351 Ring of the Sun's First Born +1
+25000352 Ring of the Sun's First Born +2
+
+25000355 Hawk Ring
+25000356 Hawk Ring +1
+25000357 Hawk Ring +2
+
+25000360 Covetous Gold Serpent Ring
+25000361 Covetous Gold Serpent Ring +1
+25000362 Covetous Gold Serpent Ring +2
+
+25000365 Covetous Silver Serpent Ring
+25000366 Covetous Silver Serpent Ring +1
+25000367 Covetous Silver Serpent Ring +2
+
+25000370 Sun Princess Ring
+25000371 Sun Princess Ring +1
+25000372 Sun Princess Ring +2
+
+25000375 Skull Ring
+25000376 Skull Ring +1
+25000377 Skull Ring +2
+
+25000380 Carthus Milkring
+25000381 Carthus Milkring +1
+25000382 Carthus Milkring +2
+
+25000385 Knight's Ring
+25000386 Knight's Ring +1
+25000387 Knight's Ring +2
+
+25000390 Hunter's Ring
+25000391 Hunter's Ring +1
+25000392 Hunter's Ring +2
+
+25000395 Knight Slayer's Ring
+25000396 Knight Slayer's Ring +1
+25000397 Knight Slayer's Ring +2
+
+25000400 Magic Clutch Ring
+25000401 Magic Clutch Ring +1
+25000402 Magic Clutch Ring +2
+
+25000405 Lightning Clutch Ring
+25000406 Lightning Clutch Ring +1
+25000407 Lightning Clutch Ring +2
+
+25000410 Fire Clutch Ring
+25000411 Fire Clutch Ring +1
+25000412 Fire Clutch Ring +2
+
+25000415 Dark Clutch Ring
+25000416 Dark Clutch Ring +1
+25000417 Dark Clutch Ring +2
+
+25000420 Flynn's Ring
+25000421 Flynn's Ring +1
+25000422 Flynn's Ring +2
+
+25000425 Prisoner's Chain
+25000426 Prisoner's Chain +1
+25000427 Prisoner's Chain +2
+
+25000430 Ring of the Evil Eye
+25000431 Ring of the Evil Eye +1
+25000432 Ring of the Evil Eye +2
+
+25000435 Farron Ring
+25000436 Farron Ring +1
+25000437 Farron Ring +2
+
+25000440 Aldrich's Ruby
+25000441 Aldrich's Ruby +1
+25000442 Aldrich's Ruby +2
+
+25000445 Aldrich's Sapphire
+25000446 Aldrich's Sapphire +1
+25000447 Aldrich's Sapphire +2
+
+25000450 Lloyd's Sword Ring
+25000451 Lloyd's Sword Ring +1
+25000452 Lloyd's Sword Ring +2
+
+25000455 Lloyd's Shield Ring
+25000456 Lloyd's Shield Ring +1
+25000457 Lloyd's Shield Ring +2
+
+25000460 Estus Ring
+25000461 Estus Ring +1
+25000462 Estus Ring +2
+
+25000465 Ashen Estus Ring
+25000466 Ashen Estus Ring +1
+25000467 Ashen Estus Ring +2
+
+25000470 Carthus Bloodring
+25000471 Carthus Bloodring +1
+25000472 Carthus Bloodring +2
+
+25000475 Pontiff's Right Eye
+25000476 Pontiff's Right Eye +1
+25000477 Pontiff's Right Eye +2
+
+25000480 Pontiff's Left Eye
+25000481 Pontiff's Left Eye +1
+25000482 Pontiff's Left Eye +2
+
+25000485 Dragonscale Ring
+25000486 Dragonscale Ring +1
+25000487 Dragonscale Ring +2
+
+25000490 Chillbite Ring
+25000491 Chillbite Ring +1
+25000492 Chillbite Ring +2
+
+25000495 Bestial Fang
+25000496 Bestial Fang +1
+25000497 Bestial Fang +2
+
+25000500 Ironwood Band
+25000501 Ironwood Band +1
+25000502 Ironwood Band +2
+
+25000505 Demonbane Oil
+25000506 Demonbane Oil +1
+25000507 Demonbane Oil +2
+
+25000510 Deathbane Oil
+25000511 Deathbane Oil +1
+25000512 Deathbane Oil +2
+
+25000515 Hollowbane Oil
+25000516 Hollowbane Oil +1
+25000517 Hollowbane Oil +2
+
+25000520 Cursebane Oil
+25000521 Cursebane Oil +1
+25000522 Cursebane Oil +2
+
+25000525 Beastbane Oil
+25000526 Beastbane Oil +1
+25000527 Beastbane Oil +2
+
+25000530 Korg's Talon
+25000531 Korg's Talon +1
+25000532 Korg's Talon +2
+
+25000535 Dashmaster's Bell
+25000536 Dashmaster's Bell +1
+25000537 Dashmaster's Bell +2
+
+25000540 X
+25000541 X +1
+25000542 X +2
+
+25000545 X
+25000546 X +1
+25000547 X +2
+
+25000550 X
+25000551 X +1
+25000552 X +2
+
+25000555 X
+25000556 X +1
+25000557 X +2
+
+25000560 X
+25000561 X +1
+25000562 X +2
+
+25000565 X
+25000566 X +1
+25000567 X +2
+
+25000570 X
+25000571 X +1
+25000572 X +2
+
+25000575 X
+25000576 X +1
+25000577 X +2
+
+25000580 X
+25000581 X +1
+25000582 X +2
+
+25000585 X
+25000586 X +1
+25000587 X +2
+
+25000590 X
+25000591 X +1
+25000592 X +2
+
+25000595 X
+25000596 X +1
+25000597 X +2

@@ -475,7 +475,8 @@ def t400301_x20():
 def t400301_x21():
     """State 0"""
     while True:
-        """State 1,2"""
+        """State 2"""
+        Label('L0')
         ClearTalkListData()
         assert (not CheckSpecificPersonGenericDialogIsOpen(2) and not (CheckSpecificPersonMenuIsOpen(-1,
                 2) == 1 and not CheckSpecificPersonGenericDialogIsOpen(2)))
@@ -505,6 +506,9 @@ def t400301_x21():
         elif not (CheckSpecificPersonMenuIsOpen(1, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0)):
             """State 9"""
             return 0
+    """Unused"""
+    """State 1"""
+    Goto('L0')
 
 def t400301_x22():
     """State 0,3"""
