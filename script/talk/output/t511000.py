@@ -160,6 +160,7 @@ def t511000_x7():
     return 0
 
 def t511000_x8():
+    # Light Bonfire
     """State 0,1"""
     if CompareBonfireLevel(5, 0) == 1:
         """State 2"""
@@ -186,6 +187,8 @@ def t511000_x8():
             RequestUnlockTrophy(41)
             """State 14"""
             SetEventState(13000000, 1)
+    
+    # Rest at Bonfire
     while True:
         """State 19"""
         call = t511000_x3(actionbutton1=6102, flag1=6001, flag2=74000010)

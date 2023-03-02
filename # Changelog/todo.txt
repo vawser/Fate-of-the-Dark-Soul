@@ -3,24 +3,23 @@
 #-------------------------------------------------
 
 #-------------------------------------------------
-# Ideas
-#-------------------------------------------------
-Each final boss in each 'level' will award a Fragment of the Dark Soul, this boosts damage by a flat value. Reinforcement is removed.
-
-Add message on first boss kill that tells the player they can use the Darksign to teleport back to the hub.
- Important, as the player will likely assume it has vanilla behavior
- 
-#-------------------------------------------------
 # WIP
 #-------------------------------------------------
-Add NG+ cycle trigger based on killing final boss
- Appears at World's End bonfire
+Place treasures:
+21010 Bestial Fang
+21020 Ironwood Ring
+21030 Demonbane Oil
+21040 Deathbane Oil
+21050 Hollowbane Oil
+21060 Cursebane Oil
+21070 Beastbane Oil
+21080 Korg's Talon
+21090 Dashmaster's Bell
 
-Add Slave Knight Gael boss fight as final boss
- Requires all bosses to have been killed first
- 
-Design Blighted Cemetery level
+Add boss:
+ Slave Knight Gael
+ Occurs in World's End, after killing all other bosses
 
-Add TAE Window for charged heavy attacks in TAE (112200900)
-Add TAE Window for skill attacks in TAE (XXX)
+Add Accursed detriment system
+Add castigation system
 

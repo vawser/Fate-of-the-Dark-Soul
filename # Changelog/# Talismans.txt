@@ -388,56 +388,55 @@
 +2 Effect: Raises frost resistance by 600.
 +3 Effect: Raises frost resistance by 800.
 
-# NEW - Need to be implemented first
-# Bestial Fang (6008)
-+0 Effect: Enhances charged attacks by 15%.
-+1 Effect: Enhances charged attacks by 20%.
-+2 Effect: Enhances charged attacks by 25%.
-+3 Effect: Enhances charged attacks by 30%.
+# Bestial Fang 
++0 Effect: Enhances dash attacks by 15%.
++1 Effect: Enhances dash attacks by 20%.
++2 Effect: Enhances dash attacks by 25%.
++3 Effect: Enhances dash attacks by 30%.
 
-# Ironwood Ring (5005)
+# Ironwood Ring
 +0 Effect: Boosts guarding ability by 20%.
 +1 Effect: Boosts guarding ability by 30%.
 +2 Effect: Boosts guarding ability by 40%.
 +3 Effect: Boosts guarding ability by 50%.
 
-# Demonbane Oil (7111)
+# Demonbane Oil 
 +0 Effect: Raises attack power by 10% against Demonic enemies.
 +1 Effect: Raises attack power by 15% against Demonic enemies.
 +2 Effect: Raises attack power by 20% against Demonic enemies.
 +3 Effect: Raises attack power by 25% against Demonic enemies.
 
-# Deathbane Oil (7109)
+# Deathbane Oil 
 +0 Effect: Raises attack power by 10% against Undead enemies.
 +1 Effect: Raises attack power by 15% against Undead enemies.
 +2 Effect: Raises attack power by 20% against Undead enemies.
 +3 Effect: Raises attack power by 25% against Undead enemies.
 
-# Hollowbane Oil (7110)
+# Hollowbane Oil 
 +0 Effect: Raises attack power by 10% against Hollow enemies.
 +1 Effect: Raises attack power by 15% against Hollow enemies.
 +2 Effect: Raises attack power by 20% against Hollow enemies.
 +3 Effect: Raises attack power by 25% against Hollow enemies.
 
-# Cursebane Oil (7117)
+# Cursebane Oil 
 +0 Effect: Raises attack power by 10% against Abyssal enemies.
 +1 Effect: Raises attack power by 15% against Abyssal enemies.
 +2 Effect: Raises attack power by 20% against Abyssal enemies.
 +3 Effect: Raises attack power by 25% against Abyssal enemies.
 
-# Beastbane Oil (7115)
+# Beastbane Oil 
 +0 Effect: Raises attack power by 10% against Bestial enemies.
 +1 Effect: Raises attack power by 15% against Bestial enemies.
 +2 Effect: Raises attack power by 20% against Bestial enemies.
 +3 Effect: Raises attack power by 25% against Bestial enemies.
 
-# Korg's Talon (7128)
+# Korg's Talon 
 +0 Effect: Reduces weapon stamina consumption by 15%.
 +1 Effect: Reduces weapon stamina consumption by 20%.
 +2 Effect: Reduces weapon stamina consumption by 25%.
 +3 Effect: Reduces weapon stamina consumption by 30%.
 
-# Dashmaster's Bell (5070)
+# Dashmaster's Bell 
 +0 Effect: Increases movement speed by 10%.
 +1 Effect: Increases movement speed by 15%.
 +2 Effect: Increases movement speed by 20%.

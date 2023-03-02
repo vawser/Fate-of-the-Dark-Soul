@@ -5,93 +5,93 @@
 ------------------------------------------
 -- Mod: Functions
 ------------------------------------------
--- Debug Ionc
--- act(AddSpEffect, 119900000)
-function UpdateTalismanEffects()
-    -- Dashmaster's Bell
-    if env(GetSpEffectID, 113000000) == TRUE then
-        act(SetMovementScaleMult, 1.1)
+function UpdateFP()
+    -- FP Regen cooldown
+    if env(GetSpEffectID, 111000) == FALSE then    
+        act(AddSpEffect, 111000) 
         
-    end
-    
-    -- Dashmaster's Bell +1
-    if env(GetSpEffectID, 113000100) == TRUE then
-        act(SetMovementScaleMult, 1.15)
-    end
-    
-    -- Dashmaster's Bell +2
-    if env(GetSpEffectID, 113000200) == TRUE then
-        act(SetMovementScaleMult, 1.2)
-    end
-    
-    -- Dashmaster's Bell +3
-    if env(GetSpEffectID, 113000300) == TRUE then
-        act(SetMovementScaleMult, 1.25)
-    end
-    
-    -- Bestial Fang
-    if env(GetSpEffectID, 112200000) == TRUE then
-        -- TAE Window to activate in
-        if env(GetSpEffectID, 112200900) == TRUE then
-            act(AddSpEffect, 112200001)
+        if env(GetFP) < 80 then
+            act(AddSpEffect, 111003) 
+        elseif env(GetFP) >= 80 and env(GetFP) < 160 then
+            act(AddSpEffect, 111002) 
+        elseif env(GetFP) >= 160 then
+            act(AddSpEffect, 111001) 
         end
     end
+end
+
+function ApplyEffect_Magic()
+    -- FP Cooldown: block FP regen whilst using magic
+    act(AddSpEffect, 111000)
+end
+
+function ApplyEffect_LightAttack()
+
+end
+
+function ApplyEffect_HeavyAttack()
     
-    -- Bestial Fang +1
-    if env(GetSpEffectID, 112200100) == TRUE then
-        -- TAE Window to activate in
-        if env(GetSpEffectID, 112200900) == TRUE then
-            act(AddSpEffect, 112200101)
-        end
-    end
-    
-    -- Bestial Fang +2
-    if env(GetSpEffectID, 112200200) == TRUE then
-        -- TAE Window to activate in
-        if env(GetSpEffectID, 112200900) == TRUE then
-            act(AddSpEffect, 112200201)
-        end
-    end
-    
-    -- Bestial Fang +3
-    if env(GetSpEffectID, 112200300) == TRUE then
-        -- TAE Window to activate in
-        if env(GetSpEffectID, 112200900) == TRUE then
-            act(AddSpEffect, 112200301)
-        end
-    end
-    
+end
+
+function ApplyEffect_SkillAttack()
+    -- FP Cooldown: block FP regen whilst using weapon skills
+    act(AddSpEffect, 111000)
+
     -- Birchwood Ring
     if env(GetSpEffectID, 112014000) == TRUE then
-        -- TAE Window to activate in
-        if env(GetSpEffectID, 112014900) == TRUE then
-            act(AddSpEffect, 112014001)
-        end
+        act(AddSpEffect, 101010)
     end
-    
-    -- Birchwood Ring +1
+
     if env(GetSpEffectID, 112014100) == TRUE then
-        -- TAE Window to activate in
-        if env(GetSpEffectID, 112014900) == TRUE then
-            act(AddSpEffect, 112014101)
-        end
+        act(AddSpEffect, 101011)
     end
-    
-    -- Birchwood Ring +2
+
     if env(GetSpEffectID, 112014200) == TRUE then
-        -- TAE Window to activate in
-        if env(GetSpEffectID, 112014900) == TRUE then
-            act(AddSpEffect, 112014201)
-        end
+        act(AddSpEffect, 101012)
+    end
+
+    if env(GetSpEffectID, 112014300) == TRUE then
+        act(AddSpEffect, 101013)
+    end
+end
+
+function ApplyEffect_DashAttack()
+    -- Bestial Fang
+    if env(GetSpEffectID, 112200000) == TRUE then
+        act(AddSpEffect, 101000)
     end
     
-    -- Birchwood Ring +3
-    if env(GetSpEffectID, 112014300) == TRUE then
-        -- TAE Window to activate in
-        if env(GetSpEffectID, 112014900) == TRUE then
-            act(AddSpEffect, 112014301)
-        end
+    if env(GetSpEffectID, 112200100) == TRUE then
+        act(AddSpEffect, 101001)
     end
+    
+    if env(GetSpEffectID, 112200200) == TRUE then
+        act(AddSpEffect, 101002)
+    end
+    
+    if env(GetSpEffectID, 112200300) == TRUE then
+        act(AddSpEffect, 101003)
+    end
+end
+
+function ApplyEffect_GuardAttack()
+
+end
+
+function ApplyEffect_AmmoAttack()
+
+end
+
+function ApplyEffect_ItemUse()
+
+end
+
+function ApplyEffect_Dragonhead()
+
+end
+
+function ApplyEffect_Gesture()
+
 end
 
 ------------------------------------------
@@ -1593,6 +1593,7 @@ function ExecAttack(r1, r2, l1, l2, b1, b2, is_guard, blend_type, artsr1, artsr2
         if sp_kind_left == 265 and sp_kind_right == 265 then
             dual = TRUE
         end
+        
         if dual == TRUE and style == HAND_RIGHT then
             if TRUE == IsNodeActive("MagicBuffLeft_Upper_Selector") then
                 ExecEventAllBody("W_MagicBuffRight3")
@@ -6145,6 +6146,7 @@ function Move_onUpdate()
         act(Set4DirectionMovementThreshold, 40, 70, 60, 20)
     end
     SpeedUpdate()
+    
     if TRUE == env(IsCOMPlayer) then
         local npc_turn_speed = 240
         if move_speed == 2 then
@@ -6157,13 +6159,35 @@ function Move_onUpdate()
         end
         SetTurnSpeed(npc_turn_speed)
     end
-    local ratio = 1
+    
+    local movement_scale = 1.0
+    
+    -- Dashmaster's Bell
+    if env(GetSpEffectID, 113000000) == TRUE then
+        movement_scale = movement_scale + 0.1
+    end
+    
+    -- Dashmaster's Bell +1
+    if env(GetSpEffectID, 113000100) == TRUE then
+        movement_scale = movement_scale + 0.15
+    end
+    
+    -- Dashmaster's Bell +2
+    if env(GetSpEffectID, 113000200) == TRUE then
+        movement_scale = movement_scale + 0.2
+    end
+    
+    -- Dashmaster's Bell +3
+    if env(GetSpEffectID, 113000300) == TRUE then
+        movement_scale = movement_scale + 0.25
+    end
+    
     if GetVariable("MoveDirection") == 3 or GetVariable("MoveDirection") == 2 then
-        act(SetMovementScaleMult, 0.9599999785423279 * ratio)
+        act(SetMovementScaleMult, 0.9599999785423279 * movement_scale)
     elseif GetVariable("MoveDirection") == 1 then
-        act(SetMovementScaleMult, 0.9599999785423279 * ratio)
+        act(SetMovementScaleMult, 0.9599999785423279 * movement_scale)
     elseif GetVariable("MoveDirection") == 0 then
-        act(SetMovementScaleMult, 0.9800000190734863 * ratio)
+        act(SetMovementScaleMult, 0.9800000190734863 * movement_scale)
     end
 end
 
@@ -6589,16 +6613,22 @@ function AttackRight_Activate()
 end
 
 function AttackRightLight1_onUpdate()
+    ApplyEffect_LightAttack()
+    
     if AttackCommonFunction("W_AttackRightLight2", "W_AttackRightHeavy1SubStart", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight2", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
     end
 end
 
 function AttackRightLight2_onUpdate()
+    ApplyEffect_LightAttack()
+    
     if AttackCommonFunction("W_AttackRightLight3", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight3", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
     end
 end
 
 function AttackRightLight3_onUpdate()
+    ApplyEffect_LightAttack()
+    
     if AttackCommonFunction("W_AttackRightLight2", "W_AttackRightHeavy1SubStart", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight2", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
     end
 end
@@ -6619,21 +6649,29 @@ function AttackRightLightStepSpecial_onUpdate()
 end
 
 function AttackRightLightDash_onUpdate()
+    ApplyEffect_DashAttack()
+    
     if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
     end
 end
 
 function AttackRightLightDashSpecial_onUpdate()
+    ApplyEffect_DashAttack()
+    
     if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
     end
 end
 
 function AttackRightWhileGuard_onUpdate()
+    ApplyEffect_GuardAttack()
+    
     if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", TO_GUARDON, TRUE) == TRUE then
     end
 end
 
 function AttackRightHeavy1SubStart_onUpdate()
+    ApplyEffect_HeavyAttack()
+    
     if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy2Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy2Start", FALSE, TRUE) == TRUE then
         return
     elseif TRUE == env(GetEventEzStateFlag, 0) or TRUE == env(IsAnimEnd, 1) then
@@ -6643,6 +6681,8 @@ function AttackRightHeavy1SubStart_onUpdate()
 end
 
 function AttackRightHeavy1Start_onUpdate()
+    ApplyEffect_HeavyAttack()
+    
     act(SetSpecialInterpolation, 0, FALSE)
     if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy2Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy2Start", FALSE, TRUE) == TRUE then
         return
@@ -6652,11 +6692,15 @@ function AttackRightHeavy1Start_onUpdate()
 end
 
 function AttackRightHeavy1End_onUpdate()
+    ApplyEffect_HeavyAttack()
+    
     if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy2Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy2Start", FALSE, TRUE) == TRUE then
     end
 end
 
 function AttackRightHeavy2Start_onUpdate()
+    ApplyEffect_HeavyAttack()
+    
     if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
         return
     elseif env(ActionDuration, ACTION_ARM_R2) <= 0 and TRUE == env(GetSpEffectID, 100280) then
@@ -6665,11 +6709,15 @@ function AttackRightHeavy2Start_onUpdate()
 end
 
 function AttackRightHeavy2End_onUpdate()
+    ApplyEffect_HeavyAttack()
+    
     if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
     end
 end
 
 function AttackRightHeavySpecial1SubStart_onUpdate()
+    ApplyEffect_HeavyAttack()
+    
     if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy2Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy2Start", FALSE, TRUE) == TRUE then
         return
     elseif TRUE == env(GetEventEzStateFlag, 0) or TRUE == env(IsAnimEnd, 1) then
@@ -6679,6 +6727,8 @@ function AttackRightHeavySpecial1SubStart_onUpdate()
 end
 
 function AttackRightHeavySpecial1Start_onUpdate()
+    ApplyEffect_HeavyAttack()
+    
     act(SetSpecialInterpolation, 0, FALSE)
     if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy2Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy2Start", FALSE, TRUE) == TRUE then
         return
@@ -6688,11 +6738,15 @@ function AttackRightHeavySpecial1Start_onUpdate()
 end
 
 function AttackRightHeavySpecial1End_onUpdate()
+    ApplyEffect_HeavyAttack()
+    
     if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy2Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy2Start", FALSE, TRUE) == TRUE then
     end
 end
 
 function AttackRightHeavySpecial2Start_onUpdate()
+    ApplyEffect_HeavyAttack()
+    
     if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
         return
     elseif env(ActionDuration, ACTION_ARM_R2) <= 0 and TRUE == env(GetSpEffectID, 100280) then
@@ -6701,6 +6755,8 @@ function AttackRightHeavySpecial2Start_onUpdate()
 end
 
 function AttackRightHeavySpecial2End_onUpdate()
+    ApplyEffect_HeavyAttack()
+    
     if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
     end
 end
@@ -6753,21 +6809,29 @@ function AttackLeft_Deactivate()
 end
 
 function AttackLeftLight1_onUpdate()
+    ApplyEffect_LightAttack()
+    
     if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
     end
 end
 
 function AttackLeftHeavy1_onUpdate()
+    ApplyEffect_HeavyAttack()
+    
     if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", nil, "W_AttackLeftHeavy2", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
     end
 end
 
 function AttackLeftHeavy2_onUpdate()
+    ApplyEffect_HeavyAttack()
+    
     if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", nil, "W_AttackLeftHeavy3", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
     end
 end
 
 function AttackLeftHeavy3_onUpdate()
+    ApplyEffect_HeavyAttack()
+    
     if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", nil, "W_AttackLeftHeavy2", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
     end
 end
@@ -6795,6 +6859,8 @@ function AttackBoth_Activate()
 end
 
 function AttackBothLight1_onUpdate()
+    ApplyEffect_LightAttack()
+    
     local b2 = "W_AttackBothHeavy1SubStart"
     local hand = HAND_RIGHT
     local style = c_Style
@@ -6809,11 +6875,15 @@ function AttackBothLight1_onUpdate()
 end
 
 function AttackBothLight2_onUpdate()
+    ApplyEffect_LightAttack()
+    
     if AttackCommonFunction("W_AttackRightLight3", "W_AttackRightHeavy1Start", "W_AttackBothLeft3", "W_AttackLeftHeavy1", "W_AttackBothLight3", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
     end
 end
 
-function AttackBothLight3_onUpdate()
+function AttackBothLight3_onUpdate()    
+    ApplyEffect_LightAttack()
+    
     local b1 = "W_AttackBothLight2"
     local hand = HAND_RIGHT
     local style = c_Style
@@ -6831,21 +6901,29 @@ function AttackBothLight3_onUpdate()
 end
 
 function AttackBothLeft1_onUpdate()
+    ApplyEffect_LightAttack()
+    
     if AttackCommonFunction("W_AttackRightLight2", "W_AttackRightHeavy1Start", "W_AttackBothLeft2", "W_AttackLeftHeavy1", "W_AttackBothLight2", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
     end
 end
 
 function AttackBothLeft2_onUpdate()
+    ApplyEffect_LightAttack()
+    
     if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackBothLeft3", "W_AttackLeftHeavy1", "W_AttackBothLight3", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
     end
 end
 
 function AttackBothLeft3_onUpdate()
+    ApplyEffect_LightAttack()
+    
     if AttackCommonFunction("W_AttackRightLight2", "W_AttackRightHeavy1Start", "W_AttackBothLeft2", "W_AttackLeftHeavy1", "W_AttackBothLight2", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
     end
 end
 
 function AttackBothLeftDash_onUpdate()
+    ApplyEffect_DashAttack()
+    
     local r1 = "W_AttackRightLight1"
     local l1 = "W_AttackBothLeft1"
     local b1 = "W_AttackBothLight1"
@@ -6869,6 +6947,8 @@ function AttackBothLeftStep_onUpdate()
 end
 
 function AttackBothHeavy1SubStart_onUpdate()
+    ApplyEffect_HeavyAttack()
+    
     if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackBothLeft1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy2Start", FALSE, TRUE) == TRUE then
         return
     elseif TRUE == env(GetEventEzStateFlag, 0) or TRUE == env(IsAnimEnd, 1) then
@@ -6878,6 +6958,8 @@ function AttackBothHeavy1SubStart_onUpdate()
 end
 
 function AttackBothHeavy1Start_onUpdate()
+    ApplyEffect_HeavyAttack()
+    
     act(SetSpecialInterpolation, 0, FALSE)
     if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackBothLeft1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy2Start", FALSE, TRUE) == TRUE then
         return
@@ -6887,11 +6969,15 @@ function AttackBothHeavy1Start_onUpdate()
 end
 
 function AttackBothHeavy1End_onUpdate()
+    ApplyEffect_HeavyAttack()
+    
     if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackBothLeft1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy2Start", FALSE, TRUE) == TRUE then
     end
 end
 
 function AttackBothHeavy2Start_onUpdate()
+    ApplyEffect_HeavyAttack()
+    
     if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackBothLeft1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
         return
     elseif env(ActionDuration, ACTION_ARM_R2) <= 0 and TRUE == env(GetSpEffectID, 100280) then
@@ -6900,11 +6986,15 @@ function AttackBothHeavy2Start_onUpdate()
 end
 
 function AttackBothHeavy2End_onUpdate()
+    ApplyEffect_HeavyAttack()
+    
     if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackBothLeft1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
     end
 end
 
 function AttackBothHeavySpecial1SubStart_onUpdate()
+    ApplyEffect_HeavyAttack()
+    
     if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackBothLeft1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy2Start", FALSE, TRUE) == TRUE then
         return
     elseif TRUE == env(GetEventEzStateFlag, 0) or TRUE == env(IsAnimEnd, 1) then
@@ -6914,6 +7004,8 @@ function AttackBothHeavySpecial1SubStart_onUpdate()
 end
 
 function AttackBothHeavySpecial1Start_onUpdate()
+    ApplyEffect_HeavyAttack()
+    
     act(SetSpecialInterpolation, 0, FALSE)
     if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackBothLeft1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy2Start", FALSE, TRUE) == TRUE then
         return
@@ -6923,11 +7015,15 @@ function AttackBothHeavySpecial1Start_onUpdate()
 end
 
 function AttackBothHeavySpecial1End_onUpdate()
+    ApplyEffect_HeavyAttack()
+    
     if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackBothLeft1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy2Start", FALSE, TRUE) == TRUE then
     end
 end
 
 function AttackBothHeavySpecial2Start_onUpdate()
+    ApplyEffect_HeavyAttack()
+    
     if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackBothLeft1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
         return
     elseif env(ActionDuration, ACTION_ARM_R2) <= 0 and TRUE == env(GetSpEffectID, 100280) then
@@ -6936,6 +7032,8 @@ function AttackBothHeavySpecial2Start_onUpdate()
 end
 
 function AttackBothHeavySpecial2End_onUpdate()
+    ApplyEffect_HeavyAttack()
+    
     if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackBothLeft1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
     end
 end
@@ -6958,11 +7056,15 @@ function AttackBothHeavyWepBroken1SubStart_onUpdate()
 end
 
 function AttackBothDash_onUpdate()
+    ApplyEffect_DashAttack()
+    
     if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackBothLeft1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
     end
 end
 
 function AttackBothDashSpecial_onUpdate()
+    ApplyEffect_DashAttack()
+    
     if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackBothLeft1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
     end
 end
@@ -7008,6 +7110,7 @@ end
 
 function AttackArrowRightStart_Upper_onUpdate()
     act(PrecisionShootPossible)
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ArrowCommonFunction(blend_type, FALSE, FALSE) == TRUE then
         return
@@ -7033,6 +7136,7 @@ end
 
 function AttackArrowRightLoop_Upper_onUpdate()
     act(PrecisionShootPossible)
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if lower_state == LOWER_IDLE then
         act(LockonSystemUnableToTurnAngle, 90, 90)
@@ -7054,6 +7158,8 @@ end
 
 function AttackArrowRightFire_onUpdate()
     act(PrecisionShootPossible)
+    ApplyEffect_AmmoAttack()
+    
     if ArrowCommonFunction(ALLBODY, TRUE, FALSE) == TRUE then
         return
     elseif env(GetStamina) <= 0 then
@@ -7082,6 +7188,8 @@ end
 
 function AttackArrowRightFireDash_onUpdate()
     act(PrecisionShootPossible)
+    ApplyEffect_AmmoAttack()
+    
     if ArrowCommonFunction(ALLBODY, TRUE, TRUE) == TRUE then
         return
     elseif TRUE == MoveStartonCancelTiming(Event_Move, FALSE) then
@@ -7090,6 +7198,8 @@ end
 
 function AttackArrowRightFireStep_onUpdate()
     act(PrecisionShootPossible)
+    ApplyEffect_AmmoAttack()
+    
     if ArrowCommonFunction(ALLBODY, TRUE, TRUE) == TRUE then
         return
     elseif TRUE == MoveStartonCancelTiming(Event_Move, FALSE) then
@@ -7168,6 +7278,8 @@ function AttackCrossbowRightLoop_Upper_onUpdate()
 end
 
 function AttackCrossbowRightFire_Upper_onUpdate()
+    ApplyEffect_AmmoAttack()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if CrossbowCommonFunction(blend_type) == TRUE then
         return
@@ -7246,6 +7358,8 @@ function AttackCrossbowLeftLoop_Upper_onUpdate()
 end
 
 function AttackCrossbowLeftFire_Upper_onUpdate()
+    ApplyEffect_AmmoAttack()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if CrossbowCommonFunction(blend_type) == TRUE then
         return
@@ -7327,6 +7441,8 @@ function AttackCrossbowBothLeftLoop_Upper_onUpdate()
 end
 
 function AttackCrossbowBothLeftFire_Upper_onUpdate()
+    ApplyEffect_AmmoAttack()
+    
     act(PrecisionShootPossible)
     local blend_type, lower_state = GetHalfBlendInfo()
     if CrossbowCommonFunction(blend_type) == TRUE then
@@ -7409,6 +7525,8 @@ function AttackCrossbowBothRightLoop_Upper_onUpdate()
 end
 
 function AttackCrossbowBothRightFire_Upper_onUpdate()
+    ApplyEffect_AmmoAttack()
+    
     act(PrecisionShootPossible)
     local blend_type, lower_state = GetHalfBlendInfo()
     if CrossbowCommonFunction(blend_type) == TRUE then
@@ -7464,6 +7582,8 @@ function StepInRightStart_Upper_onUpdate()
 end
 
 function StepInRightUppercut_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     if SwordArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE, TRUE, GEN_TRANS_LEFT) == TRUE then
         return
     elseif TRUE == env(IsAnimEnd, 1) then
@@ -7473,6 +7593,8 @@ function StepInRightUppercut_onUpdate()
 end
 
 function StepInRightSlash_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     if SwordArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, FALSE, FALSE, GEN_TRANS_LEFT) == TRUE then
         return
     elseif TRUE == env(IsAnimEnd, 1) then
@@ -7482,11 +7604,15 @@ function StepInRightSlash_onUpdate()
 end
 
 function SpinRightStart_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     if SwordArtsCommonFunction("W_AttackRightLightStep", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLightStep", "W_AttackBothHeavy1Start", FALSE, FALSE, FALSE, GEN_TRANS_LEFT) == TRUE then
     end
 end
 
 function SpinRightSelftrans_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     if SwordArtsCommonFunction("W_AttackRightLightStep", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLightStep", "W_AttackBothHeavy1Start", FALSE, FALSE, FALSE, GEN_TRANS_LEFT) == TRUE then
     end
 end
@@ -7707,6 +7833,8 @@ function DrawStanceRightEnd_Upper_onUpdate()
 end
 
 function DrawStanceRightAttackLight_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     local r1 = "W_AttackRightLight1"
     local r2 = "W_AttackRightHeavy1Start"
     local b1 = "W_AttackBothLight1"
@@ -7719,6 +7847,7 @@ function DrawStanceRightAttackLight_onUpdate()
         hand = HAND_LEFT
     end
     local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
+    
     if env(GetEquipWeaponCategory, hand) == WEAPON_CATEGORY_STRAIGHT_SWORD then
         r1 = "W_AttackRightLight2"
         r2 = "W_AttackRightHeavy2Start"
@@ -7741,6 +7870,7 @@ function DrawStanceRightAttackLight_onUpdate()
         b2 = "W_DrawStanceRightAttackHeavy"
         is_artsr2 = TRUE
     end
+    
     if SwordArtsCommonFunction(r1, r2, "W_AttackLeftLight1", "W_AttackLeftHeavy1", b1, b2, FALSE, is_artsr1, is_artsr2, GEN_TRANS_LEFT) == TRUE then
         return
     elseif env(IsAnimEnd, 1) == TRUE then
@@ -7750,6 +7880,8 @@ function DrawStanceRightAttackLight_onUpdate()
 end
 
 function DrawStanceRightAttackLightR90_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     local r1 = "W_AttackRightLight1"
     local r2 = "W_AttackRightHeavy1Start"
     local b1 = "W_AttackBothLight1"
@@ -7768,6 +7900,8 @@ function DrawStanceRightAttackLightR90_onUpdate()
 end
 
 function DrawStanceRightAttackLight180_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     local r1 = "W_AttackRightLight1"
     local r2 = "W_AttackRightHeavy1Start"
     local b1 = "W_AttackBothLight1"
@@ -7786,6 +7920,8 @@ function DrawStanceRightAttackLight180_onUpdate()
 end
 
 function DrawStanceRightAttackLightL90_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     local r1 = "W_AttackRightLight1"
     local r2 = "W_AttackRightHeavy1Start"
     local b1 = "W_AttackBothLight1"
@@ -7804,6 +7940,8 @@ function DrawStanceRightAttackLightL90_onUpdate()
 end
 
 function DrawStanceRightAttackMaxLight_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     local r1 = "W_AttackRightLight1"
     local r2 = "W_AttackRightHeavy1Start"
     local b1 = "W_AttackBothLight1"
@@ -7847,6 +7985,8 @@ function DrawStanceRightAttackMaxLight_onUpdate()
 end
 
 function DrawStanceRightAttackMaxLightR90_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     local r1 = "W_AttackRightLight1"
     local r2 = "W_AttackRightHeavy1Start"
     local b1 = "W_AttackBothLight1"
@@ -7865,6 +8005,8 @@ function DrawStanceRightAttackMaxLightR90_onUpdate()
 end
 
 function DrawStanceRightAttackMaxLight180_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     local r1 = "W_AttackRightLight1"
     local r2 = "W_AttackRightHeavy1Start"
     local b1 = "W_AttackBothLight1"
@@ -7883,6 +8025,8 @@ function DrawStanceRightAttackMaxLight180_onUpdate()
 end
 
 function DrawStanceRightAttackLight2_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     local r1 = "W_DrawStanceRightAttackLight3"
     local r2 = "W_AttackRightHeavy1Start"
     local b1 = "W_DrawStanceRightAttackLight3"
@@ -7912,6 +8056,8 @@ function DrawStanceRightAttackLight2_onUpdate()
 end
 
 function DrawStanceRightAttackLight3_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     local r1 = "W_DrawStanceRightAttackLight2"
     local r2 = "W_AttackRightHeavy1Start"
     local b1 = "W_DrawStanceRightAttackLight2"
@@ -7946,6 +8092,8 @@ function DrawStanceRightAttackLight3_onUpdate()
 end
 
 function DrawStanceRightAttackHeavy_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     local r1 = "W_AttackRightLight1"
     local b1 = "W_AttackBothLight1"
     local is_artsr1 = FALSE
@@ -8006,6 +8154,8 @@ function DrawStanceRightAttackHeavy_onUpdate()
 end
 
 function DrawStanceRightAttackHeavyR90_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     local r1 = "W_AttackRightLight1"
     local r2 = "W_AttackRightHeavy1Start"
     local b1 = "W_AttackBothLight1"
@@ -8024,6 +8174,8 @@ function DrawStanceRightAttackHeavyR90_onUpdate()
 end
 
 function DrawStanceRightAttackHeavy180_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     local r1 = "W_AttackRightLight1"
     local r2 = "W_AttackRightHeavy1Start"
     local b1 = "W_AttackBothLight1"
@@ -8042,6 +8194,8 @@ function DrawStanceRightAttackHeavy180_onUpdate()
 end
 
 function DrawStanceRightAttackHeavyl90_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     local r1 = "W_AttackRightLight1"
     local r2 = "W_AttackRightHeavy1Start"
     local b1 = "W_AttackBothLight1"
@@ -8060,6 +8214,8 @@ function DrawStanceRightAttackHeavyl90_onUpdate()
 end
 
 function DrawStanceRightAttackMaxHeavy_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     local r1 = "W_AttackRightLight1"
     local b1 = "W_AttackBothLight1"
     local is_artsr1 = FALSE
@@ -8115,6 +8271,8 @@ function DrawStanceRightAttackMaxHeavy_onUpdate()
 end
 
 function DrawStanceRightAttackMaxHeavyR90_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     local r1 = "W_AttackRightLight1"
     local r2 = "W_AttackRightHeavy1Start"
     local b1 = "W_AttackBothLight1"
@@ -8133,6 +8291,8 @@ function DrawStanceRightAttackMaxHeavyR90_onUpdate()
 end
 
 function DrawStanceRightAttackMaxHeavy180_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     local r1 = "W_AttackRightLight1"
     local r2 = "W_AttackRightHeavy1Start"
     local b1 = "W_AttackBothLight1"
@@ -8182,6 +8342,8 @@ function DrawStanceRightAttackHeavyLoopEnd_onUpdate()
 end
 
 function DrawStanceRightAttackHeavy2_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     local r1 = "W_AttackRightLight1"
     local r2 = "W_DrawStanceRightAttackHeavy"
     local b1 = "W_AttackBothLight1"
@@ -8251,6 +8413,8 @@ function FourWayDrawStanceRightStart_onUpdate()
 end
 
 function StrongBashRight_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     if SwordArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, FALSE, FALSE, GEN_TRANS_LEFT) == TRUE then
         return
     elseif TRUE == env(IsAnimEnd, 1) then
@@ -8359,6 +8523,9 @@ function ChainShot_Activate()
 end
 
 function ChainShotRightFire_onUpdate()
+    ApplyEffect_SkillAttack()
+    ApplyEffect_AmmoAttack()
+    
     act(PrecisionShootPossible)
     if ArrowCommonFunction(ALLBODY, TRUE, FALSE) == TRUE then
         return
@@ -8421,6 +8588,8 @@ function StampedeRightStart_onUpdate()
 end
 
 function StampedeRightAttackLight_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     if SwordArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, FALSE, FALSE, GEN_TRANS_LEFT) == TRUE then
         return
     elseif TRUE == env(IsAnimEnd, 1) then
@@ -8430,6 +8599,8 @@ function StampedeRightAttackLight_onUpdate()
 end
 
 function StampedeRightAttackHeavy_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     if SwordArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, FALSE, FALSE, GEN_TRANS_LEFT) == TRUE then
         return
     elseif TRUE == env(IsAnimEnd, 1) then
@@ -8448,11 +8619,15 @@ function SpecialAttackRightStart_onUpdate()
 end
 
 function SpecialAttackRightLight_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     if SwordArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, FALSE, FALSE, GEN_TRANS_LEFT) == TRUE then
     end
 end
 
 function SpecialAttackRightHeavy_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     if SwordArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, FALSE, FALSE, GEN_TRANS_LEFT) == TRUE then
     end
 end
@@ -8512,6 +8687,8 @@ function SpinAttack_Activate()
 end
 
 function AttackSpinLight_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     if SwordArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, FALSE, FALSE, GEN_TRANS_LEFT) == TRUE then
         return
     elseif TRUE == env(IsAnimEnd, 1) then
@@ -8521,6 +8698,8 @@ function AttackSpinLight_onUpdate()
 end
 
 function AttackSpinHeavy_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     local r1 = "W_AttackRightLight2"
     local r2 = "W_AttackRightHeavy2Start"
     local b1 = "W_AttackBothLight2"
@@ -8561,6 +8740,8 @@ function AttackSpinHeavy_onUpdate()
 end
 
 function AttackSpinHeavyL_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     local r1 = "W_AttackRightLight2"
     local r2 = "W_AttackRightHeavy2Start"
     local b1 = "W_AttackBothLight2"
@@ -8676,6 +8857,8 @@ function Charge_Activate()
 end
 
 function ChargeContinue_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     local r2 = "W_AttackRightHeavy1Start"
     local l2 = "W_AttackLeftHeavy1"
     local b2 = "W_AttackBothHeavy1Start"
@@ -8702,6 +8885,8 @@ function ChargeContinue_onUpdate()
 end
 
 function ChargeContinue2_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     if SwordArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, FALSE, FALSE, GEN_TRANS_LEFT) == TRUE then
         return
     elseif TRUE == env(IsAnimEnd, 1) then
@@ -8711,6 +8896,8 @@ function ChargeContinue2_onUpdate()
 end
 
 function Warcry_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     local r2 = "W_AttackRightHeavySpecial1Start"
     local b2 = "W_AttackBothHeavySpecial1Start"
     local hand = HAND_RIGHT
@@ -8741,6 +8928,8 @@ function WarcryCancel_onUpdate()
 end
 
 function Endure_Upper_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     local r2 = "W_AttackRightHeavy1Start"
     local l2 = "W_AttackLeftHeavy1"
     local b2 = "W_AttackBothHeavy1Start"
@@ -8759,6 +8948,8 @@ function Endure_Upper_onUpdate()
 end
 
 function EndureRightHeavy_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     if SwordArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, FALSE, FALSE, FALSE) == TRUE then
     end
 end
@@ -8791,7 +8982,9 @@ function OneShotNoGenTransStart_onUpdate()
     end
 end
 
-function OneShotNoGenTransContinue_onUpdate()
+function OneShotNoGenTransContinue_onUpdate()   
+    ApplyEffect_SkillAttack()
+    
     if SwordArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, FALSE, FALSE, FALSE) == TRUE then
     end
 end
@@ -8806,6 +8999,8 @@ function MagicBuffRight_Upper_Activate()
 end
 
 function MagicBuffRight_Upper_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if SwordArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, FALSE, FALSE, FALSE) == TRUE then
         return
@@ -8814,11 +9009,15 @@ function MagicBuffRight_Upper_onUpdate()
 end
 
 function MagicBuffRight2_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     if SwordArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, FALSE, FALSE, FALSE) == TRUE then
     end
 end
 
 function MagicBuffRight3_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     if SwordArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, FALSE, FALSE, FALSE) == TRUE then
     end
 end
@@ -8959,6 +9158,9 @@ function ChargeShotFire_Activate()
 end
 
 function ChargeShotRightFire_onUpdate()
+    ApplyEffect_SkillAttack()
+    ApplyEffect_AmmoAttack()
+    
     act(PrecisionShootPossible)
     if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
         return
@@ -9004,6 +9206,9 @@ function CrossbowStepInRightStart_Upper_onUpdate()
 end
 
 function CrossbowStepInFire_onUpdate()
+    ApplyEffect_SkillAttack()
+    ApplyEffect_AmmoAttack()
+    
     act(PrecisionShootPossible)
     if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, FALSE) == TRUE then
         return
@@ -9026,6 +9231,8 @@ function HeadHunt_Activate()
 end
 
 function HeadHunt_Upper_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     if SwordArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE, TRUE, GEN_TRANS_LEFT) == TRUE then
         return
     elseif TRUE == env(IsAnimEnd, 1) then
@@ -9039,6 +9246,8 @@ function OneShot_Upper_Activate()
 end
 
 function OneShot_Upper_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     if SwordArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE, TRUE, GEN_TRANS_LEFT) == TRUE then
         return
     elseif TRUE == env(IsAnimEnd, 1) then
@@ -9052,18 +9261,24 @@ function OneShotFull_Activate()
 end
 
 function OneShotFullRightStart_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     SetVariable("IndexThrowHand", HAND_RIGHT)
     if SwordArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE, TRUE, FALSE) == TRUE then
     end
 end
 
 function OneShotFullBothStart_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     SetVariable("IndexThrowHand", HAND_RIGHT)
     if SwordArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE, TRUE, FALSE) == TRUE then
     end
 end
 
 function RandomOneShot1_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     local rand = math.random(0, 100)
     local next3active = env(GetSpEffectID, 130092600)
     local next4active = env(GetSpEffectID, 130092632)
@@ -9119,6 +9334,8 @@ function RandomOneShot1_onUpdate()
 end
 
 function RandomOneShotNext1_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     if SwordArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE, TRUE, FALSE) == TRUE then
         return
     elseif TRUE == env(IsAnimEnd, 1) then
@@ -9128,6 +9345,8 @@ function RandomOneShotNext1_onUpdate()
 end
 
 function RandomOneShotNext2_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     if SwordArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, FALSE, TRUE, GEN_TRANS_LEFT) == TRUE then
         return
     elseif TRUE == env(IsAnimEnd, 1) then
@@ -9137,6 +9356,8 @@ function RandomOneShotNext2_onUpdate()
 end
 
 function RandomOneShotNext3_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     if SwordArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, FALSE, TRUE, FALSE) == TRUE then
         return
     elseif TRUE == env(IsAnimEnd, 1) then
@@ -9146,6 +9367,8 @@ function RandomOneShotNext3_onUpdate()
 end
 
 function RandomOneShotNext4_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     if SwordArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, FALSE, TRUE, FALSE) == TRUE then
         return
     elseif TRUE == env(IsAnimEnd, 1) then
@@ -9173,6 +9396,8 @@ function MagicBuffLeft_Upper_Activate()
 end
 
 function MagicBuffLeft_Upper_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if SwordArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, FALSE, FALSE, FALSE) == TRUE then
         return
@@ -9181,16 +9406,22 @@ function MagicBuffLeft_Upper_onUpdate()
 end
 
 function MagicBuffLeft2_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     if SwordArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, FALSE, FALSE, FALSE) == TRUE then
     end
 end
 
 function MagicBuffLeft3_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     if SwordArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, FALSE, FALSE, FALSE) == TRUE then
     end
 end
 
 function OneShotFullLeftStart_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     SetVariable("IndexThrowHand", HAND_LEFT)
     if SwordArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE, TRUE, FALSE) == TRUE then
     end
@@ -9276,6 +9507,8 @@ function StormStanceEnd_Upper_onUpdate()
 end
 
 function StormStanceLight_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     if SwordArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, FALSE, FALSE, GEN_TRANS_LEFT) == TRUE then
         return
     elseif TRUE == env(IsAnimEnd, 1) then
@@ -9285,6 +9518,8 @@ function StormStanceLight_onUpdate()
 end
 
 function StormStanceHeavy_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     if SwordArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, FALSE, FALSE, GEN_TRANS_LEFT) == TRUE then
         return
     elseif TRUE == env(IsAnimEnd, 1) then
@@ -9350,6 +9585,8 @@ function StormStanceFullEnd_Upper_onUpdate()
 end
 
 function StormStanceFullLight_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     local style = c_Style
     if env(GetEventEzStateFlag, 0) == TRUE then
         if style == HAND_LEFT_BOTH then
@@ -9367,6 +9604,8 @@ function StormStanceFullLight_onUpdate()
 end
 
 function StormStanceFullHeavy_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     local style = c_Style
     if env(GetEventEzStateFlag, 0) == TRUE then
         if style == HAND_LEFT_BOTH then
@@ -9384,6 +9623,8 @@ function StormStanceFullHeavy_onUpdate()
 end
 
 function StormStanceFullLight_NonBoss_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     local style = c_Style
     if env(GetEventEzStateFlag, 0) == TRUE then
         if style == HAND_LEFT_BOTH then
@@ -9401,6 +9642,8 @@ function StormStanceFullLight_NonBoss_onUpdate()
 end
 
 function StormStanceFullHeavy_NonBoss_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     local style = c_Style
     if env(GetEventEzStateFlag, 0) == TRUE then
         if style == HAND_LEFT_BOTH then
@@ -9491,6 +9734,8 @@ function FourWayAttackStart_SelfTrans_onUpdate()
 end
 
 function FourWayAttackLight_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     if SwordArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE, TRUE, GEN_TRANS_LEFT) == TRUE then
         return
     elseif TRUE == env(IsAnimEnd, 1) then
@@ -9500,6 +9745,8 @@ function FourWayAttackLight_onUpdate()
 end
 
 function FourWayAttackHeavy_onUpdate()
+    ApplyEffect_SkillAttack()
+    
     if SwordArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE, TRUE, GEN_TRANS_LEFT) == TRUE then
         return
     elseif TRUE == env(IsAnimEnd, 1) then
@@ -9561,6 +9808,9 @@ function GatlingStanceRightEnd_Upper_onUpdate()
 end
 
 function GatlingStanceRightFireStart_Upper_onUpdate()
+    ApplyEffect_SkillAttack()
+    ApplyEffect_AmmoAttack()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if lower_state == LOWER_IDLE and env(GetEventEzStateFlag, 1) == FALSE then
         act(LockonSystemUnableToTurnAngle, 90, 90)
@@ -9593,6 +9843,9 @@ function GatlingStanceRightFireStart_Upper_onUpdate()
 end
 
 function GatlingStanceRightFireStartLeft_Upper_onUpdate()
+    ApplyEffect_SkillAttack()
+    ApplyEffect_AmmoAttack()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if lower_state == LOWER_IDLE then
         act(LockonSystemUnableToTurnAngle, 15, 15)
@@ -9660,6 +9913,8 @@ function HandChangeEnd_Upper_onUpdate()
 end
 
 function QuickItemEnchantNormal_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if QuickItemCommonFunction(g_r1, g_r2, g_l1, g_l2, g_b1, g_b2, blend_type, QUICKTYPE_NORMAL) == TRUE then
         return
@@ -9677,6 +9932,8 @@ function QuickItemEnchantDash_Upper_onActivate()
 end
 
 function QuickItemEnchantDash_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     act(LockonFixedAngleCancel)
     local r1 = "W_AttackRightLight1"
     local r2 = "W_AttackRightHeavy1Start"
@@ -9700,21 +9957,29 @@ function QuickItemEnchantDash_Upper_onUpdate()
 end
 
 function QuickItemEnchantStep_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     if QuickItemCommonFunction(g_r1, g_r2, g_l1, g_l2, g_b1, g_b2, ALLBODY, QUICKTYPE_NORMAL) == TRUE then
     end
 end
 
 function QuickItemEnchantAttackRight_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     if QuickItemCommonFunction(g_r1, g_r2, g_l1, g_l2, g_b1, g_b2, ALLBODY, QUICKTYPE_NORMAL) == TRUE then
     end
 end
 
 function QuickItemEnchantAttackLeft_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     if QuickItemCommonFunction(g_r1, g_r2, g_l1, g_l2, g_b1, g_b2, ALLBODY, QUICKTYPE_NORMAL) == TRUE then
     end
 end
 
 function QuickItemThrowKnifeNormal_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     if QuickItemCommonFunction(g_r1, g_r2, g_l1, g_l2, g_b1, g_b2, ALLBODY, QUICKTYPE_COMBO) == TRUE then
     end
 end
@@ -9724,32 +9989,44 @@ function QuickItemThrowKnifeDash_Upper_onActivate()
 end
 
 function QuickItemThrowKnifeDash_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     act(LockonFixedAngleCancel)
     if QuickItemCommonFunction(g_r1, g_r2, g_l1, g_l2, g_b1, g_b2, ALLBODY, QUICKTYPE_COMBO) == TRUE then
     end
 end
 
 function QuickItemThrowKnifeStep_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     if QuickItemCommonFunction(g_r1, g_r2, g_l1, g_l2, g_b1, g_b2, ALLBODY, QUICKTYPE_COMBO) == TRUE then
     end
 end
 
 function QuickItemThrowKnifeAttackRight_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     if QuickItemCommonFunction(g_r1, g_r2, g_l1, g_l2, g_b1, g_b2, ALLBODY, QUICKTYPE_COMBO) == TRUE then
     end
 end
 
 function QuickItemThrowKnifeAttackRight2_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     if QuickItemCommonFunction(g_r1, g_r2, g_l1, g_l2, g_b1, g_b2, ALLBODY, QUICKTYPE_ATTACK) == TRUE then
     end
 end
 
 function QuickItemThrowKnifeAttackLeft_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     if QuickItemCommonFunction(g_r1, g_r2, g_l1, g_l2, g_b1, g_b2, ALLBODY, QUICKTYPE_COMBO) == TRUE then
     end
 end
 
 function QuickItemThrowKnifeAttackLeft2_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     if QuickItemCommonFunction(g_r1, g_r2, g_l1, g_l2, g_b1, g_b2, ALLBODY, QUICKTYPE_ATTACK) == TRUE then
     end
 end
@@ -9763,6 +10040,8 @@ function Item_Update()
 end
 
 function NormalItem_Upper_Activate()
+    ApplyEffect_ItemUse()
+    
     local upper_state = GetVariable("UpperDefaultState02")
     if upper_state == ITEMDRINKSTART_DEF2 or upper_state == ITEMDRINKSTARTMP_DEF2 then
         SetInterruptType(INTERRUPT_USEITEM)
@@ -9770,6 +10049,8 @@ function NormalItem_Upper_Activate()
 end
 
 function ItemRecover_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -9780,6 +10061,8 @@ function ItemRecover_Upper_onUpdate()
 end
 
 function ItemWeaponEnchant_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -9790,6 +10073,8 @@ function ItemWeaponEnchant_Upper_onUpdate()
 end
 
 function ItemThrowKnife_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -9800,6 +10085,8 @@ function ItemThrowKnife_Upper_onUpdate()
 end
 
 function ItemThrowBottle_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -9810,6 +10097,8 @@ function ItemThrowBottle_Upper_onUpdate()
 end
 
 function ItemMeganeStart_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -9821,6 +10110,8 @@ function ItemMeganeStart_Upper_onUpdate()
 end
 
 function ItemMeganeLoop_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -9829,6 +10120,8 @@ function ItemMeganeLoop_Upper_onUpdate()
 end
 
 function ItemMeganeEnd_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -9839,6 +10132,8 @@ function ItemMeganeEnd_Upper_onUpdate()
 end
 
 function ItemWeaponRepair_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -9849,6 +10144,8 @@ function ItemWeaponRepair_Upper_onUpdate()
 end
 
 function ItemSoul_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -9859,6 +10156,8 @@ function ItemSoul_Upper_onUpdate()
 end
 
 function ItemMessage_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -9869,6 +10168,8 @@ function ItemMessage_Upper_onUpdate()
 end
 
 function ItemPray_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -9879,6 +10180,8 @@ function ItemPray_Upper_onUpdate()
 end
 
 function ItemTrap_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -9889,6 +10192,8 @@ function ItemTrap_Upper_onUpdate()
 end
 
 function ItemDrinkStart_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -9900,6 +10205,9 @@ function ItemDrinkStart_Upper_onUpdate()
 end
 
 function DragonHeadStartBefore_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    ApplyEffect_Dragonhead()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -9911,6 +10219,9 @@ function DragonHeadStartBefore_Upper_onUpdate()
 end
 
 function DragonHeadEndBefore_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    ApplyEffect_Dragonhead()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -9921,6 +10232,9 @@ function DragonHeadEndBefore_Upper_onUpdate()
 end
 
 function DragonHeadStartAfter_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    ApplyEffect_Dragonhead()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -9932,6 +10246,9 @@ function DragonHeadStartAfter_Upper_onUpdate()
 end
 
 function DragonHeadLoopAfter_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    ApplyEffect_Dragonhead()
+    
     local dT = GetDeltaTime()
     dash_dt_sum = dash_dt_sum + dT
     if dash_dt_sum > 0.10000000149011612 then
@@ -9953,6 +10270,9 @@ function DragonHeadLoopAfter_Upper_onUpdate()
 end
 
 function DragonHeadEndAfter_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    ApplyEffect_Dragonhead()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -9963,6 +10283,9 @@ function DragonHeadEndAfter_Upper_onUpdate()
 end
 
 function DragonHeadStartAfterLVL2_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    ApplyEffect_Dragonhead()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -9974,6 +10297,9 @@ function DragonHeadStartAfterLVL2_Upper_onUpdate()
 end
 
 function DragonHeadLoopAfterLVL2_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    ApplyEffect_Dragonhead()
+    
     local dT = GetDeltaTime()
     dash_dt_sum = dash_dt_sum + dT
     if dash_dt_sum > 0.06499999761581421 then
@@ -9995,6 +10321,9 @@ function DragonHeadLoopAfterLVL2_Upper_onUpdate()
 end
 
 function DragonHeadEndAfterLVL2_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    ApplyEffect_Dragonhead()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -10005,6 +10334,9 @@ function DragonHeadEndAfterLVL2_Upper_onUpdate()
 end
 
 function DragonFullStartBefore_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    ApplyEffect_Dragonhead()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -10016,6 +10348,9 @@ function DragonFullStartBefore_Upper_onUpdate()
 end
 
 function DragonFullEndBefore_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    ApplyEffect_Dragonhead()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -10026,6 +10361,9 @@ function DragonFullEndBefore_Upper_onUpdate()
 end
 
 function DragonFullStartAfter_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    ApplyEffect_Dragonhead()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -10036,6 +10374,9 @@ function DragonFullStartAfter_Upper_onUpdate()
 end
 
 function DragonFullStartAfterLVL2_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    ApplyEffect_Dragonhead()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -10046,6 +10387,8 @@ function DragonFullStartAfterLVL2_Upper_onUpdate()
 end
 
 function ItemDrinkNothing_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -10056,6 +10399,8 @@ function ItemDrinkNothing_Upper_onUpdate()
 end
 
 function ItemDrinking_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -10067,6 +10412,8 @@ function ItemDrinking_Upper_onUpdate()
 end
 
 function ItemDrinkEnd_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -10077,6 +10424,8 @@ function ItemDrinkEnd_Upper_onUpdate()
 end
 
 function ItemShockWeaveStart_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -10087,6 +10436,8 @@ function ItemShockWeaveStart_Upper_onUpdate()
 end
 
 function ItemShockWeaveEnd_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -10097,6 +10448,8 @@ function ItemShockWeaveEnd_Upper_onUpdate()
 end
 
 function ItemDrinkStartMP_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -10108,6 +10461,8 @@ function ItemDrinkStartMP_Upper_onUpdate()
 end
 
 function ItemDrinkingMP_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -10119,6 +10474,8 @@ function ItemDrinkingMP_Upper_onUpdate()
 end
 
 function ItemDrinkEndMP_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -10129,6 +10486,8 @@ function ItemDrinkEndMP_Upper_onUpdate()
 end
 
 function ItemDrinkNothingMP_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -10139,6 +10498,8 @@ function ItemDrinkNothingMP_Upper_onUpdate()
 end
 
 function ItemDrinkStartSake_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -10150,6 +10511,8 @@ function ItemDrinkStartSake_Upper_onUpdate()
 end
 
 function ItemDrinkingSake_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -10161,6 +10524,8 @@ function ItemDrinkingSake_Upper_onUpdate()
 end
 
 function ItemDrinkEndSake_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -10171,6 +10536,8 @@ function ItemDrinkEndSake_Upper_onUpdate()
 end
 
 function ItemDrinkEmpty_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -10181,6 +10548,8 @@ function ItemDrinkEmpty_Upper_onUpdate()
 end
 
 function ItemBackBottle_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     act(LockonFixedAngleCancel)
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
@@ -10195,6 +10564,8 @@ function ItemBackBottle_Upper_onUpdate()
 end
 
 function ItemChameleon_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -10205,6 +10576,8 @@ function ItemChameleon_Upper_onUpdate()
 end
 
 function ItemOldMonk_Upper_onUpdate()
+    ApplyEffect_ItemUse()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return
@@ -10437,6 +10810,8 @@ function Gesture_Update()
 end
 
 function GestureStart_Upper_onUpdate()
+    ApplyEffect_Gesture()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if GestureCommonFunction(blend_type) == TRUE then
         return
@@ -10447,6 +10822,8 @@ function GestureStart_Upper_onUpdate()
 end
 
 function GestureLoopStart_Upper_onUpdate()
+    ApplyEffect_Gesture()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if GestureLoopCommonFunction(blend_type, lower_state, TRUE) == TRUE then
         return
@@ -10458,6 +10835,8 @@ function GestureLoopStart_Upper_onUpdate()
 end
 
 function GestureLoop_Upper_onUpdate()
+    ApplyEffect_Gesture()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if GestureLoopCommonFunction(blend_type, lower_state, FALSE) == TRUE then
         return
@@ -10466,6 +10845,8 @@ function GestureLoop_Upper_onUpdate()
 end
 
 function GestureEnd_Upper_onUpdate()
+    ApplyEffect_Gesture()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     if GestureCommonFunction() == TRUE then
         return
@@ -10642,6 +11023,7 @@ function MagicLoopRightLvl2_Upper_onUpdate()
 end
 
 function MagicFireRight_Upper_onUpdate()
+    ApplyEffect_Magic()
     local blend_type, lower_state = GetHalfBlendInfo()
     if lower_state == LOWER_TURN or lower_state == LOWER_END_TURN then
         act(DisableMagicIDSwitching)
@@ -10656,6 +11038,7 @@ function MagicFireRight_Upper_onUpdate()
 end
 
 function MagicFireRight2_Upper_onUpdate()
+    ApplyEffect_Magic()
     local blend_type, lower_state = GetHalfBlendInfo()
     if lower_state == LOWER_TURN or lower_state == LOWER_END_TURN then
         act(DisableMagicIDSwitching)
@@ -10670,6 +11053,7 @@ function MagicFireRight2_Upper_onUpdate()
 end
 
 function MagicFireRight3_Upper_onUpdate()
+    ApplyEffect_Magic()
     local blend_type, lower_state = GetHalfBlendInfo()
     if lower_state == LOWER_TURN or lower_state == LOWER_END_TURN then
         act(DisableMagicIDSwitching)
@@ -10684,6 +11068,7 @@ function MagicFireRight3_Upper_onUpdate()
 end
 
 function MagicFireRightLvl2_Upper_onUpdate()
+    ApplyEffect_Magic()
     local blend_type, lower_state = GetHalfBlendInfo()
     if lower_state == LOWER_TURN or lower_state == LOWER_END_TURN then
         act(DisableMagicIDSwitching)
@@ -10830,6 +11215,7 @@ function MagicLoopLeftLvl2_Upper_onUpdate()
 end
 
 function MagicFireLeft_Upper_onUpdate()
+    ApplyEffect_Magic()
     local blend_type, lower_state = GetHalfBlendInfo()
     if lower_state == LOWER_TURN or lower_state == LOWER_END_TURN then
         act(DisableMagicIDSwitching)
@@ -10844,6 +11230,7 @@ function MagicFireLeft_Upper_onUpdate()
 end
 
 function MagicFireLeft2_Upper_onUpdate()
+    ApplyEffect_Magic()
     local blend_type, lower_state = GetHalfBlendInfo()
     if lower_state == LOWER_TURN or lower_state == LOWER_END_TURN then
         act(DisableMagicIDSwitching)
@@ -10858,6 +11245,7 @@ function MagicFireLeft2_Upper_onUpdate()
 end
 
 function MagicFireLeft3_Upper_onUpdate()
+    ApplyEffect_Magic()
     local blend_type, lower_state = GetHalfBlendInfo()
     if lower_state == LOWER_TURN or lower_state == LOWER_END_TURN then
         act(DisableMagicIDSwitching)
@@ -10872,6 +11260,7 @@ function MagicFireLeft3_Upper_onUpdate()
 end
 
 function MagicFireLeftLvl2_Upper_onUpdate()
+    ApplyEffect_Magic()
     local blend_type, lower_state = GetHalfBlendInfo()
     if lower_state == LOWER_TURN or lower_state == LOWER_END_TURN then
         act(DisableMagicIDSwitching)
@@ -10886,6 +11275,7 @@ function MagicFireLeftLvl2_Upper_onUpdate()
 end
 
 function QuickMagicFireRightNormal_Upper_onUpdate()
+    ApplyEffect_Magic()
     local blend_type, lower_state = GetHalfBlendInfo()
     if lower_state == LOWER_TURN or lower_state == LOWER_END_TURN then
         act(DisableMagicIDSwitching)
@@ -10903,6 +11293,7 @@ function QuickMagicFireRightDash_Upper_onActivate()
 end
 
 function QuickMagicFireRightDash_Upper_onUpdate()
+    ApplyEffect_Magic()
     act(LockonFixedAngleCancel)
     local blend_type, lower_state = GetHalfBlendInfo()
     if lower_state == LOWER_TURN or lower_state == LOWER_END_TURN then
@@ -10917,6 +11308,7 @@ function QuickMagicFireRightDash_Upper_onUpdate()
 end
 
 function QuickMagicFireRightStep_Upper_onUpdate()
+    ApplyEffect_Magic()
     local blend_type, lower_state = GetHalfBlendInfo()
     if lower_state == LOWER_TURN or lower_state == LOWER_END_TURN then
         act(DisableMagicIDSwitching)
@@ -10930,6 +11322,7 @@ function QuickMagicFireRightStep_Upper_onUpdate()
 end
 
 function QuickMagicFireRightAttackRight_Upper_onUpdate()
+    ApplyEffect_Magic()
     local blend_type, lower_state = GetHalfBlendInfo()
     if lower_state == LOWER_TURN or lower_state == LOWER_END_TURN then
         act(DisableMagicIDSwitching)
@@ -10943,6 +11336,7 @@ function QuickMagicFireRightAttackRight_Upper_onUpdate()
 end
 
 function QuickMagicFireRightAttackRight2_Upper_onUpdate()
+    ApplyEffect_Magic()
     local blend_type, lower_state = GetHalfBlendInfo()
     if lower_state == LOWER_TURN or lower_state == LOWER_END_TURN then
         act(DisableMagicIDSwitching)
@@ -10956,6 +11350,7 @@ function QuickMagicFireRightAttackRight2_Upper_onUpdate()
 end
 
 function QuickMagicFireRightAttackLeft_Upper_onUpdate()
+    ApplyEffect_Magic()
     local blend_type, lower_state = GetHalfBlendInfo()
     if lower_state == LOWER_TURN or lower_state == LOWER_END_TURN then
         act(DisableMagicIDSwitching)
@@ -10969,6 +11364,7 @@ function QuickMagicFireRightAttackLeft_Upper_onUpdate()
 end
 
 function QuickMagicFireRightAttackLeft2_Upper_onUpdate()
+    ApplyEffect_Magic()
     local blend_type, lower_state = GetHalfBlendInfo()
     if lower_state == LOWER_TURN or lower_state == LOWER_END_TURN then
         act(DisableMagicIDSwitching)
@@ -10982,6 +11378,7 @@ function QuickMagicFireRightAttackLeft2_Upper_onUpdate()
 end
 
 function QuickMagicFireLeftNormal_Upper_onUpdate()
+    ApplyEffect_Magic()
     local blend_type, lower_state = GetHalfBlendInfo()
     if lower_state == LOWER_TURN or lower_state == LOWER_END_TURN then
         act(DisableMagicIDSwitching)
@@ -10999,6 +11396,7 @@ function QuickMagicFireLeftDash_Upper_onActivate()
 end
 
 function QuickMagicFireLeftDash_Upper_onUpdate()
+    ApplyEffect_Magic()
     act(LockonFixedAngleCancel)
     local blend_type, lower_state = GetHalfBlendInfo()
     if lower_state == LOWER_TURN or lower_state == LOWER_END_TURN then
@@ -11013,6 +11411,7 @@ function QuickMagicFireLeftDash_Upper_onUpdate()
 end
 
 function QuickMagicFireLeftStep_Upper_onUpdate()
+    ApplyEffect_Magic()
     local blend_type, lower_state = GetHalfBlendInfo()
     if lower_state == LOWER_TURN or lower_state == LOWER_END_TURN then
         act(DisableMagicIDSwitching)
@@ -11026,6 +11425,7 @@ function QuickMagicFireLeftStep_Upper_onUpdate()
 end
 
 function QuickMagicFireLeftAttackRight_Upper_onUpdate()
+    ApplyEffect_Magic()
     local blend_type, lower_state = GetHalfBlendInfo()
     if lower_state == LOWER_TURN or lower_state == LOWER_END_TURN then
         act(DisableMagicIDSwitching)
@@ -11039,6 +11439,7 @@ function QuickMagicFireLeftAttackRight_Upper_onUpdate()
 end
 
 function QuickMagicFireLeftAttackRight2_Upper_onUpdate()
+    ApplyEffect_Magic()
     local blend_type, lower_state = GetHalfBlendInfo()
     if lower_state == LOWER_TURN or lower_state == LOWER_END_TURN then
         act(DisableMagicIDSwitching)
@@ -11052,6 +11453,7 @@ function QuickMagicFireLeftAttackRight2_Upper_onUpdate()
 end
 
 function QuickMagicFireLeftAttackLeft_Upper_onUpdate()
+    ApplyEffect_Magic()
     local blend_type, lower_state = GetHalfBlendInfo()
     if lower_state == LOWER_TURN or lower_state == LOWER_END_TURN then
         act(DisableMagicIDSwitching)
@@ -11065,6 +11467,7 @@ function QuickMagicFireLeftAttackLeft_Upper_onUpdate()
 end
 
 function QuickMagicFireLeftAttackLeft2_Upper_onUpdate()
+    ApplyEffect_Magic()
     local blend_type, lower_state = GetHalfBlendInfo()
     if lower_state == LOWER_TURN or lower_state == LOWER_END_TURN then
         act(DisableMagicIDSwitching)
@@ -13072,7 +13475,7 @@ function Update()
     GetConstVariable()
     SetStyleSpecialEffect()
     UpdateOldMonkState()
-    UpdateTalismanEffects()
+    UpdateFP()
     
     act(SwitchMotion, FALSE)
     act(LockonSystemUnableToTurnAngle, 0, 0)

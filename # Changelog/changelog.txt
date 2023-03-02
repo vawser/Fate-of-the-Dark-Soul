@@ -1,25 +1,135 @@
 ﻿#-------------------------------------------------
 # Features
 #-------------------------------------------------
+# Journey Configuration
+- The player now has the ability to select from 3 difficulties at game start:
+ - Explorer: +50% absorption for the player and enemies are less likely to spot the player.
+ - Hollow: standard journey.
+ - Conqueror: enemies have +25% damage and absorption.
+ - Accursed: enemies have +25% damage and absorption, and the player is given a persistent debuff for each death.
+ 
+- Added the ability to build a custom loadout at game start:
+ - The player is given 8 Hollow Fragments. These are spent at the Slumbering Maiden.
+ - All weapons, armor and spells are available.
+ - Normal talismans are available too (not +1, +2 or +3).
+ - The player can spend 1 Hollow Fragment to get 30,000 souls for leveling up.
 
+# Talisman Forge
+- Added the ability to improve talismans via the Talisman Forge at Slave Knight Gael.
+- The player spends Hollow Fragments, and needs to own the previous talisman for the improved version to show up.
+    - +1: 15 Hollow Fragments
+    - +2: 20 Hollow Fragments
+    - +3: 25 Hollow Fragments
+    
 #-------------------------------------------------
 # Player
 #-------------------------------------------------
-
+- The player now regenerates FP passively.
+ - 3 per second up to 80 FP.
+ - 2 per second up to 160 FP.
+ - 1 per second until max.
+ - Weapon skills will pause FP regeneration during their animation and 1 second after.
+ - Magic will pause FP regeneration during the fire animation and 1 second after.
+ 
 #-------------------------------------------------
 # Bosses
 #-------------------------------------------------
+- Each boss will drop an Essence of the Dark Soul.
+ - This item will increase damage by 1%.
+ - It can stack up to 100 times.
 
 #-------------------------------------------------
 # Enemies
 #-------------------------------------------------
-- Each boss will drop an Imbued Artifact as a one-time drop. 
- - This item will increase damage by 1%.
- - It can stack up to 100 times.
  
 #-------------------------------------------------
 # World
 #-------------------------------------------------
+# Player Start
+- The player hub is now called World's End, and is hosted in the Filianore's Rest map.
+ - The player is automatically teleported here after character creation.
+ 
+# World Traversal
+- Each 'level' is now accessed via teleports surrounding the World's End bonfire.
+ - The following areas are now levels:
+  - High Wall of Lothric
+  - Lothric Castle (Lothric Castle + Grand Archives)
+  - Undead Settlement
+  - Swamps of Farron (Road of Sacrifices + Farron Keep)
+  - Depths of Carthus (Catacombs of Carthus + Smouldering Lake)
+  - Cathedral of the Deep
+  - Archdragon Peak
+  - Irithyll of the Boreal Valley (Irithyll + Anor Londo)
+  - Profaned Depths (Irithyll Dungeon + Profaned Capital)
+  - Painted World of Ariandel
+  - Dreg Heap
+  - Ringed City
+- Each level is self-contained and will not allow access to another. You must return to World's End to switch level.
+- The Darksign now acts as a safe teleport back to World's End.
+
+# Bonfires
+- All bonfires allow for Level Up and Allot Estus.
+- You cannot travel between bonfires anymore.
+- The only bonfires within levels are now immediately before each boss. 
+ - This means you can easily retry a boss, but if you return to World's End, you will have to re-clear the level to return to the bonfire.
+
+# NPC Quests
+- Removed most of the story NPCs and any quests linked to them.
+ - Only Siegward of Catarina remains from vanilla.
+ - The DLC NPC quests remain too.
+ 
+# World's End
+- There are 5 NPCs that provide services to the player whilst in World's End.
+ - Beautiful Pulpa:
+  - Hosts the transmogrification system.
+  
+ - The Last Pilgrim
+  - Hosts the boss resurrection system.
+  
+ - Slave Knight Gael
+  - Hosts the Talisman Forge and Castigation systems.
+  
+ - Pygmy Merchant
+  - Allows the player to buy and sell items. Acts like the Shrine Handmaid from vanilla.
+  
+ - Fallen Pygmy
+  - Allows the player to transpose boss souls and to infuse their weapons.
+  
+#-------------------------------------------------
+# Items
+#-------------------------------------------------
+- All reinforcement treasures have been replaced with Hollow Fragments.
+- Removed all gems. Infusions are done via Hollow Fragments.
+
+- Added the following scrolls/tomes:
+ - Apprentice's Scroll
+  - Unlocks Soul Arrow, Great Soul Arrow, Heavy Soul Arrow, Great Heavy Soul Arrow
+  
+ - Scholar's Scroll
+  - Unlocks Magic Weapon, Magic Shield, Soul Greatsword
+  
+ - Farron Scroll
+  - Unlocks Farron Dart, Farron Flashsword
+  
+ - Assassin's Scroll
+  - Unlocks Spook, Aural Decoy
+  
+ - Saint's Braille Divine Tome 
+  - Unlocks Heal, Replenishment, Caressing Tears, Heal Aid
+  
+ - Braille Divine Tome of Sunlight
+  - Unlocks Great Lightning Spear, Sunlight Spear, Sacred Oath
+  
+ - Simple Pyromancy Tome
+  - Unlocks Fireball, Fire Surge, Great Combustion, Flash Sweat
+  
+ - Afflicted Scroll
+  - Unlocks Affinity, Dark Edge
+  
+# Ashes (now Skulls)
+- Changed the Ashes items to instead instead be themed around skulls 
+- Now automatically unlock their item sets at the Pygmy Merchant without requiring a turn-in action.
+- Added more items to the item sets unlocked by certain Skulls.
 
 #-------------------------------------------------
 # Weapons
@@ -34,20 +144,74 @@
 #-------------------------------------------------
 # Spells
 #-------------------------------------------------
+- Spells are now unlocked via the Scroll/Tome items directly. 
+ - The player can now use the item, using it will immediately give the player the set of spells that scroll/tome unlocks.
 
 #-------------------------------------------------
-# Rings
+# Talismans
 #-------------------------------------------------
+- Renamed rings to talismans.
+- Added the following talismans:
+
+# Bestial Fang 
++0 Effect: Enhances dash attacks by 15%.
++1 Effect: Enhances dash attacks by 20%.
++2 Effect: Enhances dash attacks by 25%.
++3 Effect: Enhances dash attacks by 30%.
+
+# Ironwood Ring
++0 Effect: Boosts guarding ability by 20%.
++1 Effect: Boosts guarding ability by 30%.
++2 Effect: Boosts guarding ability by 40%.
++3 Effect: Boosts guarding ability by 50%.
+
+# Demonbane Oil 
++0 Effect: Raises attack power by 10% against Demonic enemies.
++1 Effect: Raises attack power by 15% against Demonic enemies.
++2 Effect: Raises attack power by 20% against Demonic enemies.
++3 Effect: Raises attack power by 25% against Demonic enemies.
+
+# Deathbane Oil 
++0 Effect: Raises attack power by 10% against Undead enemies.
++1 Effect: Raises attack power by 15% against Undead enemies.
++2 Effect: Raises attack power by 20% against Undead enemies.
++3 Effect: Raises attack power by 25% against Undead enemies.
+
+# Hollowbane Oil 
++0 Effect: Raises attack power by 10% against Hollow enemies.
++1 Effect: Raises attack power by 15% against Hollow enemies.
++2 Effect: Raises attack power by 20% against Hollow enemies.
++3 Effect: Raises attack power by 25% against Hollow enemies.
+
+# Cursebane Oil 
++0 Effect: Raises attack power by 10% against Abyssal enemies.
++1 Effect: Raises attack power by 15% against Abyssal enemies.
++2 Effect: Raises attack power by 20% against Abyssal enemies.
++3 Effect: Raises attack power by 25% against Abyssal enemies.
+
+# Beastbane Oil 
++0 Effect: Raises attack power by 10% against Bestial enemies.
++1 Effect: Raises attack power by 15% against Bestial enemies.
++2 Effect: Raises attack power by 20% against Bestial enemies.
++3 Effect: Raises attack power by 25% against Bestial enemies.
+
+# Korg's Talon 
++0 Effect: Reduces weapon stamina consumption by 15%.
++1 Effect: Reduces weapon stamina consumption by 20%.
++2 Effect: Reduces weapon stamina consumption by 25%.
++3 Effect: Reduces weapon stamina consumption by 30%.
+
+# Dashmaster's Bell 
++0 Effect: Increases movement speed by 10%.
++1 Effect: Increases movement speed by 15%.
++2 Effect: Increases movement speed by 20%.
++3 Effect: Increases movement speed by 25%.
+
 
 #-------------------------------------------------
 # Armor
 #-------------------------------------------------
 
-#-------------------------------------------------
-# Items
-#-------------------------------------------------
-- All reinforcement treasures have been replaced with Hollow Fragments.
-- Removed all gems. Infusions are done via Hollow Fragments.
 
 #-------------------------------------------------
 # Misc
