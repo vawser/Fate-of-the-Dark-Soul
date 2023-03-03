@@ -185,8 +185,8 @@ def t300000_x9():
     assert t300000_x1(gesture1=17, z1=9019, flag3=6067)
 
     MainBonfireMenuFlag()
-    while True:
     
+    while True:
         ClearTalkListData()
         
         # Level Up
@@ -230,6 +230,10 @@ def t300000_x9():
         # Leave
         elif GetTalkListEntryResult() == 99 or not GetTalkListEntryResult():
             pass
+        elif not (CheckSpecificPersonMenuIsOpen(1, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0)):
+            assert (not (CheckSpecificPersonMenuIsOpen(-1, 2) == 1 and not CheckSpecificPersonGenericDialogIsOpen(2)) and not CheckSpecificPersonGenericDialogIsOpen(2))
+            continue
+        return 0
             
     SetEventState(74000013, 1)
 

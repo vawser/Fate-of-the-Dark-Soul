@@ -17,10 +17,11 @@ Place treasures:
 21080 Korg's Talon
 21090 Dashmaster's Bell
 
+Add VFX above the warp thrones to indicate boss clears
+
 Add boss:
  Slave Knight Gael
  Occurs in World's End, after killing all other bosses
 
+Add boss resurrection system
 Add Accursed detriment system
-
-Add VFX above the warp thrones to indicate boss clears

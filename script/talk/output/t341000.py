@@ -230,6 +230,10 @@ def t341000_x9():
         # Leave
         elif GetTalkListEntryResult() == 99 or not GetTalkListEntryResult():
             pass
+        elif not (CheckSpecificPersonMenuIsOpen(1, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0)):
+            assert (not (CheckSpecificPersonMenuIsOpen(-1, 2) == 1 and not CheckSpecificPersonGenericDialogIsOpen(2)) and not CheckSpecificPersonGenericDialogIsOpen(2))
+            continue
+        return 0
             
     SetEventState(74000013, 1)
 
