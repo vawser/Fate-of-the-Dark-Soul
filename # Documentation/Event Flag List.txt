@@ -25,7 +25,7 @@
 9327 Gael
  
 #-----------------------------------------------------------------
-# Mod Ranges
+# Mod Ranges - 25000000
 #-----------------------------------------------------------------
 # General
 25000000 Essence of the Dark Soul: Count start
@@ -47,6 +47,7 @@
 25000122 Final Boss - Warp Player
 
 25000130 NG+ Allowed
+25000131 Accursed Run completed
 
 25000150 Dancer
 25000151 Vordt
@@ -413,3 +414,50 @@
 25000917
 25000918
 25000919
+
+#-----------------------------------------------------------------
+# Mod Ranges - 20000000
+#-----------------------------------------------------------------
+20000400 Max HP
+20000410 Max FP
+20000420 Max Stamina
+20000430 Max Equip Load
+20000440 HP Recovery Effectiveness
+20000450 Vigor
+20000460 Attunement
+20000470 Vitality
+20000480 Endurance
+20000490 Strength
+20000100 Dexterity
+20000110 Intelligence
+20000120 Faith
+20000130 Luck
+20000140 Stamina Recovery
+20000150 Physical Damage
+20000160 Magic Damage
+20000170 Fire Damage
+20000180 Lightning Damage
+20000190 Dark Damage
+20000200 Slash Absorption
+20000210 Strike Absorption
+20000220 Thrust Absorption
+20000230 Standard Absorption
+20000240 Magic Absorption
+20000250 Fire Absorption
+20000260 Lightning Absorption
+20000270 Dark Absorption
+20000280 Toughness Absorption
+20000290 Poison Resist
+20000300 Bleed Resist
+20000310 Frost Resist
+20000320 Curse Resist
+20000330 Soul Absorption
+20000340 Skill FP Consumption
+20000350 Sorcery FP Consumption
+20000360 Pyromancy FP Consumption
+20000370 Miracle FP Consumption
+20000380 Weapon Stamina Consumption
+20000390 Vendor Greed
+
+20000900 Random range start
+20000999 Random range end

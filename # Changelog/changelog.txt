@@ -7,12 +7,18 @@
  - Hollow: standard journey.
  - Conqueror: enemies have +25% damage and absorption.
  - Accursed: enemies have +25% damage and absorption, and the player is given a persistent debuff for each death.
+  - Defeating Slave Knight Gael whilst in this mode will reward a special item.
  
 - Added the ability to build a custom loadout at game start:
  - The player is given 8 Hollow Fragments. These are spent at the Slumbering Maiden.
  - All weapons, armor and spells are available.
  - Normal talismans are available too (not +1, +2 or +3).
  - The player can spend 1 Hollow Fragment to get 30,000 souls for leveling up.
+
+# Boss Resurrection
+- Added the ability to resurrect bosses that have been defeated.
+ - Resurrection costs 1 Hollow Fragment.
+ - Travel allows the player to immediately warp to the boss bonfire by the entrance.
 
 # Talisman Forge
 - Added the ability to improve talismans via the Talisman Forge at Slave Knight Gael.

@@ -3738,6 +3738,9 @@ function ExecDeath()
         if env(GetReceivedDamageType) ~= DAMAGE_TYPE_DEATH_FALLING and TRUE == env(GetSpEffectID, 103520000) then
             return FALSE
         end
+        
+        act(AddSpEffect, 113010) -- Player Died
+        
         local damage_angle = env(GetReceivedDamageDirection)
         SetVariable("DamageDirection", damage_angle)
         if env(GetKnockbackDistance) < 0 then

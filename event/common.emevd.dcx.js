@@ -152,7 +152,7 @@ $Event(0, Default, function() {
     // Mod
     //SetSpEffect(10000, 200000000);
     //SetEventFlag(13000800, ON);
-    //AwardItemLot(10);
+    //AwardItemLot(3000);
     
     // Kill Tracker
     SetSpEffect(10000, 200000010);
@@ -340,7 +340,57 @@ $Event(0, Default, function() {
     InitializeEvent(67, 13000, 21080, 21081, 21082, 25000530, 25000531, 25000532); // Korg's Talon
     InitializeEvent(68, 13000, 21090, 21091, 21092, 25000535, 25000536, 25000537); // Dashmaster's Bell
     
-    //InitializeEvent(0, 13000, 20000, 20001, 20002, 25000540, 25000541, 25000542); // 
+    //----------------------
+    // Accursed - Detriment System
+    //----------------------
+    InitializeEvent(0, 12000, 0); // Award Notes after Death
+    
+    InitializeEvent( 0, 12010, 8000, 200600000, 20000400); // HP Reduction
+    InitializeEvent( 1, 12010, 8001, 200600001, 20000410); // FP Reduction
+    InitializeEvent( 2, 12010, 8002, 200600002, 20000420); // Stamina Reduction
+    InitializeEvent( 3, 12010, 8003, 200600003, 20000430); // Equipment Load Reduction
+    InitializeEvent( 4, 12010, 8004, 200600004, 20000440); // HP Recovery Diminishment
+    
+    InitializeEvent( 5, 12010, 8005, 200600005, 20000450); // Vigor Loss
+    InitializeEvent( 6, 12010, 8006, 200600006, 20000460); // Attunement Loss
+    InitializeEvent( 7, 12010, 8007, 200600007, 20000470); // Vitality Loss
+    InitializeEvent( 7, 12010, 8008, 200600008, 20000480); // Endurance Loss
+    InitializeEvent( 8, 12010, 8009, 200600009, 20000490); // Strength Loss
+    InitializeEvent( 9, 12010, 8010, 200600010, 20000100); // Dexterity Loss
+    InitializeEvent(10, 12010, 8011, 200600011, 20000110); // Intelligence Loss
+    InitializeEvent(11, 12010, 8012, 200600012, 20000120); // Faith Loss
+    InitializeEvent(12, 12010, 8013, 200600013, 20000130); // Luck Loss
+    
+    InitializeEvent(13, 12010, 8014, 200600014, 20000140); // Stamina Drain
+    
+    InitializeEvent(14, 12010, 8015, 200600015, 20000150); // Physical Weakness
+    InitializeEvent(15, 12010, 8016, 200600016, 20000160); // Magic Weakness
+    InitializeEvent(16, 12010, 8017, 200600017, 20000170); // Fire Weakness
+    InitializeEvent(17, 12010, 8018, 200600018, 20000180); // Lightning Weakness
+    InitializeEvent(18, 12010, 8019, 200600019, 20000190); // Dark Weakness
+    
+    InitializeEvent(19, 12010, 8020, 200600020, 20000200); // Slash Frailty
+    InitializeEvent(20, 12010, 8021, 200600021, 20000210); // Strike Frailty
+    InitializeEvent(21, 12010, 8022, 200600022, 20000220); // Thrust Frailty
+    InitializeEvent(22, 12010, 8023, 200600023, 20000230); // Standard Frailty
+    InitializeEvent(23, 12010, 8024, 200600024, 20000240); // Magic Frailty
+    InitializeEvent(24, 12010, 8025, 200600025, 20000250); // Fire Frailty
+    InitializeEvent(25, 12010, 8026, 200600026, 20000260); // Lightning Frailty
+    InitializeEvent(26, 12010, 8028, 200600027, 20000270); // Dark Frailty
+    InitializeEvent(27, 12010, 8028, 200600028, 20000280); // Poise Frailty
+    
+    InitializeEvent(28, 12010, 8029, 200600029, 20000290); // Poison Vulnerability
+    InitializeEvent(29, 12010, 8030, 200600030, 20000300); // Bleed Vulnerability
+    InitializeEvent(30, 12010, 8031, 200600031, 20000310); // Frost Vulnerability
+    InitializeEvent(31, 12010, 8032, 200600032, 20000320); // Curse Vulnerability
+     
+    InitializeEvent(32, 12010, 8033, 200600033, 20000330); // Soul Drain
+    InitializeEvent(33, 12010, 8034, 200600034, 20000340); // Skill Confusion
+    InitializeEvent(34, 12010, 8035, 200600035, 20000350); // Sorcery Confusion
+    InitializeEvent(35, 12010, 8036, 200600036, 20000360); // Pyromancy Confusion
+    InitializeEvent(36, 12010, 8037, 200600037, 20000370); // Miracle Confusion
+    InitializeEvent(37, 12010, 8038, 200600038, 20000380); // Clumsy Form
+    InitializeEvent(38, 12010, 8039, 200600039, 20000390); // Tourist
 });
 
 $Event(50, Default, function() {
@@ -2154,6 +2204,133 @@ $Event(10025, Default, function(X0_4, X4_4) {
     }
 });
 
+//-------------------
+// Accursed - Detriment System
+//-------------------
+$Event(12000, Restart, function() {
+    EndIf(EventFlag(25000131)); // Accursed run completed
+    EndIf(!EventFlag(25000104));
+    
+    // Grant new debuff item if the player dies
+    WaitFor(CharacterHasSpEffect(10000, 113010, ComparisonType.Equal, 1));
+    
+    BatchSetEventFlags(20000900, 20000944, OFF);
+    RandomlySetEventFlagInRange(20000900, 20000944, ON);
+    
+    InitializeEvent( 0, 12001, 20000900, 20000901, 20000400, 8000, 3000, 10); // HP Reduction
+    InitializeEvent( 1, 12001, 20000901, 20000902, 20000410, 8001, 3010, 10); // FP Reduction
+    InitializeEvent( 2, 12001, 20000902, 20000903, 20000420, 8002, 3020, 10); // Stamina Reduction
+    InitializeEvent( 3, 12001, 20000903, 20000904, 20000430, 8003, 3030, 10); // Equipment Load Reduction
+    InitializeEvent( 4, 12001, 20000904, 20000905, 20000440, 8004, 3040, 10); // HP Recovery Diminishment
+
+    InitializeEvent( 5, 12001, 20000905, 20000906, 20000450, 8005, 3050, 10); // Vigor Loss
+    InitializeEvent( 6, 12001, 20000906, 20000907, 20000460, 8006, 3060, 10); // Attunement Loss
+    InitializeEvent( 7, 12001, 20000907, 20000908, 20000470, 8007, 3070, 10); // Vitality Loss
+    InitializeEvent( 8, 12001, 20000908, 20000909, 20000480, 8008, 3080, 10); // Endurance Loss
+    InitializeEvent( 9, 12001, 20000909, 20000910, 20000490, 8009, 3090, 10); // Strength Loss
+    InitializeEvent(10, 12001, 20000910, 20000911, 20000100, 8010, 3100, 10); // Dexterity Loss
+    InitializeEvent(11, 12001, 20000911, 20000912, 20000110, 8011, 3110, 10); // Intelligence Loss
+    InitializeEvent(12, 12001, 20000912, 20000913, 20000120, 8012, 3120, 10); // Faith Loss
+    InitializeEvent(12, 12001, 20000912, 20000913, 20000130, 8013, 3130, 10); // Luck Loss
+
+    InitializeEvent(15, 12001, 20000915, 20000916, 20000140, 8014, 3140, 10); // Stamina Drain
+
+    InitializeEvent(16, 12001, 20000916, 20000917, 20000150, 8015, 3150, 10); // Physical Weakness
+    InitializeEvent(17, 12001, 20000917, 20000918, 20000160, 8016, 3160, 10); // Magic Weakness
+    InitializeEvent(18, 12001, 20000918, 20000919, 20000170, 8017, 3170, 10); // Fire Weakness
+    InitializeEvent(19, 12001, 20000919, 20000920, 20000180, 8018, 3180, 10); // Lightning Weakness
+    InitializeEvent(20, 12001, 20000920, 20000921, 20000190, 8019, 3190, 10); // Dark Weakness
+
+    InitializeEvent(21, 12001, 20000921, 20000922, 20000200, 8020, 3200, 10); // Slash Frailty
+    InitializeEvent(22, 12001, 20000922, 20000923, 20000210, 8021, 3210, 10); // Strike Frailty
+    InitializeEvent(23, 12001, 20000923, 20000924, 20000220, 8022, 3220, 10); // Thrust Frailty
+    InitializeEvent(24, 12001, 20000924, 20000925, 20000230, 8023, 3230, 10); // Standard Frailty
+    InitializeEvent(25, 12001, 20000925, 20000926, 20000240, 8024, 3240, 10); // Magic Frailty
+    InitializeEvent(26, 12001, 20000926, 20000927, 20000250, 8025, 3250, 10); // Fire Frailty
+    InitializeEvent(27, 12001, 20000927, 20000928, 20000260, 8026, 3260, 10); // Lightning Frailty
+    InitializeEvent(28, 12001, 20000928, 20000929, 20000270, 8027, 3270, 10); // Dark Frailty
+    InitializeEvent(29, 12001, 20000929, 20000930, 20000280, 8028, 3280, 10); // Poise Frailty
+
+    InitializeEvent(30, 12001, 20000930, 20000931, 20000290, 8029, 3290, 10); // Poison Vulnerability
+    InitializeEvent(31, 12001, 20000931, 20000932, 20000300, 8030, 3300, 10); // Bleed Vulnerability
+    InitializeEvent(32, 12001, 20000932, 20000933, 20000310, 8031, 3310, 10); // Frost Vulnerability
+    InitializeEvent(33, 12001, 20000933, 20000934, 20000320, 8032, 3320, 10); // Curse Vulnerability
+
+    InitializeEvent(38, 12001, 20000938, 20000939, 20000330, 8033, 3330, 10); // Soul Drain
+    InitializeEvent(39, 12001, 20000939, 20000940, 20000340, 8034, 3340, 10); // Skill Confusion
+    InitializeEvent(40, 12001, 20000940, 20000941, 20000350, 8035, 3350, 10); // Sorcery Confusion
+    InitializeEvent(41, 12001, 20000941, 20000942, 20000360, 8036, 3360, 10); // Pyromancy Confusion
+    InitializeEvent(42, 12001, 20000942, 20000943, 20000370, 8037, 3370, 10); // Miracle Confusion
+    InitializeEvent(43, 12001, 20000943, 20000944, 20000380, 8038, 3380, 10); // Clumsy Form
+    InitializeEvent(44, 12001, 20000944, 20000944, 20000390, 8039, 3390, 10); // Tourist
+});
+
+// Accursed - Debuff Item
+$Event(12001, Restart, function(X0_4, X4_4, X8_4, X12_4, X16_4, X20_4) {
+    // This debuff has been selected
+    if(EventFlag(X0_4))
+    {
+        StoreItemAmountHeldInEventValue(ItemType.Goods, X12_4, X8_4, 5); // Grab debuff item count
+        if(EventValue(X8_4, 5) >= X20_4)
+        {
+            SetEventFlag(X4_4, ON); // Select the next debuff in the list if at the max for this debuff
+        }
+        else
+        {
+            AwardItemLot(X16_4); // Award debuff item
+        }
+    }
+});
+
+// Accursed - Apply Debuffs (10)
+$Event(12010, Default, function(X0_4, X4_4, X8_4) {
+    EndIf(EventFlag(25000131)); // Accursed run completed
+    EndIf(!EventFlag(25000104));
+    
+    StoreItemAmountHeldInEventValue(ItemType.Goods, X0_4, X8_4, 5);
+    
+    // Apply upto 10 stacks
+    if(EventValue(X8_4, 5) >= 1)
+    {
+        SetSpEffect(10000, X4_4);
+    }
+    if(EventValue(X8_4, 5) >= 2)
+    {
+        SetSpEffect(10000, X4_4);
+    }
+    if(EventValue(X8_4, 5) >= 3)
+    {
+        SetSpEffect(10000, X4_4);
+    }
+    if(EventValue(X8_4, 5) >= 4)
+    {
+        SetSpEffect(10000, X4_4);
+    }
+    if(EventValue(X8_4, 5) >= 5)
+    {
+        SetSpEffect(10000, X4_4);
+    }
+    if(EventValue(X8_4, 5) >= 6)
+    {
+        SetSpEffect(10000, X4_4);
+    }
+    if(EventValue(X8_4, 5) >= 7)
+    {
+        SetSpEffect(10000, X4_4);
+    }
+    if(EventValue(X8_4, 5) >= 8)
+    {
+        SetSpEffect(10000, X4_4);
+    }
+    if(EventValue(X8_4, 5) >= 9)
+    {
+        SetSpEffect(10000, X4_4);
+    }
+    if(EventValue(X8_4, 5) >= 10)
+    {
+        SetSpEffect(10000, X4_4);
+    }
+});
 
 //--------------------------------------
 // Talisman Forge

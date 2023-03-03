@@ -352,9 +352,9 @@ def t511100_x51():
         AddTalkListDataIf(GetEventStatus(25000103) == 1, 12, 80000122, -1)
         
         # Accursed
-        # AddTalkListDataIf(GetEventStatus(25000104) == 0, 4, 80000113, -1)
+        AddTalkListDataIf(GetEventStatus(25000104) == 0, 4, 80000113, -1)
         # Accursed (Selected)
-        # AddTalkListDataIf(GetEventStatus(25000104) == 1, 13, 80000123, -1)
+        AddTalkListDataIf(GetEventStatus(25000104) == 1, 13, 80000123, -1)
         
         # Leave
         AddTalkListData(99, 80000999, -1)
