@@ -22,3 +22,5 @@ Add boss:
  Occurs in World's End, after killing all other bosses
 
 Add Accursed detriment system
+
+Add VFX above the warp thrones to indicate boss clears

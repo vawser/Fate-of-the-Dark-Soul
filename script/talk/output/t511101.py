@@ -431,7 +431,7 @@ def t511101_x101():
         AddTalkListDataIf(GetEventStatus(25000910) == 1, 205, 80020210, -1)
         
         # Alacrity
-        # AddTalkListDataIf(GetEventStatus(25000911) == 0, 106, 80020111, -1)
+        AddTalkListDataIf(GetEventStatus(25000911) == 0, 106, 80020111, -1)
         
         # Alacrity (selected)
         AddTalkListDataIf(GetEventStatus(25000911) == 1, 206, 80020211, -1)

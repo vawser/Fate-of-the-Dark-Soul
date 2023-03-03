@@ -85,6 +85,7 @@
  - Magic will pause FP regeneration during the fire animation and 1 second after.
  
 # Timed Block
+- Using a block at the right moment will reduce the guard stamina cost to 0.
 
 #-------------------------------------------------
 # Bosses
