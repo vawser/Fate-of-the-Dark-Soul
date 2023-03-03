@@ -149,13 +149,17 @@ $Event(0, Default, function() {
     InitializeEvent(1, 9020, 14100511, 14100512, 14100512, 6952, 41);
     InitializeEvent(2, 9020, 14500161, 14500162, 14500162, 6952, 45);
     
-    // Mod
+    // Fate
     //SetSpEffect(10000, 200000000);
     //SetEventFlag(13000800, ON);
     //AwardItemLot(3900);
     
     // Kill Tracker
     SetSpEffect(10000, 200000010);
+    
+    // Estus Charge
+    SetSpEffect(10000, 200000020);
+    SetSpEffect(10000, 200000021);
     
     // Infusion Flags
     SetEventFlag(300, ON);

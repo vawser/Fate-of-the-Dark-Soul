@@ -822,7 +822,7 @@ def t511000_x24():
         call = t511000_x22(1)
         if call.Get() == 1:
             """State 12,9"""
-            if GetEstusAllocation(0) + GetEstusAllocation(1) < 14:
+            if GetEstusAllocation(0) + GetEstusAllocation(1) < 9:
                 """State 1"""
                 # goods:2141:Estus Shard
                 if ComparePlayerInventoryNumber(3, 2141, 2, 0, 0) == 1:

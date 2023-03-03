@@ -90,6 +90,10 @@
  - Weapon skills will pause FP regeneration during their animation and 1 second after.
  - Magic will pause FP regeneration during the fire animation and 1 second after.
  
+ # Flasks
+ - Estus Flask count is capped at 10.
+ - Enemy kills will now build up Estus Flask charges. Every 5 kills will restore a flask.
+ 
 # Timed Block
 - Using a block at the right moment will reduce the guard stamina cost to 0.
 
