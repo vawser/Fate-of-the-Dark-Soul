@@ -152,7 +152,7 @@ $Event(0, Default, function() {
     // Mod
     //SetSpEffect(10000, 200000000);
     //SetEventFlag(13000800, ON);
-    //AwardItemLot(3000);
+    //AwardItemLot(3900);
     
     // Kill Tracker
     SetSpEffect(10000, 200000010);

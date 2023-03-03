@@ -1482,6 +1482,11 @@ function ExecMove(move_type, is_on_cancel)
         movement_speed_mult = 1.5
     end
     
+    -- Painter's Pendant
+    if env(GetSpEffectID, 113020) == TRUE then
+        movement_speed_mult = 0.05
+    end
+    
     -- Apply movement speed change
     act(SetMovementScaleMult, movement_speed_mult)
     

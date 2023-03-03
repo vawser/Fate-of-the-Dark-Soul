@@ -6256,10 +6256,15 @@ function Move_onUpdate()
         act(SetMovementScaleMult, 0.9800000190734863 * movement_scale)
     end
     
-    -- Castigation: Alacrity
     if env(IsCOMPlayer) == TRUE then
+        -- Castigation: Alacrity
         if env(GetSpEffectID, 200410600) == TRUE then
             act(SetMovementScaleMult, 1.5)
+        end
+        
+        -- Painter's Pendant
+        if env(GetSpEffectID, 113020) == TRUE then
+            act(SetMovementScaleMult, 0.05)
         end
     end
 end

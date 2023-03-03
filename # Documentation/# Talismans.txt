@@ -442,3 +442,5 @@
 +2 Effect: Increases movement speed by 20%.
 +3 Effect: Increases movement speed by 25%.
 
+# Painter's Pendant
++0 Effect: Attacks slow enemy movement by 95% for 12 seconds.

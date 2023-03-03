@@ -7,7 +7,7 @@
  - Hollow: standard journey.
  - Conqueror: enemies have +25% damage and absorption.
  - Accursed: enemies have +25% damage and absorption, and the player is given a persistent debuff for each death.
-  - Defeating Slave Knight Gael whilst in this mode will reward a special item.
+  - Defeating Slave Knight Gael whilst in this mode will reward the Painter's Pendant.
  
 - Added the ability to build a custom loadout at game start:
  - The player is given 8 Hollow Fragments. These are spent at the Slumbering Maiden.
@@ -277,6 +277,8 @@
 +2 Effect: Increases movement speed by 20%.
 +3 Effect: Increases movement speed by 25%.
 
+# Painter's Pendant
++0 Effect: Attacks slow enemy movement by 95% for 12 seconds.
 
 #-------------------------------------------------
 # Armor

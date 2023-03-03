@@ -19,7 +19,11 @@ Place treasures:
 21080 Korg's Talon
 21090 Dashmaster's Bell
 
-Add Painter's Pendant
-
 Add Red eye mechanic, enemies can randomly get red eyes, gain *5 souls but are tougher to kill. 
  Doesn't affect bosses.
+ 
+Add a more consistent way to regen flasks via fighting:
+ - Remove the random chance
+ - Add a build-up effect, at 5 kills, add 1 flask
+ 
+Cap flasks at 10 to account for this new system
