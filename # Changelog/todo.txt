@@ -19,9 +19,6 @@ Place treasures:
 
 Add VFX above the warp thrones to indicate boss clears
 
-Add boss:
- Slave Knight Gael
- Occurs in World's End, after killing all other bosses
-
-Add boss resurrection system
+Add transmogrification system
 Add Accursed detriment system
+

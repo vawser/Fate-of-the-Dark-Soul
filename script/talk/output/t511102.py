@@ -275,7 +275,7 @@ def t511102_x50():
         AddTalkListData(1, 80002000, -1)
         
         # Resurrection
-        # AddTalkListData(2, 80010000, -1)
+        AddTalkListData(2, 80050000, -1)
         
         # Achievements
         # AddTalkListData(3, 80030000, -1)
@@ -293,6 +293,7 @@ def t511102_x50():
             continue
         # Resurrection
         elif GetTalkListEntryResult() == 2:
+            assert t511102_x51()
             return 0
         # Achievements
         elif GetTalkListEntryResult() == 3:
@@ -302,3 +303,510 @@ def t511102_x50():
             
         assert CheckSpecificPersonTalkHasEnded(0) == 1
         
+#------------------------------------------
+# Resurrection
+#------------------------------------------
+def t511102_x51():
+    while True:
+        ClearTalkListData()
+        
+        # High Wall of Lothric   
+        AddTalkListData(1, 80050010, -1)
+
+        # Lothric Castle
+        AddTalkListData(2, 80050011, -1)
+        
+        # Undead Settlement
+        AddTalkListData(3, 80050012, -1)
+        
+        # Cathedral of the Deep 
+        AddTalkListData(4, 80050013, -1)
+        
+        # Swamps of Farron
+        AddTalkListData(5, 80050014, -1)
+        
+        # Depths of Carthus
+        AddTalkListData(6, 80050015, -1)
+        
+        # Irithyll of the Boreal Valley
+        AddTalkListData(7, 80050016, -1)
+        
+        # Profaned Depths
+        AddTalkListData(8, 80050017, -1)
+        
+        # Archdragon Peak
+        AddTalkListData(9, 80050018, -1)
+        
+        # Painted World of Ariandel
+        AddTalkListData(10, 80050019, -1)
+        
+        # Dreg Heap
+        AddTalkListData(11, 80050020, -1)
+        
+        # The Ringed City
+        AddTalkListData(12, 80050021, -1)
+        
+        # World's End
+        AddTalkListData(13, 80050022, -1)
+        
+        # Leave
+        AddTalkListData(99, 80000999, -1)
+    
+        ShowShopMessage(1)
+        assert not (CheckSpecificPersonMenuIsOpen(1, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
+         
+        if GetTalkListEntryResult() == 1:
+            assert t511102_x52()
+            continue
+        elif GetTalkListEntryResult() == 2:
+            assert t511102_x53()
+            continue
+        elif GetTalkListEntryResult() == 3:
+            assert t511102_x54()
+            continue
+        elif GetTalkListEntryResult() == 4:
+            assert t511102_x55()
+            continue
+        elif GetTalkListEntryResult() == 5:
+            assert t511102_x56()
+            continue
+        elif GetTalkListEntryResult() == 6:
+            assert t511102_x57()
+            continue
+        elif GetTalkListEntryResult() == 7:
+            assert t511102_x58()
+            continue
+        elif GetTalkListEntryResult() == 8:
+            assert t511102_x59()
+            continue
+        elif GetTalkListEntryResult() == 9:
+            assert t511102_x60()
+            continue
+        elif GetTalkListEntryResult() == 10:
+            assert t511102_x61()
+            continue
+        elif GetTalkListEntryResult() == 11:
+            assert t511102_x62()
+            continue
+        elif GetTalkListEntryResult() == 12:
+            assert t511102_x63()
+            continue
+        elif GetTalkListEntryResult() == 13:
+            assert t511102_x64()
+            continue
+        elif GetTalkListEntryResult() == 99 or not GetTalkListEntryResult():
+            return 0
+            
+    return 0
+            
+# High Wall of Lothric
+def t511102_x52():
+    while True:
+        ClearTalkListData()
+        
+        # Vordt of the Boreal Valley
+        AddTalkListDataIf(GetEventStatus(9301) == 1, 1, 80050100, -1)
+        # Oceiros, the Consumed King
+        AddTalkListDataIf(GetEventStatus(9302) == 1, 2, 80050101, -1)
+        # Dancer of the Boreal Valley
+        AddTalkListDataIf(GetEventStatus(9300) == 1, 3, 80050102, -1)
+
+        # Leave
+        AddTalkListData(99, 80000999, -1)
+    
+        ShowShopMessage(1)
+        assert not (CheckSpecificPersonMenuIsOpen(1, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
+         
+        # Vordt of the Boreal Valley
+        if GetTalkListEntryResult() == 1:
+            assert t511102_x100(13000800, 0, 0, 0, 0, 25000151)
+            return 0
+        # Oceiros, the Consumed King
+        elif GetTalkListEntryResult() == 2:
+            assert t511102_x100(13000830, 0, 0, 0, 0, 25000150)
+            return 0
+        # Dancer of the Boreal Valley
+        elif GetTalkListEntryResult() == 3:
+            assert t511102_x100(13000890, 0, 0, 0, 0, 25000152)
+            return 0
+        elif GetTalkListEntryResult() == 99 or not GetTalkListEntryResult():
+            return 0
+
+    return 0
+    
+# Lothric Castle
+def t511102_x53():
+    while True:
+        ClearTalkListData()
+        
+        # Dragonslayer Armour
+        AddTalkListDataIf(GetEventStatus(9308) == 1, 1, 80050108, -1)
+        # The Twin Princes
+        AddTalkListDataIf(GetEventStatus(9309) == 1, 2, 80050109, -1)
+        
+        # Leave
+        AddTalkListData(99, 80000999, -1)
+    
+        ShowShopMessage(1)
+        assert not (CheckSpecificPersonMenuIsOpen(1, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
+         
+        # Dragonslayer Armour
+        if GetTalkListEntryResult() == 1:
+            assert t511102_x100(13010800, 0, 0, 0, 0, 25000158)
+            return 0
+        # The Twin Princes
+        elif GetTalkListEntryResult() == 2:
+            assert t511102_x100(13410830, 0, 0, 0, 0, 25000159)
+            return 0
+        elif GetTalkListEntryResult() == 99 or not GetTalkListEntryResult():
+            return 0
+
+    return 0
+ 
+# Undead Settlement
+def t511102_x54():
+    while True:
+        ClearTalkListData()
+        
+        # Curse-rotted Greatwood
+        AddTalkListDataIf(GetEventStatus(9303) == 1, 1, 80050103, -1)
+
+        # Leave
+        AddTalkListData(99, 80000999, -1)
+    
+        ShowShopMessage(1)
+        assert not (CheckSpecificPersonMenuIsOpen(1, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
+         
+        # Curse-rotted Greatwood
+        if GetTalkListEntryResult() == 1:
+            assert t511102_x100(13100800, 0, 0, 0, 0, 25000153)
+            return 0
+        elif GetTalkListEntryResult() == 99 or not GetTalkListEntryResult():
+            return 0
+
+    return 0
+    
+# Cathedral of the Deep 
+def t511102_x55():
+    while True:
+        ClearTalkListData()
+        
+        # Deacons of the Deep
+        AddTalkListDataIf(GetEventStatus(9311) == 1, 1, 80050110, -1)
+
+        # Leave
+        AddTalkListData(99, 80000999, -1)
+    
+        ShowShopMessage(1)
+        assert not (CheckSpecificPersonMenuIsOpen(1, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
+         
+        # Deacons of the Deep
+        if GetTalkListEntryResult() == 1:
+            assert t511102_x100(13500800, 0, 0, 0, 0, 25000160)
+            return 0
+        elif GetTalkListEntryResult() == 99 or not GetTalkListEntryResult():
+            return 0
+
+    return 0
+    
+# Swamps of Farron
+def t511102_x56():
+    while True:
+        ClearTalkListData()
+        
+        # Crystal Sage
+        AddTalkListDataIf(GetEventStatus(9306) == 1, 1, 80050106, -1)
+        # Abyss Watchers
+        AddTalkListDataIf(GetEventStatus(9307) == 1, 2, 80050107, -1)
+
+        # Leave
+        AddTalkListData(99, 80000999, -1)
+    
+        ShowShopMessage(1)
+        assert not (CheckSpecificPersonMenuIsOpen(1, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
+         
+        # Crystal Sage
+        if GetTalkListEntryResult() == 1:
+            assert t511102_x100(13300850, 0, 0, 0, 0, 25000156)
+            return 0
+        # Abyss Watchers
+        elif GetTalkListEntryResult() == 2:
+            assert t511102_x100(13300800, 0, 0, 0, 0, 25000157)
+            return 0
+        elif GetTalkListEntryResult() == 99 or not GetTalkListEntryResult():
+            return 0
+
+    return 0
+    
+# Depths of Carthus
+def t511102_x57():
+    while True:
+        ClearTalkListData()
+        
+        # Wolnir
+        AddTalkListDataIf(GetEventStatus(9315) == 1, 1, 80050113, -1)
+        # Old Demon King
+        AddTalkListDataIf(GetEventStatus(9317) == 1, 2, 80050114, -1)
+        
+        # Leave
+        AddTalkListData(99, 80000999, -1)
+    
+        ShowShopMessage(1)
+        assert not (CheckSpecificPersonMenuIsOpen(1, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
+         
+        # Wolnir
+        if GetTalkListEntryResult() == 1:
+            assert t511102_x100(13801800, 0, 0, 0, 0, 25000163)
+            return 0
+        # Old Demon King
+        elif GetTalkListEntryResult() == 2:
+            assert t511102_x100(13800830, 0, 0, 0, 0, 25000164)
+            return 0
+        elif GetTalkListEntryResult() == 99 or not GetTalkListEntryResult():
+            return 0
+
+    return 0
+    
+# Irithyll of the Boreal Valley
+def t511102_x58():
+    while True:
+        ClearTalkListData()
+        
+        # Pontiff Sulyvahn
+        AddTalkListDataIf(GetEventStatus(9313) == 1, 1, 80050111, -1)
+        # Aldrich
+        AddTalkListDataIf(GetEventStatus(9314) == 2, 2, 80050112, -1)
+        
+        # Leave
+        AddTalkListData(99, 80000999, -1)
+    
+        ShowShopMessage(1)
+        assert not (CheckSpecificPersonMenuIsOpen(1, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
+         
+        # Pontiff Sulyvahn
+        if GetTalkListEntryResult() == 1:
+            assert t511102_x100(13700850, 0, 0, 0, 0, 25000161)
+            return 0
+        # Aldrich
+        elif GetTalkListEntryResult() == 2:
+            assert t511102_x100(13700800, 0, 0, 0, 0, 25000162)
+            return 0
+        elif GetTalkListEntryResult() == 99 or not GetTalkListEntryResult():
+            return 0
+
+    return 0
+    
+# Profaned Depths
+def t511102_x59():
+    while True:
+        ClearTalkListData()
+        
+        # Yhorm the Giant
+        AddTalkListDataIf(GetEventStatus(9318) == 1, 1, 80050115, -1)
+
+        # Leave
+        AddTalkListData(99, 80000999, -1)
+    
+        ShowShopMessage(1)
+        assert not (CheckSpecificPersonMenuIsOpen(1, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
+         
+        #Dragonslayer Armour
+        if GetTalkListEntryResult() == 1:
+            assert t511102_x100(13900800, 0, 0, 0, 0, 25000165)
+            return 0
+        elif GetTalkListEntryResult() == 99 or not GetTalkListEntryResult():
+            return 0
+
+    return 0
+    
+# Archdragon Peak
+def t511102_x60():
+    while True:
+        ClearTalkListData()
+        
+        # Ancient Wyvern
+        AddTalkListDataIf(GetEventStatus(9305) == 1, 1, 80050105, -1)
+        # The Nameless King
+        AddTalkListDataIf(GetEventStatus(9304) == 1, 2, 80050104, -1)
+        
+        # Leave
+        AddTalkListData(99, 80000999, -1)
+    
+        ShowShopMessage(1)
+        assert not (CheckSpecificPersonMenuIsOpen(1, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
+         
+        # Ancient Wyvern
+        if GetTalkListEntryResult() == 1:
+            assert t511102_x100(13200800, 0, 0, 0, 0, 25000155)
+            return 0
+        # The Nameless King
+        elif GetTalkListEntryResult() == 2:
+            assert t511102_x100(13200850, 0, 0, 0, 0, 25000154)
+            return 0
+        elif GetTalkListEntryResult() == 99 or not GetTalkListEntryResult():
+            return 0
+
+    return 0
+    
+# Painted World of Ariandel
+def t511102_x61():
+    while True:
+        ClearTalkListData()
+        
+        # Sister Friede
+        AddTalkListDataIf(GetEventStatus(9322) == 1, 1, 80050116, -1)
+        # Champion's Gravetender
+        AddTalkListDataIf(GetEventStatus(9323) == 1, 2, 80050117, -1)
+        
+        # Leave
+        AddTalkListData(99, 80000999, -1)
+    
+        ShowShopMessage(1)
+        assert not (CheckSpecificPersonMenuIsOpen(1, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
+         
+        # Sister Friede
+        if GetTalkListEntryResult() == 1:
+            assert t511102_x100(14500800, 0, 0, 0, 0, 25000166)
+            return 0
+        # Champion's Gravetender
+        elif GetTalkListEntryResult() == 2:
+            assert t511102_x100(14500860, 0, 0, 0, 0, 25000167)
+            return 0
+        elif GetTalkListEntryResult() == 99 or not GetTalkListEntryResult():
+            return 0
+
+    return 0
+    
+# Dreg Heap
+def t511102_x62():
+    while True:
+        ClearTalkListData()
+        
+        # The Demon Prince
+        AddTalkListDataIf(GetEventStatus(9324) == 1, 1, 80050118, -1)
+
+        # Leave
+        AddTalkListData(99, 80000999, -1)
+    
+        ShowShopMessage(1)
+        assert not (CheckSpecificPersonMenuIsOpen(1, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
+         
+        # The Demon Prince
+        if GetTalkListEntryResult() == 1:
+            assert t511102_x100(15000800, 0, 0, 0, 0, 25000168)
+            return 0
+        elif GetTalkListEntryResult() == 99 or not GetTalkListEntryResult():
+            return 0
+
+    return 0
+    
+# The Ringed City
+def t511102_x63():
+    while True:
+        ClearTalkListData()
+        
+        # Halflight, Spear of the Church
+        AddTalkListDataIf(GetEventStatus(9325) == 1, 1, 80050119, -1)
+        # Darkeater Midir
+        AddTalkListDataIf(GetEventStatus(9326) == 2, 2, 80050120, -1)
+        
+        # Leave
+        AddTalkListData(99, 80000999, -1)
+    
+        ShowShopMessage(1)
+        assert not (CheckSpecificPersonMenuIsOpen(1, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
+         
+        # Halflight, Spear of the Church
+        if GetTalkListEntryResult() == 1:
+            assert t511102_x100(15100800, 0, 0, 0, 0, 25000169)
+            return 0
+        # Darkeater Midir
+        elif GetTalkListEntryResult() == 2:
+            assert t511102_x100(15100850, 0, 0, 0, 0, 25000170)
+            return 0
+        elif GetTalkListEntryResult() == 99 or not GetTalkListEntryResult():
+            return 0
+
+    return 0
+    
+# World's End
+def t511102_x64():
+    while True:
+        ClearTalkListData()
+        
+        # Slave Knight Gael
+        AddTalkListDataIf(GetEventStatus(9327) == 1, 1, 80050121, -1)
+
+        # Leave
+        AddTalkListData(99, 80000999, -1)
+    
+        ShowShopMessage(1)
+        assert not (CheckSpecificPersonMenuIsOpen(1, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
+         
+        # Slave Knight Gael
+        if GetTalkListEntryResult() == 1:
+            assert t511102_x100(15110800, 0, 0, 0, 0, 25000171)
+            return 0
+        elif GetTalkListEntryResult() == 99 or not GetTalkListEntryResult():
+            return 0
+
+    return 0
+
+# Boss Menu 
+def t511102_x100(flag1=_, flag2=_, flag3=_, flag4=_, flag5=_, teleport_flag=_):
+    while True:
+        ClearTalkListData()
+        
+        # Resurrect
+        AddTalkListDataIf(GetEventStatus(flag1) == 1, 1, 80050001, -1)
+        # Travel
+        AddTalkListData(2, 80050002, -1)
+        
+        # Leave
+        AddTalkListData(99, 80000999, -1)
+    
+        ShowShopMessage(1)
+        assert not (CheckSpecificPersonMenuIsOpen(1, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
+        
+        # Resurrect
+        if GetTalkListEntryResult() == 1:
+            # Resurrect
+            if ComparePlayerInventoryNumber(3, 2160, 4, 1, 0) == 1:
+                call = t511102_x110(80051000)
+                
+                if call.Done() and GetGenericDialogButtonResult() == 1:
+                    PlayerEquipmentQuantityChange(3, 2160, -1)
+                    SetEventState(flag1, 0)
+                    SetEventState(flag2, 0)
+                    SetEventState(flag3, 0)
+                    SetEventState(flag4, 0)
+                    SetEventState(flag5, 0)
+                elif call.Done():
+                    return 0
+            else:
+                assert t511102_x110(80051001)
+                return 0
+        # Travel
+        elif GetTalkListEntryResult() == 2:
+            call = t511102_x110(80051010)
+                
+            if call.Done() and GetGenericDialogButtonResult() == 1:
+                SetEventState(teleport_flag, 1)
+            elif call.Done():
+                return 0
+                
+            return 0
+        elif GetTalkListEntryResult() == 99 or not GetTalkListEntryResult():
+            return 0
+        
+        return 0
+        
+def t511102_x110(action=_):
+    OpenGenericDialog(8, action, 3, 4, 2)
+    
+    assert not CheckSpecificPersonGenericDialogIsOpen(0)
+    
+    if GetGenericDialogButtonResult() == 1:
+        return 0
+    else:
+        return 1

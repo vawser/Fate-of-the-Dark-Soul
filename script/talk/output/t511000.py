@@ -321,6 +321,9 @@ def t511000_x12():
         ClearTalkListData()
         """State 2"""
         
+        # Face the End
+        AddTalkListDataIf(GetEventStatus(25000120) == 1 and GetEventStatus(9327) == 0, 9, 80040000, -1)
+        
         # Level Up
         AddTalkListData(6, 15002000, -1)
         
@@ -387,6 +390,11 @@ def t511000_x12():
         elif GetTalkListEntryResult() == 6:
             OpenSoul()
             assert not (CheckSpecificPersonMenuIsOpen(10, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
+        # Face the End
+        elif GetTalkListEntryResult() == 9:
+            SetEventState(25000121, 1)
+            SetEventState(25000122, 1)
+            return 0
         # Begin journey <?nextLoopCount?>
         elif GetTalkListEntryResult() == 20:
             if GetEventStatus(2051) == 1 or IsMultiplayerInProgress() == 1:

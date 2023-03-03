@@ -150,7 +150,8 @@ $Event(0, Default, function() {
     InitializeEvent(2, 9020, 14500161, 14500162, 14500162, 6952, 45);
     
     // Mod
-    SetSpEffect(10000, 200000000);
+    //SetSpEffect(10000, 200000000);
+    //SetEventFlag(13000800, ON);
     //AwardItemLot(10);
     
     // Kill Tracker
@@ -166,12 +167,51 @@ $Event(0, Default, function() {
     InitializeEvent(0, 10001, 0); // Journey Type Effect: Player
     InitializeEvent(0, 10002, 0); // Journey Type Effect: Enemy
     InitializeEvent(0, 10003, 0); // Level Adjustments
+    InitializeEvent(0, 10004, 0); // Slave Knight Gael - Warp
+    InitializeEvent(0, 10005, 0); // Slave Knight Gael - Unlock Boss Fight
     
     InitializeEvent(0, 10020, 0); // Imbued Artifacts
     InitializeEvent(0, 10021, 0); // Imbued Artifacts
     InitializeEvent(0, 10022, 0); // Imbued Artifacts
     InitializeEvent(0, 10023, 0); // Imbued Artifacts
     
+    // Boss Teleports
+    InitializeEvent( 0, 10006, 25000151, 3000972, 3002952, 30, 0); // Vordt
+    InitializeEvent( 1, 10006, 25000152, 3000971, 3002951, 30, 0); // Oceiros
+    InitializeEvent( 2, 10006, 25000150, 3000974, 3002954, 30, 0); // Dancer
+    
+    InitializeEvent( 3, 10006, 25000153, 3100971, 3102951, 31, 0); // Curse-rotted Greatwood
+    
+    InitializeEvent( 4, 10006, 25000154, 3200972, 3202952, 32, 0); // Nameless King
+    InitializeEvent( 5, 10006, 25000155, 3200970, 3202950, 32, 0); // Ancient Wyvern
+    
+    InitializeEvent( 6, 10006, 25000156, 3300972, 3302952, 33, 0); // Crystal Sage
+    InitializeEvent( 7, 10006, 25000157, 3300971, 3302951, 33, 0); // Abyss Watchers
+    
+    InitializeEvent( 8, 10006, 25000158, 3010971, 3012951, 30, 1); // Dragonslayer Armour
+    InitializeEvent( 9, 10006, 25000159, 3410970, 3412950, 34, 1); // Twin Princes
+    
+    InitializeEvent(10, 10006, 25000160, 3500973, 3502953, 35, 0); // Deacons of the Deep
+    
+    InitializeEvent(11, 10006, 25000161, 3700971, 3702951, 37, 0); // Pontiff Sulyvahn
+    InitializeEvent(12, 10006, 25000162, 3700972, 3702952, 37, 0); // Aldrich
+    
+    InitializeEvent(13, 10006, 25000163, 3800970, 3802950, 38, 0); // Wolnir
+    InitializeEvent(14, 10006, 25000164, 3800974, 3802954, 38, 0); // Old Demon King
+    
+    InitializeEvent(15, 10006, 25000165, 3900971, 3902951, 39, 0); // Yhorm
+    
+    InitializeEvent(16, 10006, 25000166, 4500970, 4502950, 45, 0); // Sister Friede
+    InitializeEvent(17, 10006, 25000167, 4500976, 4502956, 45, 0); // Gravetender
+    
+    InitializeEvent(18, 10006, 25000168, 5000973, 5002953, 50, 0); // Demon Prince
+    
+    InitializeEvent(19, 10006, 25000169, 5100970, 5102950, 51, 0); // Halflight
+    InitializeEvent(20, 10006, 25000170, 5100971, 5102951, 51, 0); // Midir
+    
+    InitializeEvent(0, 10007, 25000171, 5110974, 5112954, 51, 1); // Gael
+    
+    // Castigations
     InitializeEvent(0, 14000, 0); // Castigations - Player
     InitializeEvent(0, 14010, 0); // Castigations - Enemy
     
@@ -1611,6 +1651,65 @@ $Event(10003, Default, function() {
     WaitFixedTimeSeconds(1.0);
     
     RestartEvent();
+});
+
+// Slave Knight Gael - Warp
+$Event(10004, Default, function() {
+    WaitFor(EventFlag(25000122));
+    
+    SetEventFlag(25000122, OFF);
+
+    WarpPlayer(51, 1, 5110974);
+});
+
+// Slave Knight Gael - Unlock Boss Fight
+$Event(10005, Default, function() {
+    WaitFor(EventFlag(9300)); // Dancer
+    WaitFor(EventFlag(9301)); // Vordt
+    WaitFor(EventFlag(9302)); // Oceiros
+    WaitFor(EventFlag(9303)); // Curse-rotted Greatwood
+    WaitFor(EventFlag(9304)); // Nameless King
+    WaitFor(EventFlag(9305)); // Ancient Wyvern
+    WaitFor(EventFlag(9306)); // Crystal Sage
+    WaitFor(EventFlag(9307)); // Abyss Watchers
+    WaitFor(EventFlag(9308)); // Dragonslayer Armour
+    WaitFor(EventFlag(9309)); // Twin Princes
+    WaitFor(EventFlag(9311)); // Deacons of the Deep
+    WaitFor(EventFlag(9313)); // Pontiff Sulyvahn
+    WaitFor(EventFlag(9314)); // Aldrich
+    WaitFor(EventFlag(9315)); // Wolnir
+    WaitFor(EventFlag(9317)); // Old Demon King
+    WaitFor(EventFlag(9318)); // Yhorm
+    WaitFor(EventFlag(9322)); // Sister Fride
+    WaitFor(EventFlag(9323)); // Gravetender
+    WaitFor(EventFlag(9324)); // Demon Prince
+    WaitFor(EventFlag(9325)); // Halflight
+    WaitFor(EventFlag(9326)); // Midir
+    
+    SetEventFlag(25000120, ON);
+});
+
+// Boss Teleport
+$Event(10006, Restart, function(X0_4, X4_4, X8_4, X12_1, X16_1) {
+    WaitFor(EventFlag(X0_4));
+    SetEventFlag(X0_4, OFF);
+    
+    WaitFixedTimeSeconds(0.5);
+    
+    WarpPlayer(X12_1, X16_1, X4_4);
+    SetPlayerRespawnPoint(X8_4);
+});
+
+// Boss Teleport - Gael
+$Event(10007, Restart, function(X0_4, X4_4, X8_4, X12_1, X16_1) {
+    WaitFor(EventFlag(X0_4));
+    SetEventFlag(X0_4, OFF);
+    SetEventFlag(25000121, ON);
+    
+    WaitFixedTimeSeconds(0.5);
+    
+    WarpPlayer(X12_1, X16_1, X4_4);
+    SetPlayerRespawnPoint(X8_4);
 });
 
 // Tome Unlock

@@ -94,6 +94,10 @@
  - This item will increase damage by 1%.
  - It can stack up to 100 times.
 
+- Slave Knight Gael is now the final boss. 
+ - He can be fought by selecting the 'Face the End' option at the World's End bonfire.
+ - All other bossess must be defeated first.
+ 
 #-------------------------------------------------
 # Enemies
 #-------------------------------------------------
@@ -124,6 +128,7 @@
   - Ringed City
 - Each level is self-contained and will not allow access to another. You must return to World's End to switch level.
 - The Darksign now acts as a safe teleport back to World's End.
+- The teleport thrones will now have a larger flame burning within them if you've cleared the bosses within a level.
 
 # Bonfires
 - All bonfires allow for Level Up and Allot Estus.
