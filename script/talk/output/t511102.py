@@ -274,6 +274,12 @@ def t511102_x50():
         # Forge with Darkness
         AddTalkListData(1, 80002000, -1)
         
+        # Resurrection
+        # AddTalkListData(2, 80010000, -1)
+        
+        # Achievements
+        # AddTalkListData(3, 80030000, -1)
+        
         # Leave
         AddTalkListData(99, 80000999, -1)
         
@@ -285,6 +291,12 @@ def t511102_x50():
             OpenTranspositionShop(8100000, 8109999)
             assert not (CheckSpecificPersonMenuIsOpen(18, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
             continue
+        # Resurrection
+        elif GetTalkListEntryResult() == 2:
+            return 0
+        # Achievements
+        elif GetTalkListEntryResult() == 3:
+            return 0
         else:
             return 0
             

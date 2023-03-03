@@ -150,8 +150,11 @@ $Event(0, Default, function() {
     InitializeEvent(2, 9020, 14500161, 14500162, 14500162, 6952, 45);
     
     // Mod
-    //SetSpEffect(10000, 200000000);
+    SetSpEffect(10000, 200000000);
     //AwardItemLot(10);
+    
+    // Kill Tracker
+    SetSpEffect(10000, 200000010);
     
     // Infusion Flags
     SetEventFlag(300, ON);
@@ -168,6 +171,22 @@ $Event(0, Default, function() {
     InitializeEvent(0, 10021, 0); // Imbued Artifacts
     InitializeEvent(0, 10022, 0); // Imbued Artifacts
     InitializeEvent(0, 10023, 0); // Imbued Artifacts
+    
+    InitializeEvent(0, 14000, 0); // Castigations - Player
+    InitializeEvent(0, 14010, 0); // Castigations - Enemy
+    
+    InitializeEvent( 0, 14020, 25000900, 110); // Abyssal Maw
+    InitializeEvent( 1, 14020, 25000901, 110); // Brittle Bones
+    InitializeEvent( 2, 14020, 25000902, 120); // Fresh Meat
+    InitializeEvent( 3, 14020, 25000903, 120); // Fading Flasks
+    InitializeEvent( 4, 14020, 25000904, 120); // Lethargic Mind
+    InitializeEvent( 5, 14020, 25000905, 110); // Wounded Fury
+    InitializeEvent( 6, 14020, 25000906, 110); // Thick Hides
+    InitializeEvent( 7, 14020, 25000907, 110); // Stout Hearts
+    InitializeEvent( 8, 14020, 25000908, 110); // Regenerative Skin
+    InitializeEvent( 9, 14020, 25000909, 120); // Spectral Shift
+    InitializeEvent(10, 14020, 25000910, 120); // Relentlessness
+    InitializeEvent(11, 14020, 25000911, 120); // Alacrity
     
     // Ashes Unlocks
     InitializeEvent(0, 10025, 2107, 70000100); // Mortician's Ashes
@@ -2035,6 +2054,8 @@ $Event(10025, Default, function(X0_4, X4_4) {
         SetEventFlag(X4_4, ON);
     }
 });
+
+
 //--------------------------------------
 // Talisman Forge
 //--------------------------------------
@@ -2053,6 +2074,156 @@ $Event(13000, Default, function(X0_4, X4_4, X8_4, X12_4, X16_4, X20_4) {
     }
     
     WaitFixedTimeSeconds(1);
+    
+    RestartEvent();
+});
+
+//--------------------------------------
+// Castigations
+//--------------------------------------
+// Castigation - Player
+$Event(14000, Restart, function() {
+    // Abyssal Maw
+    if(EventFlag(25000900))
+    {
+        SetSpEffect(10000, 200400000);
+    }
+    else
+    {
+        ClearSpEffect(10000, 200400000);
+    }
+    // Brittle Bones
+    if(EventFlag(25000901))
+    {
+        SetSpEffect(10000, 200400100);
+    }
+    else
+    {
+        ClearSpEffect(10000, 200400100);
+    }
+    // Fresh Meat
+    if(EventFlag(25000902))
+    {
+        SetSpEffect(10000, 200400200);
+        SetSpEffect(10000, 200400201);
+        SetSpEffect(10000, 200400202);
+    }
+    else
+    {
+        ClearSpEffect(10000, 200400200);
+        ClearSpEffect(10000, 200400201);
+        ClearSpEffect(10000, 200400202);
+    }
+    // Fading Flasks
+    if(EventFlag(25000903))
+    {
+        SetSpEffect(10000, 200400300);
+    }
+    else
+    {
+        ClearSpEffect(10000, 200400300);
+    }
+    // Lethargic Mind
+    if(EventFlag(25000904))
+    {
+        SetSpEffect(10000, 200400400);
+    }
+    else
+    {
+        ClearSpEffect(10000, 200400400);
+    }
+    
+    WaitFixedTimeSeconds(1);
+    
+    RestartEvent();
+});
+
+// Castigation - Enemies
+$Event(14010, Restart, function() {
+    // Wounded Fury
+    if(EventFlag(25000905))
+    {
+        SetSpEffect(3605800, 200410000);
+    }
+    else
+    {
+        ClearSpEffect(3605800, 200410000);
+    }
+    // Thick Hides
+    if(EventFlag(25000906))
+    {
+        SetSpEffect(3605800, 200410100);
+    }
+    else
+    {
+        ClearSpEffect(3605800, 200410100);
+    }
+    // Stout Hearts
+    if(EventFlag(25000907))
+    {
+        SetSpEffect(3605800, 200410200);
+    }
+    else
+    {
+        ClearSpEffect(3605800, 200410200);
+    }
+    // Regenerative Skin
+    if(EventFlag(25000908))
+    {
+        SetSpEffect(3605800, 200410300);
+    }
+    else
+    {
+        ClearSpEffect(3605800, 200410300);
+    }
+    // Spectral Shift
+    if(EventFlag(25000909))
+    {
+        SetSpEffect(3605800, 200410400);
+    }
+    else
+    {
+        ClearSpEffect(3605800, 200410400);
+    }
+    // Relentlessness
+    if(EventFlag(25000910))
+    {
+        SetSpEffect(3605800, 200410500);
+    }
+    else
+    {
+        ClearSpEffect(3605800, 200410500);
+    }
+    // Alacrity
+    if(EventFlag(25000911))
+    {
+        SetSpEffect(3605800, 200410600);
+    }
+    else
+    {
+        ClearSpEffect(3605800, 200410600);
+    }
+    
+    WaitFixedTimeSeconds(1);
+    
+    RestartEvent();
+});
+
+// Castigation - Reward
+$Event(14020, Restart, function(X0_4, X4_4) {
+    WaitFor(CharacterHasSpEffect(10000, 200000011, ComparisonType.Equal, 1));
+    
+    if(!CharacterHasSpEffect(10000, 200499999, ComparisonType.Equal, 1))
+    {
+        SetSpEffect(10000, 200499999);
+        
+        if(EventFlag(X0_4))
+        {
+            AwardItemLot(X4_4);
+        }
+    }
+    
+    WaitFixedTimeSeconds(1.0);
     
     RestartEvent();
 });

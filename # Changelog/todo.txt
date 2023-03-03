@@ -1,6 +1,7 @@
 ﻿#-------------------------------------------------
 # Bugs
 #-------------------------------------------------
+Fix incorrect icons in some cases due to usage of Cinders icon sheet
 
 #-------------------------------------------------
 # WIP
@@ -21,5 +22,3 @@ Add boss:
  Occurs in World's End, after killing all other bosses
 
 Add Accursed detriment system
-Add castigation system
-

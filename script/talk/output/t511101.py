@@ -271,8 +271,11 @@ def t511101_x50():
     while True:
         ClearTalkListData()
         
-        # Resurrection
-        AddTalkListData(1, 80010000, -1)
+        # Castigations: Player
+        AddTalkListData(1, 80020000, -1)
+        
+        # Castigations: Enemy
+        AddTalkListData(2, 80020001, -1)
         
         # Leave
         AddTalkListData(99, 80000999, -1)
@@ -280,11 +283,258 @@ def t511101_x50():
         ShowShopMessage(1)
         assert not (CheckSpecificPersonMenuIsOpen(1, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
         
-        # Resurrection
+        # Player Castigations
         if GetTalkListEntryResult() == 1:
-            return 0
+            assert t511101_x100()
+            continue
+        # Enemy Castigations
+        elif GetTalkListEntryResult() == 2:
+            assert t511101_x101()
+            continue
         else:
             return 0
             
         assert CheckSpecificPersonTalkHasEnded(0) == 1
         
+#----------------------------------------------------
+# Castigations (Player)
+#----------------------------------------------------
+def t511101_x100():
+    MainBonfireMenuFlag()
+     
+    while True:
+        ClearTalkListData()
+        
+        # Abyssal Maw
+        AddTalkListDataIf(GetEventStatus(25000900) == 0, 100, 80020100, -1)
+        
+        # Abyssal Maw (selected)
+        AddTalkListDataIf(GetEventStatus(25000900) == 1, 200, 80020200, -1)
+
+        # Brittle Bones
+        AddTalkListDataIf(GetEventStatus(25000901) == 0, 103, 80020101, -1)
+        
+        # Brittle Bones (selected)
+        AddTalkListDataIf(GetEventStatus(25000901) == 1, 203, 80020201, -1)
+        
+        # Fresh Meat
+        AddTalkListDataIf(GetEventStatus(25000902) == 0, 101, 80020102, -1)
+        
+        # Fresh Meat (selected)
+        AddTalkListDataIf(GetEventStatus(25000902) == 1, 201, 80020202, -1)
+        
+        # Fading Flasks
+        AddTalkListDataIf(GetEventStatus(25000903) == 0, 102, 80020103, -1)
+        
+        # Fading Flasks (selected)
+        AddTalkListDataIf(GetEventStatus(25000903) == 1, 202, 80020203, -1)
+        
+        # Lethargic Mind
+        AddTalkListDataIf(GetEventStatus(25000904) == 0, 104, 80020104, -1)
+        
+        # Lethargic Mind (selected)
+        AddTalkListDataIf(GetEventStatus(25000904) == 1, 204, 80020204, -1)
+        
+        # Leave
+        AddTalkListData(99, 80000999, -1)
+        
+        ShowShopMessage(1)
+        
+        assert not (CheckSpecificPersonMenuIsOpen(1, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
+
+        # Abyssal Maw
+        if GetTalkListEntryResult() == 100:
+            assert t511101_x110(25000900, 1, 80020300)
+            continue
+        # Abyssal Maw (enabled)
+        elif GetTalkListEntryResult() == 200:
+            assert t511101_x110(25000900, 0, 80020400)
+            continue
+        # Fresh Meat
+        elif GetTalkListEntryResult() == 101:
+            assert t511101_x110(25000902, 1, 80020302)
+            continue
+        # Fresh Meat (enabled)
+        elif GetTalkListEntryResult() == 201:
+            assert t511101_x110(25000902, 0, 80020402)
+            continue
+        # Fading Flasks
+        elif GetTalkListEntryResult() == 102:
+            assert t511101_x110(25000903, 1, 80020303)
+            continue
+        # Fading Flasks
+        elif GetTalkListEntryResult() == 202:
+            assert t511101_x110(25000903, 0, 80020403)
+            continue
+        # Brittle Bones
+        elif GetTalkListEntryResult() == 103:
+            assert t511101_x110(25000901, 1, 80020301)
+            continue
+        # Brittle Bones (enabled)
+        elif GetTalkListEntryResult() == 203:
+            assert t511101_x110(25000901, 0, 80020401)
+            continue
+        # Lethargic Mind
+        elif GetTalkListEntryResult() == 104:
+            assert t511101_x110(25000904, 1, 80020304)
+            continue
+        # Lethargic Mind (enabled)
+        elif GetTalkListEntryResult() == 204:
+            assert t511101_x110(25000904, 0, 80020404)
+            continue
+        else:
+            return 0
+            
+#----------------------------------------------------
+# Castigations (Enemy)
+#----------------------------------------------------
+def t511101_x101():
+    MainBonfireMenuFlag()
+     
+    while True:
+        ClearTalkListData()
+        
+        # Stout Hearts
+        AddTalkListDataIf(GetEventStatus(25000907) == 0, 100, 80020107, -1)
+        
+        # Stout Hearts (selected)
+        AddTalkListDataIf(GetEventStatus(25000907) == 1, 200, 80020207, -1)
+        
+        # Regenerative Skin
+        AddTalkListDataIf(GetEventStatus(25000908) == 0, 101, 80020108, -1)
+        
+        # Regenerative Skin (selected)
+        AddTalkListDataIf(GetEventStatus(25000908) == 1, 201, 80020208, -1)
+        
+        # Wounded Fury
+        AddTalkListDataIf(GetEventStatus(25000905) == 0, 102, 80020105, -1)
+        
+        # Wounded Fury (selected)
+        AddTalkListDataIf(GetEventStatus(25000905) == 1, 202, 80020205, -1)
+        
+        # Thick Hides
+        AddTalkListDataIf(GetEventStatus(25000906) == 0, 103, 80020106, -1)
+        
+        # Thick Hides (selected)
+        AddTalkListDataIf(GetEventStatus(25000906) == 1, 203, 80020206, -1)
+        
+        # Spectral Shift
+        AddTalkListDataIf(GetEventStatus(25000909) == 0, 104, 80020109, -1)
+        
+        # Spectral Shift (selected)
+        AddTalkListDataIf(GetEventStatus(25000909) == 1, 204, 80020209, -1)
+        
+        # Relentlessness
+        AddTalkListDataIf(GetEventStatus(25000910) == 0, 105, 80020110, -1)
+        
+        # Relentlessness (selected)
+        AddTalkListDataIf(GetEventStatus(25000910) == 1, 205, 80020210, -1)
+        
+        # Alacrity
+        # AddTalkListDataIf(GetEventStatus(25000911) == 0, 106, 80020111, -1)
+        
+        # Alacrity (selected)
+        AddTalkListDataIf(GetEventStatus(25000911) == 1, 206, 80020211, -1)
+        
+        # Leave
+        AddTalkListData(99, 80000999, -1)
+        
+        ShowShopMessage(1)
+        
+        assert not (CheckSpecificPersonMenuIsOpen(1, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
+        
+        # Stout Hearts
+        if GetTalkListEntryResult() == 100:
+            assert t511101_x110(25000907, 1, 80020307)
+            continue
+        # Stout Hearts (enabled)
+        elif GetTalkListEntryResult() == 200:
+            assert t511101_x110(25000907, 0, 80020407)
+            continue
+        # Regenerative Skin
+        elif GetTalkListEntryResult() == 101:
+            assert t511101_x110(25000908, 1, 80020308)
+            continue
+        # Regenerative Skin (enabled)
+        elif GetTalkListEntryResult() == 201:
+            assert t511101_x110(25000908, 0, 80020408)
+            continue
+        # Wounded Fury
+        elif GetTalkListEntryResult() == 102:
+            assert t511101_x110(25000905, 1, 80020305)
+            continue
+        # Wounded Fury (enabled)
+        elif GetTalkListEntryResult() == 202:
+            assert t511101_x110(25000905, 0, 80020405)
+            continue
+        # Thick Hides
+        elif GetTalkListEntryResult() == 103:
+            assert t511101_x110(25000906, 1, 80020306)
+            continue
+        # Thick Hides (enabled)
+        elif GetTalkListEntryResult() == 203:
+            assert t511101_x110(25000906, 0, 80020406)
+        # Spectral Shift
+        elif GetTalkListEntryResult() == 104:
+            assert t511101_x110(25000909, 1, 80020309)
+            continue
+        # Spectral Shift (enabled)
+        elif GetTalkListEntryResult() == 204:
+            assert t511101_x110(25000909, 0, 80020409)
+        # Relentlessness
+        elif GetTalkListEntryResult() == 105:
+            assert t511101_x110(25000910, 1, 80020310)
+            continue
+        # Relentlessness (enabled)
+        elif GetTalkListEntryResult() == 205:
+            assert t511101_x110(25000910, 0, 80020410)
+        # Alacrity
+        elif GetTalkListEntryResult() == 106:
+            assert t511101_x110(25000911, 1, 80020311)
+            continue
+        # Alacrity (enabled)
+        elif GetTalkListEntryResult() == 206:
+            assert t511101_x110(25000911, 0, 80020411)
+        else:
+            return 0
+            
+#----------------------------------------------------
+# Utility
+#----------------------------------------------------
+# Castigation prompt
+def t511101_x110(flag=_, value=_, text=_):
+    assert t511101_x150(text)
+            
+    c1_110()
+
+    ClearTalkListData()
+    
+    # Yes
+    AddTalkListData(1, 80000103, -1)
+    
+    # No
+    AddTalkListData(2, 80000104, -1)
+    
+    OpenConversationChoicesMenu(0)
+    
+    assert not (CheckSpecificPersonMenuIsOpen(12, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
+
+    # Yes
+    if GetTalkListEntryResult() == 1:
+        SetEventState(flag, value)
+        
+        return 0
+    # Cancel
+    elif GetTalkListEntryResult() == 2:
+        return 1
+    else:
+        return 2
+        
+# Description Prompt
+def t511101_x150(action1=_):
+    """State 0,1"""
+    OpenGenericDialog(8, action1, 1, 0, 1)
+    assert not CheckSpecificPersonGenericDialogIsOpen(0)
+    """State 2"""
+    return 0
+    

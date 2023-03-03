@@ -20,7 +20,60 @@
     - +1: 15 Hollow Fragments
     - +2: 20 Hollow Fragments
     - +3: 25 Hollow Fragments
-    
+   
+# Castigations
+- Added the ability to apply debuffs to yourself, or buffs to enemies, in exchange for more chances at Hollow Fragments
+
+- Player castigations:
+ - Abyssal Maw
+  - Soul absorption is reduced by 50%.
+  - Enemy kills have a 1% chance to award 1 Hollow Fragment.
+
+ - Brittle Bones
+  - Your absorption will be reduced by 30%.
+  - Enemy kills have a 1% chance to award 1 Hollow Fragment.
+
+ - Fresh Meat
+  - Enemies will detect the player much easier, and will always prioritise the player first.
+  - Enemy kills have a 0.5% chance to award 1 Hollow Fragment.
+
+ - Fading Flasks
+  - Your Estus Flask and Ashen Estus Flask will be 30% less effective.
+  - Enemy kills have a 0.5% chance to award 1 Hollow Fragment.
+
+ - Lethargic Mind
+  - Your passive FP regeneration becomes 0.
+  - Enemy kills have a 0.5% chance to award 1 Hollow Fragment.
+
+- Enemy castigations:
+ - Wounded Fury
+  - Enemies deal 30% more damage while below 50% HP.
+  - Enemy kills have a 1% chance to award 1 Hollow Fragment.
+
+ - Thick Hides
+  - Enemies take 30% less damage while above 50% HP.
+  - Enemy kills have a 1% chance to award 1 Hollow Fragment.
+
+ - Stout Hearts
+  - Enemies have 50% more HP.
+  - Enemy kills have a 1% chance to award 1 Hollow Fragment.
+
+ - Regenerative Skin
+  - Enemies will regenerate 1% HP plus 25 HP every 2 seconds.
+  - Enemy kills have a 1% chance to award 1 Hollow Fragment.
+
+ - Spectral Shift
+  - Enemies are now invisible until damaged.
+  - Enemy kills have a 0.5% chance to award 1 Hollow Fragment.
+
+ - Relentlessness
+  - Enemies will no longer act passive when fighting together as a group.
+  - Enemy kills have a 0.5% chance to award 1 Hollow Fragment.
+
+ - Alacrity
+  - Enemies will move 50% faster.
+  - Enemy kills have a 0.5% chance to award 1 Hollow Fragment.
+
 #-------------------------------------------------
 # Player
 #-------------------------------------------------
@@ -31,6 +84,8 @@
  - Weapon skills will pause FP regeneration during their animation and 1 second after.
  - Magic will pause FP regeneration during the fire animation and 1 second after.
  
+# Timed Block
+
 #-------------------------------------------------
 # Bosses
 #-------------------------------------------------
@@ -41,6 +96,8 @@
 #-------------------------------------------------
 # Enemies
 #-------------------------------------------------
+- Enemy power and health has been adjusted to fit the level-centric design of the mod
+ - In general, enemy HP and damage has been pegged at around Irithyll values (from vanilla), with slight adjustments up and down depending on the level.
  
 #-------------------------------------------------
 # World
@@ -84,10 +141,10 @@
   - Hosts the transmogrification system.
   
  - The Last Pilgrim
-  - Hosts the boss resurrection system.
+  - Hosts the Castigation system.
   
  - Slave Knight Gael
-  - Hosts the Talisman Forge and Castigation systems.
+  - Hosts the Talisman Forge and the boss resurrection systems.
   
  - Pygmy Merchant
   - Allows the player to buy and sell items. Acts like the Shrine Handmaid from vanilla.
@@ -134,7 +191,8 @@
 #-------------------------------------------------
 # Weapons
 #-------------------------------------------------
-- Weapons are no longer reinforced. Instead the base damage and scaling has been set to the maximum value. This means the effectiveness of your weapon is now tied directly to your stats.
+- Weapons are no longer reinforced. 
+- Weapons base damage and scaling has been adjusted to account for the removal of reinforcement.
 - The stat effectiveness curve has been made more linear, so high damage requires more stat investment.
 
 #-------------------------------------------------

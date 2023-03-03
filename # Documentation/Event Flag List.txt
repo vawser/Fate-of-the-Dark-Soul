@@ -29,6 +29,7 @@
 #-----------------------------------------------------------------
 # Mod Ranges
 #-----------------------------------------------------------------
+# General
 25000000 Imbued Artifact Count start
 25000099 Imbued Artifact Count end
 
@@ -47,6 +48,7 @@
 
 25000130 NG+ Allowed
 
+# Talisman Forge
 25000200 Life Ring 
 25000201 Life Ring +1
 25000203 Life Ring +2
@@ -366,3 +368,25 @@
 25000595 X
 25000596 X +1
 25000597 X +2
+
+# Castigation
+25000900 Abyssal Maw
+25000901 Brittle Bones
+25000902 Fresh Meat
+25000903 Fading Flasks
+25000904 Lethargic Mind
+25000905 Wounded Fury
+25000906 Thick Hides
+25000907 Stout Hearts
+25000908 Regenerative Skin
+25000909 Spectral Shift
+25000910 Relentlessness
+25000911 Alacrity
+25000912 
+25000913
+25000914
+25000915
+25000916
+25000917
+25000918
+25000919

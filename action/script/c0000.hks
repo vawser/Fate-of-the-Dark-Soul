@@ -6,16 +6,19 @@
 -- Mod: Functions
 ------------------------------------------
 function UpdateFP()
-    -- FP Regen cooldown
-    if env(GetSpEffectID, 111000) == FALSE then    
-        act(AddSpEffect, 111000) 
-        
-        if env(GetFP) < 80 then
-            act(AddSpEffect, 111003) 
-        elseif env(GetFP) >= 80 and env(GetFP) < 160 then
-            act(AddSpEffect, 111002) 
-        elseif env(GetFP) >= 160 then
-            act(AddSpEffect, 111001) 
+    -- Lethargic Mind
+    if env(GetSpEffectID, 200400400) == FALSE then   
+        -- FP Regen cooldown
+        if env(GetSpEffectID, 111000) == FALSE then    
+            act(AddSpEffect, 111000) 
+            
+            if env(GetFP) < 80 then
+                act(AddSpEffect, 111003) 
+            elseif env(GetFP) >= 80 and env(GetFP) < 160 then
+                act(AddSpEffect, 111002) 
+            elseif env(GetFP) >= 160 then
+                act(AddSpEffect, 111001) 
+            end
         end
     end
 end
@@ -92,6 +95,57 @@ end
 
 function ApplyEffect_Gesture()
 
+end
+
+function ApplyTimedBlock()
+    -- Timed Block Cooldown
+    if env(GetSpEffectID, 112001) == FALSE then
+        act(AddSpEffect, 112001)
+                    
+        -- Don't apply if player was hit beforehand
+        if env(GetSpEffectID, 112000) == FALSE then
+            act(AddSpEffect, 112010) -- Timed Block
+            act(AddSpEffect, 112011) -- Perfect Block
+        end
+    end
+end
+
+function TrackTimedBlock()
+    if env(GetSpEffectID, 112000) == TRUE then
+    
+        -- Perfect Block: apply bullet
+        if env(GetSpEffectID, 112011) == TRUE then
+            HandlePerfectBlock()
+        end
+    end
+end
+
+function HandlePerfectBlock()
+    -- Perfect Block cooldown
+    if env(GetSpEffectID, 112002) == FALSE then
+        act(AddSpEffect, 112002)
+
+        -- Fire the deflect bullet based on the marker SpEffects the player has
+        -- FireBullet(150900, 150100) -- Storm
+    end
+end
+
+function FireBullet(deflect_type, bullet_effect)
+    if env(GetSpEffectID, deflect_type) == TRUE then
+        -- Order is important: player can have all present, 
+        -- so only the highest should be used
+        
+        -- Perfected
+        if env(GetSpEffectID, 150952) == TRUE then
+            act(AddSpEffect, bullet_effect + 2) 
+        -- Improved
+        elseif env(GetSpEffectID, 150951) == TRUE then
+            act(AddSpEffect, bullet_effect + 1) 
+        -- Standard
+        elseif env(GetSpEffectID, 150950) == TRUE then
+            act(AddSpEffect, bullet_effect) 
+        end
+    end
 end
 
 ------------------------------------------
@@ -1307,6 +1361,9 @@ function ExecGuard(event, blend_type)
             if style == HAND_RIGHT_BOTH then
                 hand = HAND_RIGHT
             end
+            
+            ApplyTimedBlock()
+            
             local kind = env(GetEquipWeaponCategory, hand)
             local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
             local guardindex = env(GetGuardMotionCategory, hand)
@@ -3742,6 +3799,12 @@ function ExecDamage(is_parry, is_attackwhileguard)
     local attack_dir = env(GetAtkDirection)
     local damage_angle = env(GetReceivedDamageDirection)
     local style = c_Style
+    
+    -- Timed Block: Is Hit
+    if is_damaged == TRUE then
+        act(AddSpEffect, 112000) 
+    end
+    
     if damage_type == DAMAGE_TYPE_PARRY then
         ExecEventAllBody("W_DamageParry")
         return TRUE
@@ -6188,6 +6251,13 @@ function Move_onUpdate()
         act(SetMovementScaleMult, 0.9599999785423279 * movement_scale)
     elseif GetVariable("MoveDirection") == 0 then
         act(SetMovementScaleMult, 0.9800000190734863 * movement_scale)
+    end
+    
+    -- Castigation: Alacrity
+    if env(IsCOMPlayer) == TRUE then
+        if env(GetSpEffectID, 200410600) == TRUE then
+            act(SetMovementScaleMult, 1.5)
+        end
     end
 end
 
@@ -13476,6 +13546,7 @@ function Update()
     SetStyleSpecialEffect()
     UpdateOldMonkState()
     UpdateFP()
+    TrackTimedBlock()
     
     act(SwitchMotion, FALSE)
     act(LockonSystemUnableToTurnAngle, 0, 0)
