@@ -164,6 +164,8 @@
  - Fallen Pygmy
   - Allows the player to transpose boss souls and to infuse their weapons.
   
+- There is a passive Ringed Knight present for practising attacks on. You can interact with him to make him hostile.
+
 #-------------------------------------------------
 # Items
 #-------------------------------------------------
