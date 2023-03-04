@@ -19,3 +19,7 @@ Place treasures:
 21080 Korg's Talon
 21090 Dashmaster's Bell
 
+Remove Cinders InvokeDS3Poise from the TAE files
+ Restore vanilla instances where lacking
+ 
+a020 -> a799
