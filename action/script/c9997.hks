@@ -1528,7 +1528,32 @@ function ExecMove(move_type, is_on_cancel)
     
     -- Painter's Pendant
     if env(GetSpEffectID, 113020) == TRUE then
-        movement_speed_mult = 0.05
+        movement_speed_mult = 0.25
+    end
+    
+    -- Movement Speed
+    if env(GetSpEffectID, 115000) == TRUE then
+        movement_speed_mult = 1.1
+    elseif env(GetSpEffectID, 115001) == TRUE then
+        movement_speed_mult = 1.2
+    elseif env(GetSpEffectID, 115002) == TRUE then
+        movement_speed_mult = 1.3
+    elseif env(GetSpEffectID, 115003) == TRUE then
+        movement_speed_mult = 1.4
+    elseif env(GetSpEffectID, 115004) == TRUE then
+        movement_speed_mult = 1.5
+    elseif env(GetSpEffectID, 115005) == TRUE then
+        movement_speed_mult = 1.6
+    elseif env(GetSpEffectID, 115006) == TRUE then
+        movement_speed_mult = 1.7
+    elseif env(GetSpEffectID, 115007) == TRUE then
+        movement_speed_mult = 1.8
+    elseif env(GetSpEffectID, 115008) == TRUE then
+        movement_speed_mult = 1.9
+    elseif env(GetSpEffectID, 115009) == TRUE then
+        movement_speed_mult = 2.0
+    elseif env(GetSpEffectID, 115010) == TRUE then
+        movement_speed_mult = 3.0
     end
     
     -- Apply movement speed change

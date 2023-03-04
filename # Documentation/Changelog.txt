@@ -121,6 +121,11 @@
  - Have 100% more HP over base.
  - Deal 30% more damage over base.
  
+# Enemies
+- Added Aggressive Vagrants as a new enemy type:
+ - Found in Undead Settlement and the Profaned Depths.
+ - Have a 5% chance to drop 1 Hollow Fragment (this is higher than normal).
+ 
 #-------------------------------------------------
 # World
 #-------------------------------------------------
