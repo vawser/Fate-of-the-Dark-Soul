@@ -141,3 +141,7 @@ c6331 Small Locust Preacher
 #------------------------------------
 c8000 Aggressive Vagrant (Source: c2271)
 
+# Potential adds:
+Ornstein (Nameless King)
+Elite Knight (Lothric Knight)
+Embraced Knight (Carthus Swordsman)
