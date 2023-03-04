@@ -114,6 +114,13 @@
 - Enemy power and health has been adjusted to fit the level-centric design of the mod
  - In general, enemy HP and damage has been pegged at around Irithyll values (from vanilla), with slight adjustments up and down depending on the level.
  
+# Turmoil
+- Enemies have a chance to become Turmoiled, causing them to take on a red shade. Does not affect bosses.
+- Turmoil enemies:
+ - Drop 5 times more souls.
+ - Have 100% more HP over base.
+ - Deal 30% more damage over base.
+ 
 #-------------------------------------------------
 # World
 #-------------------------------------------------

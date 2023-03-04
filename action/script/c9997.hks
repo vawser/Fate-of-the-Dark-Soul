@@ -5,6 +5,50 @@
 ------------------------------------------
 -- Mod: Functions
 ------------------------------------------
+IS_INITIALIZED_TURMOIL = FALSE
+
+function TurmoilEffect()
+    if IS_INITIALIZED_TURMOIL == TRUE then
+        return
+    elseif env(GetSpEffectID, 114000) == TRUE or env(GetSpEffectID, 114001) == TRUE then
+        IS_INITIALIZED_TURMOIL = TRUE
+        return
+    end
+    
+    local turmoil_roll = math.random(1000)
+    local turmoil_chance = 0
+    
+    -- 100%
+    if env(GetSpEffectID, 114016) == TRUE then
+        turmoil_chance = 1000
+    -- 10%
+    elseif env(GetSpEffectID, 114015) == TRUE then
+        turmoil_chance = 100
+    -- 5%
+    elseif env(GetSpEffectID, 114014) == TRUE then
+        turmoil_chance = 50
+    -- 4%
+    elseif env(GetSpEffectID, 114013) == TRUE then
+        turmoil_chance = 40
+    -- 3%
+    elseif env(GetSpEffectID, 114012) == TRUE then
+        turmoil_chance = 30
+    -- 2%
+    elseif env(GetSpEffectID, 114011) == TRUE then
+        turmoil_chance = 20
+    -- 1%
+    elseif env(GetSpEffectID, 114010) == TRUE then
+        turmoil_chance = 10
+    end
+    
+    if turmoil_chance > 0 and turmoil_roll <= turmoil_chance then
+        act(AddSpEffect, 114000)
+    else
+        act(AddSpEffect, 114001)
+    end
+    
+    IS_INITIALIZED_TURMOIL = TRUE
+end
 
 ------------------------------------------
 -- Core: Functions
@@ -3864,6 +3908,8 @@ function Damage_Update()
 end
 
 function Update()
+    TurmoilEffect()
+    
     g_FrameCount = g_FrameCount + 1
 end
 
