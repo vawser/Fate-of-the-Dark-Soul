@@ -1,6 +1,97 @@
 ﻿-------------------------------
+-- Mod: Utility Functions
+-------------------------------
+function AddToSet(set, key)
+    set[key] = true
+end
+
+function RemoveFromSet(set, key)
+    set[key] = nil
+end
+
+function SetContains(set, key)
+    return set[key] ~= nil
+end
+
+-- Checks the spAtkCategory for the primary hand
+function IsSpecialCategory(name)
+    local hand = HAND_RIGHT
+    
+    if style == HAND_LEFT_BOTH then
+        hand = HAND_LEFT
+    end
+    
+    local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
+    
+    if SetContains(special_category_table, name) then
+        if sp_kind == special_category_table[name] then
+            return true
+        else
+            return false
+        end
+    else
+        return false
+    end
+end
+
+-- Checks the spAtkCategory for the left hand
+function IsSpecialCategoryLeft(name)
+    local hand = HAND_LEFT
+    
+    local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
+    
+    if SetContains(special_category_table, name) then
+        if sp_kind == special_category_table[name] then
+            return true
+        else
+            return false
+        end
+    else
+        return false
+    end
+end
+-------------------------------
 -- Mod: Global Variables
 -------------------------------
+-- Associate spAtkCategory values to specific names.
+-- Names should match weapon name or if shared, a suitable collective name.
+special_category_table = {}
+special_category_table["Missionary Axes"] = 140
+special_category_table["Claw"] = 146
+special_category_table["Farron Greatsword"] = 161
+special_category_table["Lance"] = 177
+special_category_table["Friede's Great Scythe"] = 232
+special_category_table["Phosphorescent Pole"] = 270
+special_category_table["Bewitched Alonne Sword"] = 272
+special_category_table["Dragonslayer Swordspear"] = 276
+special_category_table["Black Dragon Sword"] = 278
+special_category_table["Quarterstaff"] = 279
+special_category_table["Scythe of Want"] = 281
+special_category_table["Vordt's Great Hammer"] = 282
+special_category_table["Black Dragon Greataxe"] = 283
+special_category_table["King's Quarterstaff"] = 294
+special_category_table["Beast Claw"] = 600
+special_category_table["Beast Cutter"] = 603
+special_category_table["Frostfall"] = 604
+special_category_table["Gargoyle Bident"] = 711
+special_category_table["Katana Alternate"] = 712
+special_category_table["Scythe Alternate"] = 713
+special_category_table["Fume Slated Swords"] = 718
+special_category_table["Sunlight Straight Sword"] = 724
+special_category_table["Hallowed Sword"] = 726
+special_category_table["Rotten Ghru Curved Sword"] = 728
+special_category_table["Beasthuner Saif"] = 729
+special_category_table["Burial Blade"] = 730
+special_category_table["Tonitrus"] = 732
+special_category_table["Hammer Alternate"] = 733
+special_category_table["Axe Alternate"] = 734
+special_category_table["Bloodletter"] = 737
+special_category_table["Sanguinus"] = 736
+special_category_table["Great Hammer Alternate"] = 742
+special_category_table["Church Pick"] = 743
+special_category_table["Boom Hammer"] = 744
+special_category_table["Fist Alternate"] = 747
+special_category_table["Kirkhammer"] = 750
 
 ------------------------------------------
 -- Mod: Functions
@@ -3394,6 +3485,10 @@ function ExecEvasion(backstep_limit, estep, is_usechainrecover)
         if GetVariable("IsLockon") == true and env(GetSpEffectID, 100360) == TRUE then
             act(TurnToLockonTargetImmediately)
         end
+        
+        -- SLIDE TEST
+        -- local event = "W_CombatSlide"
+        
         AddStamina(c_StaminaCostBackStep)
         ExecEventAllBody(event)
     else
@@ -6320,6 +6415,16 @@ function BackStep_onUpdate()
     end
 end
 
+-- Combat Slide
+function CombatSlide_onUpdate()
+    if EvasionCommonFunction(FALL_TYPE_DEFAULT, "W_AttackRightLightDash", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothDash", "W_AttackBothHeavy1Start") == TRUE then
+        return 
+    else
+        return 
+    end
+end
+
+
 function Jump_onActivate()
     ResetDamageCount()
     return 
@@ -7052,19 +7157,26 @@ function AttackRight_Activate()
 end
 
 function AttackRightLight1_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight2"
+    local Follow_R2 = "W_AttackRightHeavy1SubStart"
+    local Follow_L1 = "W_AttackLeftLight1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight2"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_LightAttack()
     
-    local r2 = "W_AttackRightHeavy1SubStart"
-    local hand = HAND_RIGHT
-       
-    local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
-    
-    -- Frostfall
-    if sp_kind == 604 then
-        r2 = "W_AttackRightHeavy2Start"
+    -- Adjustments: Flow
+    if IsSpecialCategory("Frostfall") then
+        Follow_R2 = "W_AttackRightHeavy2Start"
     end
 	
-    if AttackCommonFunction("W_AttackRightLight2", r2, "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight2", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
         return 
     else
         return 
@@ -7072,24 +7184,30 @@ function AttackRightLight1_onUpdate()
 end
 
 function AttackRightLight2_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight3"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackLeftLight1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight3"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_LightAttack()
     
-    local r2 = "W_AttackRightHeavy1Start"
-    local hand = HAND_RIGHT
-       
-    local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
-    
-    -- Quarterstaff
-    if sp_kind == 279 then
-        r2 = "W_AttackRightHeavy1SubStart"
+    -- Adjustments: Flow
+    if IsSpecialCategory("Quarterstaff") then
+        Follow_R2 = "W_AttackRightHeavy1SubStart"
     end
     
-    -- Frostfall
-	if sp_kind == 604 then
-        r2 = "W_AttackRightHeavy2Start"
+    if IsSpecialCategory("Frostfall") then
+        Follow_R2 = "W_AttackRightHeavy2Start"
     end
     
-    if AttackCommonFunction("W_AttackRightLight3", r2, "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight3", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
         return 
     else
         return 
@@ -7097,29 +7215,51 @@ function AttackRightLight2_onUpdate()
 end
 
 function AttackRightLight3_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight2"
+    local Follow_R2 = "W_AttackRightHeavy1SubStart"
+    local Follow_L1 = "W_AttackLeftLight1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight2"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+
+    -- Adjustments: Effects
     ApplyEffect_LightAttack()
     
-    local r1 = "W_AttackRightLight2"
-    local r2 = "W_AttackRightHeavy1SubStart"
-    local hand = HAND_RIGHT
-    local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
-    
-    if sp_kind == 276 or sp_kind == 282 or sp_kind == 726 or sp_kind == 724 or sp_kind == 728 or sp_kind == 729 or sp_kind == 730 or sp_kind == 712 or sp_kind == 732 or sp_kind == 733 or sp_kind == 734 or sp_kind == 736 or sp_kind == 603 or sp_kind == 146 or sp_kind == 600 or sp_kind == 742 or sp_kind == 744 or sp_kind == 745 or sp_kind == 747 or sp_kind == 270 then
-        r1 = "W_AttackRightBackstep"
+    -- Adjustments: Flow
+    if IsSpecialCategory("Claw") or 
+       IsSpecialCategory("Phosphorescent Pole") or 
+       IsSpecialCategory("Dragonslayer Swordspear") or 
+       IsSpecialCategory("Beast Claw") or 
+       IsSpecialCategory("Beast Cutter") or 
+       IsSpecialCategory("Katana Alternate") or 
+       IsSpecialCategory("Hallowed Sword") or 
+       IsSpecialCategory("Sunlight Straight Sword") or 
+       IsSpecialCategory("Rotten Ghru Curved Sword") or 
+       IsSpecialCategory("Beasthuner Saif") or 
+       IsSpecialCategory("Beasthuner Saif") or 
+       IsSpecialCategory("Tonitrus") or 
+       IsSpecialCategory("Hammer Alternate") or 
+       IsSpecialCategory("Axe Alternate") or 
+       IsSpecialCategory("Great Hammer Alternate") or 
+       IsSpecialCategory("Sanguinus") then
+        act(AddSpEffect, 119900000)
+        Follow_R1 = "W_AttackRightBackstep"
     end
     
-    -- Quarterstaff
-    if sp_kind == 282 then
-        r2 = "W_AttackRightHeavy1Start"
+    if IsSpecialCategory("Vordt's Great Hammer") then
+        Follow_R2 = "W_AttackRightHeavy1Start"
     end
     
-    -- Frostfall
-	if sp_kind == 604 then
-        r1 = "W_AttackRightLightStepSpecial"
-		r2 = "W_AttackRightHeavy2Start"
+	if IsSpecialCategory("Frostfall") then
+        Follow_R1 = "W_AttackRightLightStepSpecial"
+		Follow_R2 = "W_AttackRightHeavy2Start"
     end
     
-    if AttackCommonFunction(r1, r2, "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight2", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
         return 
     else
         return 
@@ -7127,34 +7267,71 @@ function AttackRightLight3_onUpdate()
 end
 
 function AttackRightLightKick_onUpdate()
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackLeftLight1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
+     
+    -- Adjustments: Flow
+    
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
         return 
     else
         return 
     end
 end
 
-function AttackRightLightStep_onUpdate()
-    local r1 = "W_AttackRightLight1"
-	local r2 = "W_AttackRightHeavy1Start"
-    local hand = HAND_RIGHT
-    local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
+function AttackRightLightStep_onUpdate()    
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackLeftLight1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
     
-    if sp_kind == 281 or sp_kind == 729 or sp_kind == 726 or sp_kind == 732 or sp_kind == 734 or sp_kind == 736 or sp_kind == 730 or sp_kind == 721 or sp_kind == 146 or sp_kind == 600 or sp_kind == 717 or sp_kind == 727 or sp_kind == 713 or sp_kind == 745 or sp_kind == 747 or sp_kind == 270 then
-        r1 = "W_AttackRightLight2"
+    -- Adjustments: Effects
+     
+    -- Adjustments: Flow
+    if IsSpecialCategory("Claw") or 
+       IsSpecialCategory("Phosphorescent Pole") or 
+       IsSpecialCategory("Dragonslayer Swordspear") or 
+       IsSpecialCategory("Beast Claw") or 
+       IsSpecialCategory("Beast Cutter") or 
+       IsSpecialCategory("Katana Alternate") or 
+       IsSpecialCategory("Hallowed Sword") or 
+       IsSpecialCategory("Sunlight Straight Sword") or 
+       IsSpecialCategory("Rotten Ghru Curved Sword") or 
+       IsSpecialCategory("Beasthuner Saif") or 
+       IsSpecialCategory("Beasthuner Saif") or 
+       IsSpecialCategory("Tonitrus") or 
+       IsSpecialCategory("Hammer Alternate") or 
+       IsSpecialCategory("Axe Alternate") or 
+       IsSpecialCategory("Great Hammer Alternate") or 
+       IsSpecialCategory("Sanguinus") then
+        Follow_R1 = "W_AttackRightLight2"
     end
     
-    -- Quarterstaff
-	if sp_kind == 294 then
-		r2 = "W_AttackRightHeavy2Start"
-	end
-	
-    -- Frostfall
-    if sp_kind == 604 then
-		r2 = "W_AttackRightHeavy2Start"
+    if IsSpecialCategory("King's Quarterstaff") then
+		Follow_R2 = "W_AttackRightHeavy2Start"
+    end
+
+    if IsSpecialCategory("Frostfall") then
+		Follow_R2 = "W_AttackRightHeavy2Start"
     end
     
-    if AttackCommonFunction(r1, r2, "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
         return 
     else
         return 
@@ -7162,19 +7339,26 @@ function AttackRightLightStep_onUpdate()
 end
 
 function AttackRightLightStepSpecial_onUpdate()
-    local r1 = "W_AttackRightLight1"
-	local r2 = "W_AttackRightHeavy1Start"
-    local hand = HAND_RIGHT
-	
-    local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
-
-    -- Frostfall
-	if sp_kind == 604 then
-        r1 = "W_AttackRightBackstep"
-		r2 = "W_AttackRightHeavy2Start"
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackLeftLight1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
+     
+    -- Adjustments: Flow
+    if IsSpecialCategory("Frostfall") then
+		Follow_R1 = "W_AttackRightBackstep"
+		Follow_R2 = "W_AttackRightHeavy2Start"
     end
 	
-    if AttackCommonFunction(r1, r2, "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
         return 
     else
         return 
@@ -7182,32 +7366,44 @@ function AttackRightLightStepSpecial_onUpdate()
 end
 
 function AttackRightLightDash_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackLeftLight1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_DashAttack()
     
-    local r1 = "W_AttackRightLight1"
-	local r2 = "W_AttackRightHeavy1Start"
-    local hand = HAND_RIGHT
-    local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
-    
-    if sp_kind == 281 or sp_kind == 724 or sp_kind == 729 or sp_kind == 726 or sp_kind == 712 or sp_kind == 733 or sp_kind == 736 or sp_kind == 146 or sp_kind == 713 or sp_kind == 742 or sp_kind == 711 then
-        r1 = "W_AttackRightLight2"
+    -- Adjustments: Flow
+    if IsSpecialCategory("Scythe of Want") or 
+       IsSpecialCategory("Sunlight Straight Sword") or 
+       IsSpecialCategory("Hallowed Sword") or 
+       IsSpecialCategory("Katana Alternate") or 
+       IsSpecialCategory("Hammer Alternate") or 
+       IsSpecialCategory("Sanguinus") or 
+       IsSpecialCategory("Claw") or 
+       IsSpecialCategory("Scythe Alternate") or 
+       IsSpecialCategory("Great Hammer Alternate") or 
+       IsSpecialCategory("Gargoyle Bident") then
+        Follow_R1 = "W_AttackRightLight2"
     end
 	
-    -- Frostfall
-    if sp_kind == 604 then
-        r1 = "W_AttackRightLight2"
-		r2 = "W_AttackRightHeavy2Start"
+    if IsSpecialCategory("Frostfall") then
+        Follow_R1 = "W_AttackRightLight2"
+		Follow_R2 = "W_AttackRightHeavy2Start"
     end
     
-	if sp_kind == 745 then
-		r1 = "W_AttackRightBackstep"
+	if IsSpecialCategory("Beast Cutter") then
+		Follow_R1 = "W_SpecialAttackRightHeavy"
 	end	
-	
-	if sp_kind == 603 then
-		r1 = "W_SpecialAttackRightHeavy"
-	end	
-		
-    if AttackCommonFunction(r1, r2, "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
+    
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
         return 
     else
         return 
@@ -7215,8 +7411,23 @@ function AttackRightLightDash_onUpdate()
 end
 
 function AttackRightLightDashSpecial_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackLeftLight1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_DashAttack()
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
+    
+    -- Adjustments: Flow
+    
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
         return 
     else
         return 
@@ -7224,8 +7435,23 @@ function AttackRightLightDashSpecial_onUpdate()
 end
 
 function AttackRightWhileGuard_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackLeftLight1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = TO_GUARDON
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_GuardAttack()
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", TO_GUARDON, TRUE) == TRUE then
+    
+    -- Adjustments: Flow
+    
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
         return 
     else
         return 
@@ -7233,8 +7459,23 @@ function AttackRightWhileGuard_onUpdate()
 end
 
 function AttackRightHeavy1SubStart_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy2Start"
+    local Follow_L1 = "W_AttackLeftLight1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy2Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_HeavyAttack()
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy2Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy2Start", FALSE, TRUE) == TRUE then
+    
+    -- Adjustments: Flow
+    
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
         return 
     elseif env(GetEventEzStateFlag, 0) == TRUE or env(IsAnimationOver, 1) == TRUE then
         act(SetSpecialInterpolation, 0, TRUE)
@@ -7246,10 +7487,26 @@ function AttackRightHeavy1SubStart_onUpdate()
 end
 
 function AttackRightHeavy1Start_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy2Start"
+    local Follow_L1 = "W_AttackLeftLight1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy2Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_HeavyAttack()
     act(SetSpecialInterpolation, 0, FALSE)
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy2Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy2Start", FALSE, TRUE) == TRUE then
+    
+    -- Adjustments: Flow
+    
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
         return 
+    -- Heavy Attack Cancel
     elseif env(ActionDuration, ACTION_ARM_R2) <= 0 and env(GetSpEffectID, 100280) == TRUE then
         ExecEventAllBody("W_AttackRightHeavy1End")
         return 
@@ -7259,8 +7516,23 @@ function AttackRightHeavy1Start_onUpdate()
 end
 
 function AttackRightHeavy1End_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy2Start"
+    local Follow_L1 = "W_AttackLeftLight1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy2Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_HeavyAttack()
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy2Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy2Start", FALSE, TRUE) == TRUE then
+    
+    -- Adjustments: Flow
+    
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
         return 
     else
         return 
@@ -7268,9 +7540,25 @@ function AttackRightHeavy1End_onUpdate()
 end
 
 function AttackRightHeavy2Start_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackLeftLight1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_HeavyAttack()
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
+    
+    -- Adjustments: Flow
+    
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
         return 
+    -- Heavy Attack Cancel
     elseif env(ActionDuration, ACTION_ARM_R2) <= 0 and env(GetSpEffectID, 100280) == TRUE then
         ExecEventAllBody("W_AttackRightHeavy2End")
         return 
@@ -7280,19 +7568,26 @@ function AttackRightHeavy2Start_onUpdate()
 end
 
 function AttackRightHeavy2End_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackLeftLight1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_HeavyAttack()
     
-    local r1 = "W_AttackRightLight1"
-    local hand = HAND_RIGHT
-	
-    local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
-
-    -- Frostfall
-	if sp_kind == 604 then
-        r1 = "W_AttackRightLight2"
+    -- Adjustments: Flow
+	if IsSpecialCategory("Frostfall") then
+        Follow_R1 = "W_AttackRightLight2"
     end
 	
-    if AttackCommonFunction(r1, "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
         return 
     else
         return 
@@ -7300,9 +7595,25 @@ function AttackRightHeavy2End_onUpdate()
 end
 
 function AttackRightHeavySpecial1SubStart_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy2Start"
+    local Follow_L1 = "W_AttackLeftLight1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy2Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_HeavyAttack()
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy2Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy2Start", FALSE, TRUE) == TRUE then
+    
+    -- Adjustments: Flow
+	
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
         return 
+    -- Heavy Attack Cancel
     elseif env(GetEventEzStateFlag, 0) == TRUE or env(IsAnimationOver, 1) == TRUE then
         act(SetSpecialInterpolation, 0, TRUE)
         ExecEventAllBody("W_AttackRightHeavySpecial1Start")
@@ -7313,10 +7624,26 @@ function AttackRightHeavySpecial1SubStart_onUpdate()
 end
 
 function AttackRightHeavySpecial1Start_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy2Start"
+    local Follow_L1 = "W_AttackLeftLight1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy2Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_HeavyAttack()
     act(SetSpecialInterpolation, 0, FALSE)
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy2Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy2Start", FALSE, TRUE) == TRUE then
+    
+    -- Adjustments: Flow
+	
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
         return 
+    -- Heavy Attack Cancel
     elseif env(ActionDuration, ACTION_ARM_R2) <= 0 and env(GetSpEffectID, 100280) == TRUE then
         ExecEventAllBody("W_AttackRightHeavySpecial1End")
         return 
@@ -7326,8 +7653,23 @@ function AttackRightHeavySpecial1Start_onUpdate()
 end
 
 function AttackRightHeavySpecial1End_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy2Start"
+    local Follow_L1 = "W_AttackLeftLight1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy2Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_HeavyAttack()
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy2Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy2Start", FALSE, TRUE) == TRUE then
+    
+    -- Adjustments: Flow
+	
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
         return 
     else
         return 
@@ -7335,23 +7677,36 @@ function AttackRightHeavySpecial1End_onUpdate()
 end
 
 function AttackRightHeavySpecial2Start_onUpdate()
-    ApplyEffect_HeavyAttack()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackLeftLight1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
     
-    local r1 = "W_AttackRightLight1"
-   	local hand = HAND_RIGHT
-	
-	local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
-	
-    -- Quarterstaff or Frostfall
-	if sp_kind == 272 or sp_kind == 604 then
-		r1 = "W_AttackRightLight2"
+    -- Adjustments: Effects
+    ApplyEffect_HeavyAttack()
+
+    -- Adjustments: Flow
+	if IsSpecialCategory("Bewitched Alonne Sword") then
+		Follow_R1 = "W_AttackRightLight2"
+	end
+    
+	if IsSpecialCategory("Frostfall") then
+		Follow_R1 = "W_AttackRightLight2"
 	end
 	
-    if AttackCommonFunction(r1, "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
+     -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
         return 
+    -- Heavy Attack Cancel
     elseif env(ActionDuration, ACTION_ARM_R2) <= 0 and env(GetSpEffectID, 100280) == TRUE then
         ExecEventAllBody("W_AttackRightHeavySpecial2End")
         return 
+    -- Beast Claw Charge Attack
     elseif env(GetSpEffectID, 100723) == TRUE then
         ExecEventAllBody("W_SpecialAttackRightLight")
         return 
@@ -7361,8 +7716,23 @@ function AttackRightHeavySpecial2Start_onUpdate()
 end
 
 function AttackRightHeavySpecial2End_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackLeftLight1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_HeavyAttack()
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
+    
+    -- Adjustments: Flow
+    
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
         return 
     else
         return 
@@ -7380,8 +7750,24 @@ function AttackRightHeavyWepBroken2Start_onUpdate()
 end
 
 function AttackRightHeavyWepBroken1SubStart_onUpdate()
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy2Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy2Start", FALSE, TRUE) == TRUE then
-        return 
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy2Start"
+    local Follow_L1 = "W_AttackLeftLight1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy2Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
+    
+    -- Adjustments: Flow
+    
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
+        return
+    -- Heavy Attack Cancel
     elseif env(GetEventEzStateFlag, 0) == TRUE or env(IsAnimationOver, 1) == TRUE then
         act(SetSpecialInterpolation, 0, TRUE)
         ExecEventAllBody("W_AttackRightHeavyWepBroken1Start")
@@ -7392,72 +7778,107 @@ function AttackRightHeavyWepBroken1SubStart_onUpdate()
 end
 
 function AttackRightHeavyKick_onUpdate()
-    local r1 = "W_AttackRightLightStep"
-	local r2 = "W_AttackRightHeavy2Start"
-   	local hand = HAND_RIGHT
-	
-	local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
-	
-    -- Quarterstaff
-	if sp_kind == 272 then
-		r2 = "W_AttackRightHeavy1Start"
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLightStep"
+    local Follow_R2 = "W_AttackRightHeavy2Start"
+    local Follow_L1 = "W_AttackLeftLight1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
+    
+    -- Adjustments: Flow
+	if IsSpecialCategory("Bewitched Alonne Sword") then
+		Follow_R2 = "W_AttackRightHeavy1Start"
 	end
 	
-    -- Frostfall
-	if sp_kind == 604 then
-		r1 = "W_AttackRightLight2"
+	if IsSpecialCategory("Frostfall") then
+		Follow_R1 = "W_AttackRightLight2"
     end
 	
-    if AttackCommonFunction(r1, r2, "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
-        return 
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
+        return
     else
         return 
     end
 end
 
 function AttackRightHeavyKickSpecial_onUpdate()
-    if AttackCommonFunction("W_AttackRightLightStep", "W_AttackRightHeavy2Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
-        return 
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLightStep"
+    local Follow_R2 = "W_AttackRightHeavy2Start"
+    local Follow_L1 = "W_AttackLeftLight1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
+    
+    -- Adjustments: Flow
+    
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
+        return
     else
         return 
     end
 end
 
 function AttackRightBackstep_onUpdate()
-    local r1 = "W_AttackRightLight1"
-	local r2 = "W_AttackRightHeavy1Start"
-    local hand = HAND_RIGHT
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackLeftLight1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
     
-    local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
+    -- Adjustments: Effects
     
-    if sp_kind == 282 or sp_kind == 726 or sp_kind == 728 or sp_kind == 729 or sp_kind == 712 or sp_kind == 736 or sp_kind == 745 or sp_kind == 270 then
-        r1 = "W_AttackRightLight2"
-    end
-	
-    -- Frostfall
-	if sp_kind == 604 then
-		r2 = "W_AttackRightHeavy2Start"
+    -- Adjustments: Flow
+    if IsSpecialCategory("Vordt's Great Hammer") or
+       IsSpecialCategory("Hallowed Sword") or
+       IsSpecialCategory("Rotten Ghru Curved Sword") or
+       IsSpecialCategory("Beasthuner Saif") or
+       IsSpecialCategory("Katana Alternate") or
+       IsSpecialCategory("Sanguinus") or
+       IsSpecialCategory("Phosphorescent Pole") then
+		Follow_R1 = "W_AttackRightLight2"
+	end
+    
+	if IsSpecialCategory("Frostfall") then
+		Follow_R2 = "W_AttackRightHeavy2Start"
     end
 
-	if sp_kind == 603 then
-		r1 = "W_SpecialAttackRightHeavy"
+	if IsSpecialCategory("Beast Cutter") then
+		Follow_R1 = "W_SpecialAttackRightHeavy"
     end	
 	
-	if sp_kind == 732 then
-        r1 = "W_AttackRightLight3"
-		r2 = "W_AttackRightHeavy2Start"
+	if IsSpecialCategory("Tonitrus") then
+        Follow_R1 = "W_AttackRightLight3"
+		Follow_R2 = "W_AttackRightHeavy2Start"
     end		
 	
-    if sp_kind == 146 or sp_kind == 742 then
-        r1 = "W_AttackRightLight1"
+    if IsSpecialCategory("Claw") or
+       IsSpecialCategory("Great Hammer Alternate") then
+        Follow_R1 = "W_AttackRightLight1"
     end	
 
-	if sp_kind == 744 then
-        r1 = "W_AttackRightLight3"
+	if IsSpecialCategory("Boom Hammer") then
+        Follow_R1 = "W_AttackRightLight3"
     end	
     
-    if AttackCommonFunction(r1, r2, "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
-        return 
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
+        return
     else
         return 
     end
@@ -7482,36 +7903,96 @@ function AttackLeft_Deactivate()
 end
 
 function AttackLeftLight1_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackLeftLight1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_LightAttack()
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
-        return 
+    
+    -- Adjustments: Flow
+    
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
+        return
     else
         return 
     end
 end
 
 function AttackLeftHeavy1_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = nil
+    local Follow_L2 = "W_AttackLeftHeavy2"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_HeavyAttack()
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", nil, "W_AttackLeftHeavy2", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
-        return 
+    
+    -- Adjustments: Flow
+    
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
+        return
     else
         return 
     end
 end
 
 function AttackLeftHeavy2_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = nil
+    local Follow_L2 = "W_AttackLeftHeavy3"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_HeavyAttack()
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", nil, "W_AttackLeftHeavy3", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
-        return 
+    
+    -- Adjustments: Flow
+    
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
+        return
     else
         return 
     end
 end
 
 function AttackLeftHeavy3_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = nil
+    local Follow_L2 = "W_AttackLeftHeavy2"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_HeavyAttack()
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", nil, "W_AttackLeftHeavy2", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
-        return 
+    
+    -- Adjustments: Flow
+    
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
+        return
     else
         return 
     end
@@ -7544,103 +8025,147 @@ function AttackBoth_Activate()
 end
 
 function AttackBothLight1_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight2"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackBothLeft2"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight2"
+    local Follow_B2 = "W_AttackBothHeavy1SubStart"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_LightAttack()
-    local b2 = "W_AttackBothHeavy1SubStart"
-    local hand = HAND_RIGHT
-    local style = c_Style
-    if style == HAND_LEFT_BOTH then
-        hand = HAND_LEFT
+    
+    -- Adjustments: Flow
+    if IsSpecialCategory("Friede's Great Scythe") then
+        Follow_B2 = "W_AttackBothHeavy2Start"
     end
-    if env(GetEquipWeaponSpecialCategoryNumber, hand) == 232 then
-        b2 = "W_AttackBothHeavy2Start"
-    end
-    if AttackCommonFunction("W_AttackRightLight2", "W_AttackRightHeavy1Start", "W_AttackBothLeft2", "W_AttackLeftHeavy1", "W_AttackBothLight2", b2, FALSE, TRUE) == TRUE then
-        return 
+    
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
+        return
     else
         return 
     end
 end
 
 function AttackBothLight2_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight3"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackBothLeft3"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight3"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_LightAttack()
-    if AttackCommonFunction("W_AttackRightLight3", "W_AttackRightHeavy1Start", "W_AttackBothLeft3", "W_AttackLeftHeavy1", "W_AttackBothLight3", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
-        return 
+    
+    -- Adjustments: Flow
+    
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
+        return
     else
         return 
     end
 end
 
 function AttackBothLight3_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight2"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackBothLeft2"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight2"
+    local Follow_B2 = "W_AttackBothHeavy1SubStart"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_LightAttack()
     
-    local b1 = "W_AttackBothLight2"
-	local l1 = "W_AttackBothLeft2"
-    local hand = HAND_RIGHT
-    local style = c_Style
-    
-    if style == HAND_LEFT_BOTH then
-        hand = HAND_LEFT
-    end
-
-    local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
-    
-    if sp_kind == 232 or sp_kind == 272 or sp_kind == 278 or sp_kind == 279 or sp_kind == 281 or sp_kind == 283 or sp_kind == 294 then 
-        b1 = "W_AttackBothLight1"
+    -- Adjustments: Flow
+    if IsSpecialCategory("Friede's Great Scythe") or 
+       IsSpecialCategory("Bewitched Alonne Sword") or 
+       IsSpecialCategory("Black Dragon Sword") or 
+       IsSpecialCategory("Quarterstaff") or 
+       IsSpecialCategory("Scythe of Want") or 
+       IsSpecialCategory("Black Dragon Greataxe") or 
+       IsSpecialCategory("King's Quarterstaff") then 
+        Follow_B1 = "W_AttackBothLight1"
     end
 	
-    -- Frostfall
-	if sp_kind == 604 then
-		b1 = "W_AttackBothHeavySpecial1Start"
-		l1 = "W_AttackBothHeavySpecial2Start"
+	if IsSpecialCategory("Frostfall") then
+		Follow_B1 = "W_AttackBothHeavySpecial1Start"
+		Follow_L1 = "W_AttackBothHeavySpecial2Start"
 	end
 
-	if sp_kind == 600 or sp_kind == 146 then
-		l1 = "W_AttackBothLeft3"
+	if IsSpecialCategory("Beast Claw") or 
+       IsSpecialCategory("Claw") then
+		Follow_L1 = "W_AttackBothLeft3"
 	end	
 	
-	if sp_kind == 731 or sp_kind == 734 or sp_kind == 735 or sp_kind == 737 or sp_kind == 146 or sp_kind == 600 or sp_kind == 742 or sp_kind == 743 or sp_kind == 745 or sp_kind == 747 or sp_kind == 270 or sp_kind == 750 then
-		b1 = "W_AttackBothBackstep"
+	if IsSpecialCategory("Scythe Alternate") or 
+       IsSpecialCategory("Axe Alternate") or 
+       IsSpecialCategory("Bloodletter") or 
+       IsSpecialCategory("Claw") or 
+       IsSpecialCategory("Beast Claw") or 
+       IsSpecialCategory("Great Hammer Alternate") or 
+       IsSpecialCategory("Church Pick") or 
+       IsSpecialCategory("Fist Alternate") or 
+       IsSpecialCategory("Phosphorescent Pole") or 
+       IsSpecialCategory("Kirkhammer") then
+		Follow_B1 = "W_AttackBothBackstep"
 	end
     
     if env(GetSpEffectID, 100440) == TRUE then 
-        act(SetMovementScaleMult, 0.699999988079071) -- SetMovementScaleMult
+        act(SetMovementScaleMult, 0.699999988079071)
     end
     
-    if AttackCommonFunction("W_AttackRightLight2", "W_AttackRightHeavy1Start", l1, "W_AttackLeftHeavy1", b1, "W_AttackBothHeavy1SubStart", FALSE, TRUE) == TRUE then
-        return 
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
+        return
     else
         return 
     end
 end
 
 function AttackBothLeft1_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight2"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackBothLeft2"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight2"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_LightAttack()
     
-    local b1 = "W_AttackBothLight2"
-    local hand = HAND_RIGHT
-    local style = c_Style
-    
-    if style == HAND_LEFT_BOTH then
-        hand = HAND_LEFT
-    end
-    
-    local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
-    
-    -- Frostfall L1 Transition for Frost Surge
-	if env(GetEquipWeaponSpecialCategoryNumber, HAND_RIGHT) == 604 and env(GetSpEffectID, 100739) == TRUE then 
+    -- Adjustments: Flow
+	if IsSpecialCategory("Frostfall") and env(GetSpEffectID, 100739) == TRUE then 
 		ExecEventHalfBlend(Event_AttackCrossbowBothRightEmpty, ALLBODY)
 		return
-	elseif env(GetEquipWeaponSpecialCategoryNumber, HAND_LEFT) == 604 and env(GetSpEffectID, 100739) == TRUE then 
+	elseif IsSpecialCategoryLeft("Frostfall") and env(GetSpEffectID, 100739) == TRUE then 
 		ExecEventHalfBlend(Event_AttackCrossbowBothLeftEmpty, ALLBODY)
 		return
 	end
 
-	if sp_kind == 718 then
-		b1 = "W_AttackBothLight3"
+	if IsSpecialCategory("Fume Slated Swords") then
+		Follow_B1 = "W_AttackBothLight3"
 	end	
 	
-    if AttackCommonFunction("W_AttackRightLight2", "W_AttackRightHeavy1Start", "W_AttackBothLeft2", "W_AttackLeftHeavy1", b1, "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
-        return 
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
+        return
+    -- Transition
     elseif env(GetSpEffectID, 100710) == TRUE then
         ExecEventAllBody("W_AttackBothHeavySpecial1SubStart")
         return 	 
@@ -7650,24 +8175,26 @@ function AttackBothLeft1_onUpdate()
 end
 
 function AttackBothLeft2_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackBothLeft3"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight3"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_LightAttack()
     
-    local b1 = "W_AttackBothLight3"
-	local l1 = "W_AttackBothLeft3"
-   	local hand = HAND_RIGHT
-   	local style = c_Style
-    
-   	if style == HAND_LEFT_BOTH then
-      	hand = HAND_LEFT
-    end
-    
-	local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
-    
-	if sp_kind == 600 or sp_kind == 146 then
-		b1 = "W_AttackBothLight2"
+    -- Adjustments: Flow
+	if IsSpecialCategory("Beast Claw") or IsSpecialCategory("Claw") then
+		Follow_B1 = "W_AttackBothLight2"
 	end
     
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", l1, "W_AttackLeftHeavy1", b1, "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
         return 
     else
         return 
@@ -7675,38 +8202,39 @@ function AttackBothLeft2_onUpdate()
 end
 
 function AttackBothLeft3_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight2"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackBothLeft2"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight2"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_LightAttack()
-    
-    local b1 = "W_AttackBothLight2"
-	local l1 = "W_AttackBothLeft2"
-   	local hand = HAND_RIGHT
-   	local style = c_Style
-    
-   	if style == HAND_LEFT_BOTH then
-      	hand = HAND_LEFT
-    end
-    
-	local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
-    
-	if sp_kind == 294 then
-		l1 = "W_AttackBothLeft1"
+
+    -- Adjustments: Flow
+	if IsSpecialCategory("King's Quarterstaff") then
+		Follow_L1 = "W_AttackBothLeft1"
 	end
     
-    -- Frostfall
-	if sp_kind == 604 then
-		b1 = "W_AttackBothHeavySpecial1Start"
-		l1 = "W_AttackBothHeavySpecial2Start"
+	if IsSpecialCategory("Frostfall") then
+		Follow_B1 = "W_AttackBothHeavySpecial1Start"
+		Follow_L1 = "W_AttackBothHeavySpecial2Start"
 	end
     
-	if sp_kind == 600 then
-		b1 = "W_AttackBothLight1"
+	if IsSpecialCategory("Beast Claw") then
+		Follow_B1 = "W_AttackBothLight1"
 	end	
     
-	if sp_kind == 146 then
-		b1 = "W_AttackBothLight3"
+	if IsSpecialCategory("Claw") then
+		Follow_B1 = "W_AttackBothLight3"
 	end		
     
-    if AttackCommonFunction("W_AttackRightLight2", "W_AttackRightHeavy1Start", l1, "W_AttackLeftHeavy1", b1, "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
         return 
     else
         return 
@@ -7714,47 +8242,46 @@ function AttackBothLeft3_onUpdate()
 end
 
 function AttackBothLeftDash_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackBothLeft1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_DashAttack()
     
-    local r1 = "W_AttackRightLight1"
-    local l1 = "W_AttackBothLeft1"
-    local b1 = "W_AttackBothLight1"
-	local b2 = "W_AttackBothHeavy1Start"
-    local hand = HAND_RIGHT
-    local style = c_Style
-    
-    if style == HAND_LEFT_BOTH then
-        hand = HAND_LEFT
+    -- Adjustments: Flow
+    if IsSpecialCategory("Farron Greatsword") then
+        Follow_R1 = "W_AttackRightLight2"
+        Follow_L1 = "W_AttackBothLeft2"
+        Follow_B1 = "W_AttackBothLight2"
     end
     
-	local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
-    
-    if sp_kind == 161 then
-        r1 = "W_AttackRightLight2"
-        l1 = "W_AttackBothLeft2"
-        b1 = "W_AttackBothLight2"
-    end
-    
-	if sp_kind == 294 then
-		l1 = "W_AttackBothLeft3"
-		b1 = "W_AttackBothLight3"
-		b2 = "W_AttackBothHeavy2Start"
+	if IsSpecialCategory("King's Quarterstaff") then
+		Follow_L1 = "W_AttackBothLeft3"
+		Follow_B1 = "W_AttackBothLight3"
+		Follow_B2 = "W_AttackBothHeavy2Start"
 	end
     
-    -- Frostfall
-	if sp_kind == 604 then
-		b2 = "W_AttackBothHeavy2Start"
+	if IsSpecialCategory("Frostfall") then
+		Follow_B2 = "W_AttackBothHeavy2Start"
 	end
     
-	if sp_kind == 600 then
-		b1 = "W_AttackBothLight2"
+	if IsSpecialCategory("Beast Claw") then
+		Follow_B1 = "W_AttackBothLight2"
 	end	
     
-	if sp_kind == 718 or sp_kind == 140 then
-		l1 = "W_AttackBothLeft2"
+	if IsSpecialCategory("Fume Slated Swords") or IsSpecialCategory("Missionary Axes") then
+		Follow_L1 = "W_AttackBothLeft2"
 	end		
     
-    if AttackCommonFunction(r1, "W_AttackRightHeavy1Start", l1, "W_AttackLeftHeavy1", b1, b2, FALSE, TRUE) == TRUE then
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
         return 
     else
         return 
@@ -7762,39 +8289,40 @@ function AttackBothLeftDash_onUpdate()
 end
 
 function AttackBothLeftStep_onUpdate()
-    local l1 = "W_AttackBothLeft1"
-	local b1 = "W_AttackBothLight1"
-	local b2 = "W_AttackBothHeavy1Start"
-   	local hand = HAND_RIGHT
-   	local style = c_Style
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackBothLeft1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
     
-   	if style == HAND_LEFT_BOTH then
-      	hand = HAND_LEFT
-    end
+    -- Adjustments: Effects
     
-	local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
-    
-	if sp_kind == 294 then
-		l1 = "W_AttackBothLeft3"
-		b1 = "W_AttackBothLight3"
-		b2 = "W_AttackBothHeavy2Start"
+    -- Adjustments: Flow
+	if IsSpecialCategory("King's Quarterstaff") then
+		Follow_L1 = "W_AttackBothLeft3"
+		Follow_B1 = "W_AttackBothLight3"
+		Follow_B2 = "W_AttackBothHeavy2Start"
 	end
     
-    -- Frostfall
-	if sp_kind == 604 then
-		b2 = "W_AttackBothHeavy2Start"
+	if IsSpecialCategory("Frostfall") then
+		Follow_B2 = "W_AttackBothHeavy2Start"
 	end
     
-	if sp_kind == 146 then
-		l1 = "W_AttackBothLeft2"
+	if IsSpecialCategory("Claw") then
+		Follow_L1 = "W_AttackBothLeft2"
 	end	
     
-	if sp_kind == 718 then
-		b1 = "W_AttackBothLight3"
-		l1 = "W_AttackBothLeft2"
+	if IsSpecialCategory("Fume Slated Swords") then
+		Follow_L1 = "W_AttackBothLeft2"
+		Follow_B1 = "W_AttackBothLight3"
 	end	
     
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", l1, "W_AttackLeftHeavy1", b1, b2, FALSE, TRUE) == TRUE then
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
         return 
     else
         return 
@@ -7802,9 +8330,23 @@ function AttackBothLeftStep_onUpdate()
 end
 
 function AttackBothHeavy1SubStart_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackBothLeft1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy2Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_HeavyAttack()
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackBothLeft1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy2Start", FALSE, TRUE) == TRUE then
+    
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
         return 
+    -- Heavy Attack Cancel
     elseif env(GetEventEzStateFlag, 0) == TRUE or env(IsAnimationOver, 1) == TRUE then
         act(SetSpecialInterpolation, 0, TRUE)
         ExecEventAllBody("W_AttackBothHeavy1Start")
@@ -7815,10 +8357,24 @@ function AttackBothHeavy1SubStart_onUpdate()
 end
 
 function AttackBothHeavy1Start_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackBothLeft1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy2Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_HeavyAttack()
     act(SetSpecialInterpolation, 0, FALSE)
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackBothLeft1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy2Start", FALSE, TRUE) == TRUE then
+    
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
         return 
+    -- Heavy Attack Cancel
     elseif env(ActionDuration, ACTION_ARM_R2) <= 0 and env(GetSpEffectID, 100280) == TRUE then
         ExecEventAllBody("W_AttackBothHeavy1End")
         return 
@@ -7828,8 +8384,23 @@ function AttackBothHeavy1Start_onUpdate()
 end
 
 function AttackBothHeavy1End_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackBothLeft1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy2Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_HeavyAttack()
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackBothLeft1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy2Start", FALSE, TRUE) == TRUE then
+    
+    -- Adjustments: Effects
+    
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
         return 
     else
         return 
@@ -7837,9 +8408,25 @@ function AttackBothHeavy1End_onUpdate()
 end
 
 function AttackBothHeavy2Start_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackBothLeft1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_HeavyAttack()
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackBothLeft1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
+    
+    -- Adjustments: Effects
+    
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
         return 
+    -- Heavy Attack Cancel
     elseif env(ActionDuration, ACTION_ARM_R2) <= 0 and env(GetSpEffectID, 100280) == TRUE then
         ExecEventAllBody("W_AttackBothHeavy2End")
         return 
@@ -7849,8 +8436,23 @@ function AttackBothHeavy2Start_onUpdate()
 end
 
 function AttackBothHeavy2End_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackBothLeft1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_HeavyAttack()
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackBothLeft1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
+    
+    -- Adjustments: Effects
+    
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
         return 
     else
         return 
@@ -7858,9 +8460,25 @@ function AttackBothHeavy2End_onUpdate()
 end
 
 function AttackBothHeavySpecial1SubStart_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackBothLeft1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy2Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_HeavyAttack()
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackBothLeft1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy2Start", FALSE, TRUE) == TRUE then
+    
+    -- Adjustments: Effects
+    
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
         return 
+    -- Heavy Attack Cancel
     elseif env(GetEventEzStateFlag, 0) == TRUE or env(IsAnimationOver, 1) == TRUE then
         act(SetSpecialInterpolation, 0, TRUE)
         ExecEventAllBody("W_AttackBothHeavySpecial1Start")
@@ -7871,37 +8489,39 @@ function AttackBothHeavySpecial1SubStart_onUpdate()
 end
 
 function AttackBothHeavySpecial1Start_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackBothLeft1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy2Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_HeavyAttack()
+    act(SetSpecialInterpolation, 0, FALSE)
     
-    local b1 = "W_AttackBothLight1"
-	local l1 = "W_AttackBothLeft1"
-	
-    local hand = HAND_RIGHT
-    local style = c_Style
+    -- Adjustments: Effects
     
-    if style == HAND_LEFT_BOTH then
-        hand = HAND_LEFT
-    end
-    
-    local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
-	
-    -- Frostfall
-	if sp_kind == 604 then
-		b1 = "W_AttackBothHeavySpecial1End"
-		l1 = "W_AttackBothHeavySpecial2End"
+	if IsSpecialCategory("Frostfall") then
+		Follow_L1 = "W_AttackBothHeavySpecial2End"
+		Follow_B1 = "W_AttackBothHeavySpecial1End"
 	end
     
-	if sp_kind == 177 then
+	if IsSpecialCategory("Lance") then
         act(SetMovementScaleMult, 1.5)
     end		
     
-    act(SetSpecialInterpolation, 0, FALSE)
-    
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", l1, "W_AttackLeftHeavy1", b1, "W_AttackBothHeavy2Start", FALSE, TRUE) == TRUE then
-        return 
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
+        return
+    -- Heavy Attack Cancel
     elseif env(ActionDuration, ACTION_ARM_R2) <= 0 and env(GetSpEffectID, 100280) == TRUE then
         ExecEventAllBody("W_AttackBothHeavySpecial1End")
-        return 
+        return
+    -- Beast Claw Cancel
     elseif env(GetSpEffectID, 100723) == TRUE then
         ExecEventAllBody("W_AttackBothDashSpecial")
         return
@@ -10045,7 +10665,20 @@ end
 
 function SpecialAttackRightLight_onUpdate()
     ApplyEffect_SkillAttack()
-    if SwordArtsCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, FALSE, FALSE, GEN_TRANS_LEFT) == TRUE then
+    
+    local r1 = "W_AttackRightLight2"
+	local r2 = "W_AttackRightHeavy2Start"
+	local b1 = "W_AttackBothLight2"
+    local hand = HAND_RIGHT
+    local kind = env(GetEquipWeaponCategory, hand)
+    local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
+    
+    -- Phosphorescent Pole
+    if sp_kind == 270 then
+        r2 = "W_AttackRightHeavy2Start"
+    end	
+	
+    if SwordArtsCommonFunction("W_AttackRightLight1", r2, "W_AttackLeftLight1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, FALSE, FALSE, GEN_TRANS_LEFT) == TRUE then
         return 
     else
         return 
@@ -10072,6 +10705,9 @@ function AttackSpinStart_Upper_onUpdate()
         hand = HAND_LEFT
     end
     
+    local kind = env(GetEquipWeaponCategory, hand)
+    local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
+    
     -- Frostfall
     if sp_kind == 604 then
 		if env(GetSpEffectID, 100733) == TRUE and env(GetSpEffectID, 100734) == TRUE then
@@ -10093,9 +10729,7 @@ function AttackSpinStart_Upper_onUpdate()
 		end
 	end
     
-    local kind = env(GetEquipWeaponCategory, hand)
     if kind == WEAPON_CATEGORY_CURVEDSWORD then
-        local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
         if sp_kind ~= 51 and sp_kind ~= 101 and sp_kind ~= 137 and sp_kind ~= 139 and sp_kind ~= 195 then
             r1 = "W_AttackRightLight1"
             b1 = "W_AttackBothLight1"
@@ -10448,21 +11082,29 @@ function OneShotNoGenTransStart_onUpdate()
     local r2 = "W_AttackRightHeavy1Start"
     local b1 = "W_AttackBothLight1"
     local b2 = "W_AttackBothHeavy1Start"
+    
     local hand = HAND_RIGHT
     local style = c_Style
+    
     if style == HAND_LEFT_BOTH then
         hand = HAND_LEFT
     end
+    
     local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
+    
+    -- Second Press
     if env(GetSpEffectID, 100250) == TRUE then
         SetSwordArtsPointInfo(ACTION_ARM_R2, TRUE)
         r2 = "W_OneShotNoGenTransContinue"
         b2 = "W_OneShotNoGenTransContinue"
     end
+    
+    -- Follower Sabre
     if sp_kind == 247 then
         r1 = "W_AttackRightLight2"
         b1 = "W_AttackBothLight2"
     end
+    
     if SwordArtsCommonFunction(r1, r2, "W_AttackLeftLight1", "W_AttackLeftHeavy1", b1, b2, FALSE, FALSE, FALSE, FALSE) == TRUE then
         return 
     else

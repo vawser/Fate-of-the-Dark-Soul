@@ -1,0 +1,21 @@
+﻿#-------------------------------------------------
+# Notes
+#-------------------------------------------------
+hkbStateMachineTransitionInfoArray
+ Add a new hkobject within the transition section for each new element in the source hkbStateMachine
+  "toStateId" needs to reference "stateId" of the new hkbStateMachineStateInfo
+  
+<hkparam name="flags">4</hkparam> is used to mirror the animation
+
+#-------------------------------------------------
+# WIP
+#-------------------------------------------------
+Add slide action:
+L3 Press
+a960_216020 -> a000_027300
+
+a000_027300 Combat Slide - Light
+a000_027310 Combat Slide - Normal
+a000_027320 Combat Slide - Heavy
+a000_027330 Combat Slide - Overweight
+a000_027340 Combat Slide - Superlight

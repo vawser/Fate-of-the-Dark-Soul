@@ -56,8 +56,6 @@ Add transmogrification system
 Add 'Crystal Tear' system, using covenant slot as the Tear slot
  Add 'Wonderous Flask' that triggers the Tear slot when used
 
-Restore named env and act to c0000.hks
-
 Place treasures:
 21010 Bestial Fang
 21020 Ironwood Ring
@@ -69,6 +67,6 @@ Place treasures:
 21080 Korg's Talon
 21090 Dashmaster's Bell
 
-Add slide action:
-L3 Press
-a960_216020 -> a000_027300
+30020000 Phosphorescent Pole
+
+Add teleport to Consumed King's Garden as a throne
