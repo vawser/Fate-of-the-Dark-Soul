@@ -4,13 +4,59 @@
 Fix incorrect icons in some cases due to usage of Cinders icon sheet
 
 #-------------------------------------------------
+# Ideas
+#-------------------------------------------------
+Weapons to add:
+ Phosphorescent Pole
+ Bewitched Alonne Sword
+ Runelock
+ Frying Pan
+ Black Dragon Greatsword
+ Black Dragon Sword
+ Ancient Dragon Halberd
+ Writhing Hammer
+ Scythe of Want
+ Black Dragon Greataxe
+ Twinspears of the Forlorn
+ Quarterstaff
+ Manus Catalyst
+ Golem Axe
+ Rampart Golem Lance
+ Gravelord Sword
+ Red Rust Sword
+ Warped Sword
+ Dragon Hunter's Greataxe
+ Dragon Hunter's Warpick
+ Dragon Hunter's Great Hammer
+ Ivory King Ultra Greatsword
+ Gargoyle Halberd
+ Gargoyle Tail Axe
+ Gargoyle Bident
+ Sacred Chime Hammer
+ Fume Slated Swords
+ Demon's Spear
+ Sanctum Mace
+ Aldia Hammer
+ 
+Ring ideas to add:
+ Heavy Attack Boost
+ Guard Attack Boost
+ Ammunition Attack Boost
+ Throwing Item Boost
+ Luck/Vigor/Attunement/Endurance/Vitality Boost
+ Boost flat defence (reduce roll distance)
+ Reduce evasive stamina cost
+ Backstep dodge frames + distance boost
+
+#-------------------------------------------------
 # WIP
 #-------------------------------------------------
 Add transmogrification system
 
-Restore named env and act to c0000.hks
+Add 'Crystal Tear' system, using covenant slot as the Tear slot
+ Add 'Wonderous Flask' that triggers the Tear slot when used
 
-Add Repair to Pygmy Merchant
+Restore named env and act to c0000.hks
 
 Place treasures:
 21010 Bestial Fang
@@ -22,6 +68,7 @@ Place treasures:
 21070 Beastbane Oil
 21080 Korg's Talon
 21090 Dashmaster's Bell
-30000000 Penetrating Sword
 
-3900830
+Add slide action:
+L3 Press
+a960_216020 -> a000_027300

@@ -1,0 +1,4 @@
+﻿# Replace TEMPID with the prefix for this set
+# To Add
+
+"弓矢スロット取得"

@@ -4019,6 +4019,3 @@ $Event(20006040, Default, function(X0_4, X4_4, X8_4) {
     WaitFor(!PlayerIsNotInOwnWorld() && !CharacterBackreadStatus(X0_4));
     RestartEvent();
 });
-
-
-
