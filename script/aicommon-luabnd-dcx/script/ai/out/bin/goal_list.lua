@@ -703,6 +703,8 @@ GOAL_Abaddon_Small_633100_Battle_AfterAttackAct = 633101
 GOAL_Vagrant800000_Battle = 800000
 GOAL_Vagrant800000_AfterAttackAct = 800001
 
+GOAL_Penetrator801000_Battle = 801000
+
 GOAL_NPCTest_900000_Battle = 900000
 GOAL_HirasTest_901000_Battle = 901000
 GOAL_AnimeTest_901010_Battle = 901010

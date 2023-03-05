@@ -277,6 +277,9 @@ def t511105_x50():
         # Sell Item
         AddTalkListData(2, 15000012, -1)
         
+        # Repair Equipment
+        AddTalkListData(3, 15010003, -1)
+        
         # Leave
         AddTalkListData(99, 80000999, -1)
         
@@ -291,6 +294,10 @@ def t511105_x50():
         elif GetTalkListEntryResult() == 2:
             OpenSellShop(-1, -1)
             assert not (CheckSpecificPersonMenuIsOpen(6, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
+        # Repair
+        elif GetTalkListEntryResult() == 3:
+            OpenRepairShop()
+            assert not (CheckSpecificPersonMenuIsOpen(8, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
         else:
             return 0
             

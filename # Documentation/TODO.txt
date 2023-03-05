@@ -8,6 +8,10 @@ Fix incorrect icons in some cases due to usage of Cinders icon sheet
 #-------------------------------------------------
 Add transmogrification system
 
+Restore named env and act to c0000.hks
+
+Add Repair to Pygmy Merchant
+
 Place treasures:
 21010 Bestial Fang
 21020 Ironwood Ring
@@ -18,8 +22,6 @@ Place treasures:
 21070 Beastbane Oil
 21080 Korg's Talon
 21090 Dashmaster's Bell
+30000000 Penetrating Sword
 
-Remove Cinders InvokeDS3Poise from the TAE files
- Restore vanilla instances where lacking
- 
-a020 -> a799
+3900830

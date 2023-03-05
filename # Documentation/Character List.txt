@@ -140,6 +140,7 @@ c6331 Small Locust Preacher
 # Added
 #------------------------------------
 c8000 Aggressive Vagrant (Source: c2271)
+c8010 Penetrator (Source: c1280)
 
 # Potential adds:
 Elite Knight (Lothric Knight)

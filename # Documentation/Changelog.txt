@@ -126,6 +126,8 @@
  - Found in Undead Settlement and the Profaned Depths.
  - Have a 5% chance to drop 1 Hollow Fragment (this is higher than normal).
  
+- Added Penetrator mini-boss in the Profaned Depths.
+
 #-------------------------------------------------
 # World
 #-------------------------------------------------
@@ -224,6 +226,10 @@
 - Weapons are no longer reinforced. 
 - Weapons base damage and scaling has been adjusted to account for the removal of reinforcement.
 - The stat effectiveness curve has been made more linear, so high damage requires more stat investment.
+
+- Added the following weapons: 
+ - Penetrating Sword
+ - Frostfall
 
 #-------------------------------------------------
 # Catalysts

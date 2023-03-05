@@ -856,6 +856,12 @@
       <root>N:\FDP\data\INTERROOT_win64\</root>
       <path>script\ai\out\bin\800000_battle.lua</path>
     </file>
+    <file>
+      <flags>0x40</flags>
+      <id>1231</id>
+      <root>N:\FDP\data\INTERROOT_win64\</root>
+      <path>script\ai\out\bin\801000_battle.lua</path>
+    </file>
     
     <file>
       <flags>0x40</flags>
