@@ -56,6 +56,9 @@ Add transmogrification system
 Add 'Crystal Tear' system, using covenant slot as the Tear slot
  Add 'Wonderous Flask' that triggers the Tear slot when used
 
+30020000 Phosphorescent Pole
+ - WA not working correctly
+ 
 Place treasures:
 21010 Bestial Fang
 21020 Ironwood Ring
@@ -67,6 +70,3 @@ Place treasures:
 21080 Korg's Talon
 21090 Dashmaster's Bell
 
-30020000 Phosphorescent Pole
-
-Add teleport to Consumed King's Garden as a throne
