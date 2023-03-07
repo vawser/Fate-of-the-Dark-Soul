@@ -83,7 +83,7 @@
       "ProjectionNearClipDist": 0.1,
       "ProjectionFarClipDist": 10000.0,
       "Matrix_Projection": {
-        "M11": 4.2815166,
+        "M11": 2.5918133,
         "M12": 0.0,
         "M13": 0.0,
         "M14": 0.0,
@@ -101,7 +101,7 @@
         "M44": 0.0
       },
       "Matrix_Projection_Skybox": {
-        "M11": 2.4086206,
+        "M11": 1.4580569,
         "M12": 0.0,
         "M13": 0.0,
         "M14": 0.0,
@@ -179,7 +179,7 @@
       "AngleSnap": 0.7853982,
       "AngleSnapEnable": false,
       "PivotPrimIsEnabled": false,
-      "OrbitCamCenter_DummyPolyFollowRefPoint": "-0.025543824, 1.2375488, -0.09018728",
+      "OrbitCamCenter_DummyPolyFollowRefPoint": "-0.048954427, 0.6537179, -0.066774845",
       "OrbitCamCenter_DummyPolyFollowRefPoint_Init": "-0.10528319, 1.3254398, 0.06959634",
       "OverallMouseSpeedMult": 1.0,
       "CameraTurnSpeedMouse": 1.0,
@@ -225,7 +225,7 @@
       "OrbitCamDistance": 5.0,
       "ProjectionIsOrthographic": false,
       "ProjectionVerticalFovRatio": 1.0,
-      "PivotPrimVisRatio": 0.0
+      "PivotPrimVisRatio": 0.94599605
     }
   ]
 }

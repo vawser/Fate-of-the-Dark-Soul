@@ -1,99 +1,4 @@
-﻿-------------------------------
--- Mod: Utility Functions
--------------------------------
-function AddToSet(set, key)
-    set[key] = true
-end
-
-function RemoveFromSet(set, key)
-    set[key] = nil
-end
-
-function SetContains(set, key)
-    return set[key] ~= nil
-end
-
--- Checks the spAtkCategory for the primary hand
-function IsSpecialCategory(name)
-    local hand = HAND_RIGHT
-    
-    if style == HAND_LEFT_BOTH then
-        hand = HAND_LEFT
-    end
-    
-    local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
-    
-    if SetContains(special_category_table, name) then
-        if sp_kind == special_category_table[name] then
-            return true
-        else
-            return false
-        end
-    else
-        return false
-    end
-end
-
--- Checks the spAtkCategory for the left hand
-function IsSpecialCategoryLeft(name)
-    local hand = HAND_LEFT
-    
-    local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
-    
-    if SetContains(special_category_table, name) then
-        if sp_kind == special_category_table[name] then
-            return true
-        else
-            return false
-        end
-    else
-        return false
-    end
-end
--------------------------------
--- Mod: Global Variables
--------------------------------
--- Associate spAtkCategory values to specific names.
--- Names should match weapon name or if shared, a suitable collective name.
-special_category_table = {}
-special_category_table["Missionary Axes"] = 140
-special_category_table["Claw"] = 146
-special_category_table["Farron Greatsword"] = 161
-special_category_table["Lance"] = 177
-special_category_table["Friede's Great Scythe"] = 232
-special_category_table["Phosphorescent Pole"] = 270
-special_category_table["Bewitched Alonne Sword"] = 272
-special_category_table["Dragonslayer Swordspear"] = 276
-special_category_table["Black Dragon Sword"] = 278
-special_category_table["Quarterstaff"] = 279
-special_category_table["Scythe of Want"] = 281
-special_category_table["Vordt's Great Hammer"] = 282
-special_category_table["Black Dragon Greataxe"] = 283
-special_category_table["King's Quarterstaff"] = 294
-special_category_table["Beast Claw"] = 600
-special_category_table["Beast Cutter"] = 603
-special_category_table["Frostfall"] = 604
-special_category_table["Gargoyle Bident"] = 711
-special_category_table["Katana Alternate"] = 712
-special_category_table["Scythe Alternate"] = 713
-special_category_table["Fume Slated Swords"] = 718
-special_category_table["Sunlight Straight Sword"] = 724
-special_category_table["Hallowed Sword"] = 726
-special_category_table["Rotten Ghru Curved Sword"] = 728
-special_category_table["Beasthuner Saif"] = 729
-special_category_table["Burial Blade"] = 730
-special_category_table["Tonitrus"] = 732
-special_category_table["Hammer Alternate"] = 733
-special_category_table["Axe Alternate"] = 734
-special_category_table["Bloodletter"] = 737
-special_category_table["Sanguinus"] = 736
-special_category_table["Great Hammer Alternate"] = 742
-special_category_table["Church Pick"] = 743
-special_category_table["Boom Hammer"] = 744
-special_category_table["Fist Alternate"] = 747
-special_category_table["Kirkhammer"] = 750
-
-------------------------------------------
+﻿------------------------------------------
 -- Mod: Functions
 ------------------------------------------
 function TestFunction()
@@ -425,14 +330,17 @@ function SetThrowDefBlendWeight()
     if env(DoesAnimExist, GetVariable("ThrowID") + 4) == FALSE then
         return 
     end
+    
     local regist_num = env(GetThrowDefenseCount)
     local dT = GetDeltaTime()
     local blend_weight = GetVariable("ThrowHoldBlendWeight")
     local is_holding = GetVariable("ThrowHolding")
     local no_regist_time = GetVariable("ThrowNoRegistTime")
+    
     if 0 < regist_num then
         is_holding = true
     end
+    
     if is_holding == true then
         if regist_num <= 0 then
             no_regist_time = no_regist_time + dT
@@ -456,6 +364,7 @@ function SetThrowDefBlendWeight()
             SetVariable("IsEnableTAEThrowHold", true)
         end
     end
+    
     SetVariable("ThrowHoldBlendWeight", blend_weight)
     SetVariable("ThrowHolding", is_holding)
     SetVariable("ThrowNoRegistTime", no_regist_time)
@@ -469,9 +378,11 @@ end
 
 function SetRollingTurnCondition(is_selftrans)
     local rolling_angle = "RollingAngleReal"
+    
     if is_selftrans == TRUE then
         rolling_angle = "RollingAngleRealSelftrans"
     end
+    
     if GetVariable("IsLockon") == true then
         local angle = GetVariable("TurnAngleReal")
         if 180 < angle then
@@ -487,6 +398,7 @@ function SetRollingTurnCondition(is_selftrans)
     elseif 200 < GetVariable("TurnAngleReal") then
         SetTurnSpeed(0)
     end
+    
     return 
 end
 
@@ -513,20 +425,24 @@ function SetArtsGeneratorTransitionIndex(gen_hand, is_from)
         SetVariable("ArtsTransition", 0)
         return 
     end
+    
     local hand = HAND_LEFT
     if gen_hand == GEN_TRANS_RIGHT then
         hand = HAND_RIGHT
     end
+    
     local offset = 0
     if is_from == TRUE and env(GetEquipWeaponCategory, HAND_LEFT) == WEAPON_CATEGORY_FIST then
         offset = 4
         hand = HAND_RIGHT
     end
+    
     local changetype = GetHandChangeType(hand)
     if offset == 4 and env(GetEquipWeaponSpecialCategoryNumber, HAND_RIGHT) == 161 then
         offset = 0
         changetype = WEAPON_CHANGE_REQUEST_LEFT_BACK
     end
+    
     if changetype == WEAPON_CHANGE_REQUEST_LEFT_WAIST or changetype == WEAPON_CHANGE_REQUEST_RIGHT_WAIST then
         SetVariable("ArtsTransition", 1 + offset)
     elseif changetype == WEAPON_CHANGE_REQUEST_LEFT_BACK or changetype == WEAPON_CHANGE_REQUEST_RIGHT_BACK then
@@ -538,6 +454,7 @@ function SetArtsGeneratorTransitionIndex(gen_hand, is_from)
     else
         SetVariable("ArtsTransition", 0)
     end
+    
     return 
 end
 
@@ -571,6 +488,7 @@ function GetWeightIndex(is_move)
     local move_id = env(GetMoveAnimParamID)
     local move_weight = MOVE_WEIGHT_NORMAL
     local evasion_weight = EVASION_WEIGHT_INDEX_MEDIUM
+    
     if move_id == WEIGHT_LIGHT or move_id == WEIGHT_LIGHT + 20 or move_id == WEIGHT_LIGHT + 40 or move_id == WEIGHT_LIGHT + 60 then
         move_weight = MOVE_WEIGHT_LIGHT
         evasion_weight = EVASION_WEIGHT_INDEX_LIGHT
@@ -584,6 +502,7 @@ function GetWeightIndex(is_move)
         move_weight = MOVE_WEIGHT_LIGHT
         evasion_weight = EVASION_WEIGHT_INDEX_SUPERLIGHT
     end
+    
     if env(GetSpEffectID, 130110) == TRUE then
         if move_weight < MOVE_WEIGHT_HEAVY then
             move_weight = MOVE_WEIGHT_HEAVY
@@ -601,16 +520,20 @@ function GetWeightIndex(is_move)
     elseif env(GetStateChangeType, CONDITION_TYPE_GRAVITY_WEAK) == TRUE and move_weight < MOVE_WEIGHT_HEAVY then
         move_weight = MOVE_WEIGHT_HEAVY
     end
+    
     local weight = evasion_weight
+    
     if is_move == TRUE then
         weight = move_weight
     end
+    
     return weight
 end
 
 function GetHalfBlendInfo()
     local blend_type = ALLBODY
     local lower_state = LOWER_IDLE
+    
     if GetLocomotionState() == PLAYER_STATE_MOVE then
         blend_type = UPPER
         lower_state = LOWER_MOVE
@@ -668,9 +591,9 @@ function GetEquipType(hand, ...)
     else
         kind[1] = env(GetEquipWeaponCategory, hand)
     end
-    for local0 = 1, num, 1 do
-        for local1 = 1, #buff, 1 do
-            if kind[local0] == buff[local1] then
+    for i = 1, num, 1 do
+        for k = 1, #buff, 1 do
+            if kind[i] == buff[k] then
                 return TRUE
             end
         end
@@ -723,6 +646,7 @@ function GetSwordArtsInfo()
     end
     local arts_id = 0
     local arts_hand = 0
+    
     if is_both == TRUE then
         if style == HAND_RIGHT_BOTH then
             arts_hand = HAND_RIGHT
@@ -732,6 +656,7 @@ function GetSwordArtsInfo()
         arts_id = env(GetWeaponID, arts_hand)
     else
         local weaponswordartid = env(GetWeaponID, HAND_LEFT)
+        
         if weaponswordartid == SWORDARTS_RIGHTARTS then
             arts_hand = HAND_RIGHT
             arts_id = env(GetWeaponID, HAND_RIGHT)
@@ -739,6 +664,7 @@ function GetSwordArtsInfo()
             arts_hand = HAND_LEFT
             arts_id = weaponswordartid
         end
+        
         if env(GetEquipWeaponCategory, HAND_LEFT) == WEAPON_CATEGORY_FIST then
             if arts_hand == HAND_LEFT then
                 if arts_id ~= SWORDARTS_ONESHOTFULL then
@@ -3363,13 +3289,18 @@ function ExecEvasion(backstep_limit, estep, is_usechainrecover)
     if c_HasActionRequest == FALSE then
         return FALSE
     end
+    
     local request = GetEvasionRequest()
+    
     if request == ATTACK_REQUEST_INVALID then
         return FALSE
     elseif backstep_limit == TRUE and request == ATTACK_REQUEST_BACKSTEP and env(GetEventEzStateFlag, 0) == TRUE then
         return FALSE
     end
+    
     SetEvasionStaminaCost()
+    
+    -- Roll
     if request == ATTACK_REQUEST_ROLLING then
         if is_usechainrecover == TRUE then
             local damagecount = GetVariable("DamageCount")
@@ -3389,18 +3320,23 @@ function ExecEvasion(backstep_limit, estep, is_usechainrecover)
                 return FALSE
             end
         end
+        
         if env(GetStamina) <= 0 then
             return FALSE
         end
+        
         local rollingangle = GetVariable("RollingAngle")
+        
         if 0 <= rollingangle then
             SetVariable("RollingDirection", 1)
         else
             SetVariable("RollingDirection", 0)
         end
+        
         local event = "W_Rolling"
         local weight = GetWeightIndex(FALSE)
         local is_selftrans = FALSE
+        
         if env(GetSpEffectID, 100370) == TRUE then
             if weight == EVASION_WEIGHT_INDEX_OVERWEIGHT then
                 return FALSE
@@ -3428,7 +3364,9 @@ function ExecEvasion(backstep_limit, estep, is_usechainrecover)
                 is_selftrans = TRUE
             end
         end
+        
         local turn_angle_real = 200
+        
         if GetVariable("IsLockon") == true then
             act(TurnToLockonTargetImmediately)
             turn_angle_real = math.abs(GetVariable("TurnAngle") - rollingangle)
@@ -3443,14 +3381,18 @@ function ExecEvasion(backstep_limit, estep, is_usechainrecover)
                 rollingangle = move_angle
             end
         end
+        
         SetVariable("TurnAngleReal", turn_angle_real)
+        
         if is_selftrans == TRUE then
             event = event .. "Selftrans"
             SetVariable("RollingAngleRealSelftrans", rollingangle)
         else
             SetVariable("RollingAngleReal", rollingangle)
         end
+        
         local front, back, left, right = false
+        
         if 135 < math.abs(rollingangle) then
             back = true
         elseif 45 < rollingangle then
@@ -3460,19 +3402,24 @@ function ExecEvasion(backstep_limit, estep, is_usechainrecover)
         else
             front = true
         end
+        
         SetVariable("EnableTAE_RollingFront", front)
         SetVariable("EnableTAE_RollingBack", back)
         SetVariable("EnableTAE_RollingLeft", left)
         SetVariable("EnableTAE_RollingRight", right)
         AddStamina(c_StaminaCostRolling)
         ExecEventAllBody(event)
+    -- Jump
     elseif request == ATTACK_REQUEST_JUMP then
         AddStamina(c_StaminaCostJump)
         ExecEventAllBody("W_Jump")
+    -- Backstep
     elseif request == ATTACK_REQUEST_BACKSTEP then
         ResetDamageCount()
+        
         local index = GetWeightIndex(FALSE)
         local event = "W_BackStepLight"
+        
         if index == EVASION_WEIGHT_INDEX_SUPERLIGHT then
             event = "W_BackStepSuperlight"
         elseif index == EVASION_WEIGHT_INDEX_MEDIUM then
@@ -3482,6 +3429,7 @@ function ExecEvasion(backstep_limit, estep, is_usechainrecover)
         elseif index == EVASION_WEIGHT_INDEX_OVERWEIGHT then
             event = "W_BackStepOverweight"
         end
+        
         if GetVariable("IsLockon") == true and env(GetSpEffectID, 100360) == TRUE then
             act(TurnToLockonTargetImmediately)
         end
@@ -3494,6 +3442,7 @@ function ExecEvasion(backstep_limit, estep, is_usechainrecover)
     else
         return FALSE
     end
+    
     SetAIActionState()
     return TRUE
 end
@@ -3504,7 +3453,9 @@ function ExecQuickTurn(blend_type)
     elseif GetVariable("IsLockon") == false then
         return FALSE
     end
+    
     local turn_angle = GetVariable("TurnAngle")
+    
     if math.abs(turn_angle) < 45 then
         return FALSE
     elseif 45 <= turn_angle then
@@ -3512,6 +3463,7 @@ function ExecQuickTurn(blend_type)
     else
         ExecEventHalfBlend(Event_QuickTurnLeft180, blend_type)
     end
+    
     return TRUE
 end
 
@@ -3550,12 +3502,16 @@ function ExecFallStart(fall_type)
         return TRUE
     elseif fall_type == FALL_TYPE_DEFAULT then
         if env(IsSpecialTransition2Possible) == TRUE then
+        
             local style = c_Style
             local hand = HAND_RIGHT
+            
             if style == HAND_LEFT_BOTH then
                 hand = HAND_LEFT
             end
+            
             local check_weapon = GetEquipType(hand, WEAPON_CATEGORY_STAFF, WEAPON_CATEGORY_FIST_CUT, WEAPON_CATEGORY_SMALL_ARROW, WEAPON_CATEGORY_LARGE_ARROW, WEAPON_CATEGORY_CROSSBOW, WEAPON_CATEGORY_SMALL_SHIELD, WEAPON_CATEGORY_LARGE_SHIELD, WEAPON_CATEGORY_TORCH)
+            
             if check_weapon == FALSE then
                 ExecEventAllBody("W_FallAttackLoop")
             else
@@ -3580,6 +3536,7 @@ function ExecFallStart(fall_type)
         ExecEventAllBody("W_FallStartFaceUp")
     else
         local damage_angle = env(GetReceivedDamageDirection)
+        
         if damage_angle == DAMAGE_DIR_BACK then
             if fall_type == FALL_TYPE_FORCE_LOOP then
                 ExecEventAllBody("W_FallLoopFaceDown")
@@ -3592,6 +3549,7 @@ function ExecFallStart(fall_type)
             ExecEventAllBody("W_FallStartFaceUp")
         end
     end
+    
     return TRUE
 end
 
@@ -3607,6 +3565,7 @@ function ExecAddDamage(damage_dir, attack_dir, damage_level, is_guard, is_damage
     else
         SetVariable("DamageDirBlendRate", 1)
     end
+    
     if damage_dir == DAMAGE_DIR_LEFT then
         if attack_dir == ATTACK_DIR_FRONT then
             if damage_level == DAMAGE_LEVEL_SMALL then
@@ -3934,6 +3893,7 @@ function ExecDeath()
         
         local damage_angle = env(GetReceivedDamageDirection)
         SetVariable("DamageDirection", damage_angle)
+        
         if env(GetKnockbackDistance) < 0 then
             if damage_angle == DAMAGE_DIR_LEFT then
                 damage_angle = DAMAGE_DIR_RIGHT
@@ -3945,7 +3905,9 @@ function ExecDeath()
                 damage_angle = DAMAGE_DIR_FRONT
             end
         end
+        
         local damage_level = env(GetDamageLevel)
+        
         if env(GetStateChangeType, CONDITION_TYPE_STONE) == TRUE then
             SetVariable("IndexDeath", DEATH_TYPE_STONE)
         elseif env(GetStateChangeType, CONDITION_TYPE_CRYSTAL) == TRUE then
@@ -3968,6 +3930,7 @@ function ExecDeath()
                 SetVariable("IndexDeath", DEATH_TYPE_COMMON)
             end
         end
+        
         ExecEventAllBody("W_DeathStart")
         return TRUE
     elseif env(IsInvincibleDebugMode) == FALSE then
@@ -3988,9 +3951,11 @@ function ExecDamage(is_parry, is_attackwhileguard)
     local damage_level = env(GetDamageLevel)
     local damage_type = env(GetReceivedDamageType)
     local is_damaged = env(HasReceivedAnyDamage)
+    
     if damage_level <= DAMAGE_LEVEL_NONE and is_damaged == FALSE and (damage_type == DAMAGE_TYPE_INVALID or damage_type == DAMAGE_TYPE_WEAK_POINT or damage_type == DAMAGE_LEVEL_MINIMUM) then
         return FALSE
     end
+    
     local attack_dir = env(GetAtkDirection)
     local damage_angle = env(GetReceivedDamageDirection)
     local style = c_Style
@@ -4006,6 +3971,7 @@ function ExecDamage(is_parry, is_attackwhileguard)
     elseif damage_type == DAMAGE_TYPE_GUARD and env(GetBehaviorID, 4) == TRUE then
         damage_type = DAMAGE_TYPE_GUARDBREAK
     end
+    
     if DAMAGE_TYPE_GUARDED <= damage_type and damage_type <= DAMAGE_TYPE_WALL_LEFT then
         Replanning()
         if (damage_type == DAMAGE_TYPE_GUARDBREAK_BLAST or damage_type == DAMAGE_TYPE_GUARDBREAK_FLING) and IsGuardbreakBlowDamage(damage_level) == FALSE then
@@ -4017,13 +3983,16 @@ function ExecDamage(is_parry, is_attackwhileguard)
             else
                 SetVariable("GuardDamageIndex", 2)
             end
+            
             act(SetDamageAnimType, DAMAGE_FLAG_GUARD_BREAK)
             ExecEventAllBody("W_GuardDamageBreak")
+            
             return TRUE
         elseif damage_type == DAMAGE_TYPE_GUARDED_LEFT then
             SetVariable("GuardDamageIndex", 0)
             act(SetDamageAnimType, DAMAGE_FLAG_GUARD_BREAK)
             ExecEventAllBody("W_GuardDamageBreak")
+            
             return TRUE
         elseif damage_type == DAMAGE_TYPE_GUARDBREAK then
             if is_parry == TRUE then
@@ -4031,7 +4000,9 @@ function ExecDamage(is_parry, is_attackwhileguard)
             elseif env(GetSpEffectID, 100350) == TRUE then
                 return FALSE
             end
+            
             local guardindex = GUARD_STYLE_DEFAULT
+            
             if style == HAND_RIGHT then
                 guardindex = env(GetGuardMotionCategory, HAND_LEFT)
                 if env(GetEquipWeaponCategory, HAND_LEFT) == WEAPON_CATEGORY_TORCH or env(GetEquipWeaponSpecialCategoryNumber, HAND_LEFT) == 240 then
@@ -4050,12 +4021,16 @@ function ExecDamage(is_parry, is_attackwhileguard)
                     guardindex = env(GetGuardMotionCategory, HAND_RIGHT)
                 end
             end
+            
             SetVariable("IndexGuard", guardindex)
             act(SetDamageAnimType, DAMAGE_FLAG_GUARD_BREAK)
+            
             local isguardgentrans = FALSE
+            
             if env(GetSpEffectID, 100520) == TRUE then
                 isguardgentrans = TRUE
             end
+            
             if isguardgentrans == TRUE then
                 ExecEventAllBody("W_GuardBreak_GenTrans")
                 return TRUE
@@ -4069,22 +4044,27 @@ function ExecDamage(is_parry, is_attackwhileguard)
             else
                 SetVariable("GuardDamageIndex", 2)
             end
+            
             act(SetDamageAnimType, DAMAGE_FLAG_GUARD_BREAK)
             ExecEventAllBody("W_GuardBreakWall")
+            
             return TRUE
         elseif damage_type == DAMAGE_TYPE_WALL_LEFT then
             SetVariable("GuardDamageIndex", 0)
             act(SetDamageAnimType, DAMAGE_FLAG_GUARD_BREAK)
             ExecEventAllBody("W_GuardBreakWall")
+            
             return TRUE
         elseif damage_type == DAMAGE_TYPE_GUARDBREAK_BLAST then
             SetVariable("DamageDirection", damage_angle)
             act(SetDamageAnimType, DAMAGE_FLAG_SMALL_BLOW)
             ExecEventAllBody("W_DamageSmallBlow")
+            
             return TRUE
         elseif damage_type == DAMAGE_TYPE_GUARDBREAK_FLING then
             act(SetDamageAnimType, DAMAGE_FLAG_FLING)
             ExecEventAllBody("W_DamageFling")
+            
             return TRUE
         end
     elseif damage_type == DAMAGE_TYPE_GUARD then
@@ -4100,7 +4080,9 @@ function ExecDamage(is_parry, is_attackwhileguard)
         elseif env(GetSpEffectID, 100510) == TRUE then
             return FALSE
         end
+        
         local guardindex = GUARD_STYLE_DEFAULT
+        
         if style == HAND_RIGHT then
             guardindex = env(GetGuardMotionCategory, HAND_LEFT)
             if env(GetEquipWeaponCategory, HAND_LEFT) == WEAPON_CATEGORY_TORCH or env(GetEquipWeaponSpecialCategoryNumber, HAND_LEFT) == 240 then
@@ -4119,25 +4101,33 @@ function ExecDamage(is_parry, is_attackwhileguard)
                 guardindex = env(GetGuardMotionCategory, HAND_RIGHT)
             end
         end
+        
         SetVariable("IndexGuard", guardindex)
+        
         local guard_damage_level = env(GetGuardLevelAction)
+        
         if 0 < guard_damage_level then
             if env(GetSpEffectID, 100420) == TRUE then
                 ExecAddDamage(damage_angle, attack_dir, nil, TRUE, TRUE)
                 return FALSE
             end
+            
             local isguardgentrans = FALSE
+            
             if env(GetSpEffectID, 100520) == TRUE then
                 isguardgentrans = TRUE
             end
+            
             local guarddamagesmall = "W_GuardDamageSmall"
             local guarddamagemiddle = "W_GuardDamageMiddle"
             local guarddamagelarge = "W_GuardDamageLarge"
+            
             if isguardgentrans == TRUE then
                 guarddamagesmall = "W_GuardDamageSmall_GenTrans"
                 guarddamagemiddle = "W_GuardDamageMiddle_GenTrans"
                 guarddamagelarge = "W_GuardDamageLarge_GenTrans"
             end
+            
             if guard_damage_level == 1 then
                 act(SetDamageAnimType, DAMAGE_FLAG_GUARD_SMALL)
                 ExecEventAllBody(guarddamagesmall)
@@ -4151,12 +4141,15 @@ function ExecDamage(is_parry, is_attackwhileguard)
                 act(SetDamageAnimType, DAMAGE_FLAG_GUARD_LARGE)
                 ExecEventAllBody(guarddamagemiddle)
             end
+            
             return TRUE
         else
             ExecAddDamage(damage_angle, attack_dir, damage_level, TRUE, is_damaged)
+            
             return FALSE
         end
     end
+    
     if env(GetBehaviorID, 5) == TRUE then
         Replanning()
         local blend_type, lower_state = GetHalfBlendInfo()
@@ -4180,6 +4173,7 @@ function ExecDamage(is_parry, is_attackwhileguard)
             damage_angle = DAMAGE_DIR_FRONT
         end
     end
+    
     if env(GetIsWeakPoint) == TRUE then
         CalcDamageCount()
         SetVariable("DamageDirection", damage_angle)
@@ -4289,11 +4283,13 @@ function ExecGuardOnCancelTiming(guardcondition, blend_type)
     elseif ExecGuard(Event_GuardStart, blend_type) == TRUE then
         return TRUE
     end
+    
     return FALSE
 end
 
 function LadderIdleCommonFunction(hand)
     act(SetIsEquipmentChangeableFromMenu)
+    
     if ExecLadderDeath() == TRUE then
         return TRUE
     elseif ExecLadderDamageIdle(hand) == TRUE then
@@ -4311,11 +4307,12 @@ end
 
 function LadderMoveCommonFunction(hand, is_no_damage)
     act(SetIsEquipmentChangeableFromMenu)
+    
     if ExecLadderDeath() == TRUE then
         return TRUE
     elseif is_no_damage == FALSE and ExecLadderDamageMove() == TRUE then
-
     end
+    
     if env(IsAnimationOver, 1) == TRUE then
         if IsLadderDamage(hand) == TRUE then
             return TRUE
@@ -6424,7 +6421,6 @@ function CombatSlide_onUpdate()
     end
 end
 
-
 function Jump_onActivate()
     ResetDamageCount()
     return 
@@ -7198,7 +7194,7 @@ function AttackRightLight2_onUpdate()
     ApplyEffect_LightAttack()
     
     -- Adjustments: Flow
-    if IsSpecialCategory("Quarterstaff") then
+    if IsSpecialCategory("Ancient Dragon Halberd") then
         Follow_R2 = "W_AttackRightHeavy1SubStart"
     end
     
@@ -7230,20 +7226,19 @@ function AttackRightLight3_onUpdate()
     
     -- Adjustments: Flow
     if IsSpecialCategory("Claw") or 
-       IsSpecialCategory("Phosphorescent Pole") or 
        IsSpecialCategory("Dragonslayer Swordspear") or 
        IsSpecialCategory("Beast Claw") or 
        IsSpecialCategory("Beast Cutter") or 
-       IsSpecialCategory("Katana Alternate") or 
+       IsSpecialCategory("Katana Alt") or 
        IsSpecialCategory("Hallowed Sword") or 
        IsSpecialCategory("Sunlight Straight Sword") or 
        IsSpecialCategory("Rotten Ghru Curved Sword") or 
        IsSpecialCategory("Beasthuner Saif") or 
        IsSpecialCategory("Beasthuner Saif") or 
        IsSpecialCategory("Tonitrus") or 
-       IsSpecialCategory("Hammer Alternate") or 
-       IsSpecialCategory("Axe Alternate") or 
-       IsSpecialCategory("Great Hammer Alternate") or 
+       IsSpecialCategory("Hammer Alt") or 
+       IsSpecialCategory("Halberd Alt") or 
+       IsSpecialCategory("Great Hammer Alt") or 
        IsSpecialCategory("Sanguinus") then
         act(AddSpEffect, 119900000)
         Follow_R1 = "W_AttackRightBackstep"
@@ -7308,21 +7303,21 @@ function AttackRightLightStep_onUpdate()
        IsSpecialCategory("Dragonslayer Swordspear") or 
        IsSpecialCategory("Beast Claw") or 
        IsSpecialCategory("Beast Cutter") or 
-       IsSpecialCategory("Katana Alternate") or 
+       IsSpecialCategory("Katana Alt") or 
        IsSpecialCategory("Hallowed Sword") or 
        IsSpecialCategory("Sunlight Straight Sword") or 
        IsSpecialCategory("Rotten Ghru Curved Sword") or 
        IsSpecialCategory("Beasthuner Saif") or 
        IsSpecialCategory("Beasthuner Saif") or 
        IsSpecialCategory("Tonitrus") or 
-       IsSpecialCategory("Hammer Alternate") or 
-       IsSpecialCategory("Axe Alternate") or 
-       IsSpecialCategory("Great Hammer Alternate") or 
+       IsSpecialCategory("Hammer Alt") or 
+       IsSpecialCategory("Halberd Alt") or 
+       IsSpecialCategory("Great Hammer Alt") or 
        IsSpecialCategory("Sanguinus") then
         Follow_R1 = "W_AttackRightLight2"
     end
     
-    if IsSpecialCategory("King's Quarterstaff") then
+    if IsSpecialCategory("Quarterstaff") then
 		Follow_R2 = "W_AttackRightHeavy2Start"
     end
 
@@ -7383,12 +7378,12 @@ function AttackRightLightDash_onUpdate()
     if IsSpecialCategory("Scythe of Want") or 
        IsSpecialCategory("Sunlight Straight Sword") or 
        IsSpecialCategory("Hallowed Sword") or 
-       IsSpecialCategory("Katana Alternate") or 
-       IsSpecialCategory("Hammer Alternate") or 
+       IsSpecialCategory("Katana Alt") or 
+       IsSpecialCategory("Hammer Alt") or 
        IsSpecialCategory("Sanguinus") or 
        IsSpecialCategory("Claw") or 
-       IsSpecialCategory("Scythe Alternate") or 
-       IsSpecialCategory("Great Hammer Alternate") or 
+       IsSpecialCategory("Scythe Alt") or 
+       IsSpecialCategory("Great Hammer Alt") or 
        IsSpecialCategory("Gargoyle Bident") then
         Follow_R1 = "W_AttackRightLight2"
     end
@@ -7848,7 +7843,7 @@ function AttackRightBackstep_onUpdate()
        IsSpecialCategory("Hallowed Sword") or
        IsSpecialCategory("Rotten Ghru Curved Sword") or
        IsSpecialCategory("Beasthuner Saif") or
-       IsSpecialCategory("Katana Alternate") or
+       IsSpecialCategory("Katana Alt") or
        IsSpecialCategory("Sanguinus") or
        IsSpecialCategory("Phosphorescent Pole") then
 		Follow_R1 = "W_AttackRightLight2"
@@ -7868,7 +7863,7 @@ function AttackRightBackstep_onUpdate()
     end		
 	
     if IsSpecialCategory("Claw") or
-       IsSpecialCategory("Great Hammer Alternate") then
+       IsSpecialCategory("Great Hammer Alt") then
         Follow_R1 = "W_AttackRightLight1"
     end	
 
@@ -8093,10 +8088,10 @@ function AttackBothLight3_onUpdate()
     if IsSpecialCategory("Friede's Great Scythe") or 
        IsSpecialCategory("Bewitched Alonne Sword") or 
        IsSpecialCategory("Black Dragon Sword") or 
-       IsSpecialCategory("Quarterstaff") or 
+       IsSpecialCategory("Ancient Dragon Halberd") or 
        IsSpecialCategory("Scythe of Want") or 
        IsSpecialCategory("Black Dragon Greataxe") or 
-       IsSpecialCategory("King's Quarterstaff") then 
+       IsSpecialCategory("Quarterstaff") then 
         Follow_B1 = "W_AttackBothLight1"
     end
 	
@@ -8110,14 +8105,14 @@ function AttackBothLight3_onUpdate()
 		Follow_L1 = "W_AttackBothLeft3"
 	end	
 	
-	if IsSpecialCategory("Scythe Alternate") or 
-       IsSpecialCategory("Axe Alternate") or 
+	if IsSpecialCategory("Scythe Alt") or 
+       IsSpecialCategory("Halberd Alt") or 
        IsSpecialCategory("Bloodletter") or 
        IsSpecialCategory("Claw") or 
        IsSpecialCategory("Beast Claw") or 
-       IsSpecialCategory("Great Hammer Alternate") or 
+       IsSpecialCategory("Great Hammer Alt") or 
        IsSpecialCategory("Church Pick") or 
-       IsSpecialCategory("Fist Alternate") or 
+       IsSpecialCategory("Fist Alt") or 
        IsSpecialCategory("Phosphorescent Pole") or 
        IsSpecialCategory("Kirkhammer") then
 		Follow_B1 = "W_AttackBothBackstep"
@@ -8216,7 +8211,7 @@ function AttackBothLeft3_onUpdate()
     ApplyEffect_LightAttack()
 
     -- Adjustments: Flow
-	if IsSpecialCategory("King's Quarterstaff") then
+	if IsSpecialCategory("Quarterstaff") then
 		Follow_L1 = "W_AttackBothLeft1"
 	end
     
@@ -8262,7 +8257,7 @@ function AttackBothLeftDash_onUpdate()
         Follow_B1 = "W_AttackBothLight2"
     end
     
-	if IsSpecialCategory("King's Quarterstaff") then
+	if IsSpecialCategory("Quarterstaff") then
 		Follow_L1 = "W_AttackBothLeft3"
 		Follow_B1 = "W_AttackBothLight3"
 		Follow_B2 = "W_AttackBothHeavy2Start"
@@ -8302,7 +8297,7 @@ function AttackBothLeftStep_onUpdate()
     -- Adjustments: Effects
     
     -- Adjustments: Flow
-	if IsSpecialCategory("King's Quarterstaff") then
+	if IsSpecialCategory("Quarterstaff") then
 		Follow_L1 = "W_AttackBothLeft3"
 		Follow_B1 = "W_AttackBothLight3"
 		Follow_B2 = "W_AttackBothHeavy2Start"
@@ -8397,7 +8392,7 @@ function AttackBothHeavy1End_onUpdate()
     -- Adjustments: Effects
     ApplyEffect_HeavyAttack()
     
-    -- Adjustments: Effects
+    -- Adjustments: Flow
     
     -- Follow-up Attack
     if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
@@ -8421,7 +8416,7 @@ function AttackBothHeavy2Start_onUpdate()
     -- Adjustments: Effects
     ApplyEffect_HeavyAttack()
     
-    -- Adjustments: Effects
+    -- Adjustments: Flow
     
     -- Follow-up Attack
     if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
@@ -8449,7 +8444,7 @@ function AttackBothHeavy2End_onUpdate()
     -- Adjustments: Effects
     ApplyEffect_HeavyAttack()
     
-    -- Adjustments: Effects
+    -- Adjustments: Flow
     
     -- Follow-up Attack
     if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
@@ -8473,7 +8468,7 @@ function AttackBothHeavySpecial1SubStart_onUpdate()
     -- Adjustments: Effects
     ApplyEffect_HeavyAttack()
     
-    -- Adjustments: Effects
+    -- Adjustments: Flow
     
     -- Follow-up Attack
     if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
@@ -8503,8 +8498,7 @@ function AttackBothHeavySpecial1Start_onUpdate()
     ApplyEffect_HeavyAttack()
     act(SetSpecialInterpolation, 0, FALSE)
     
-    -- Adjustments: Effects
-    
+    -- Adjustments: Flow
 	if IsSpecialCategory("Frostfall") then
 		Follow_L1 = "W_AttackBothHeavySpecial2End"
 		Follow_B1 = "W_AttackBothHeavySpecial1End"
@@ -8531,67 +8525,67 @@ function AttackBothHeavySpecial1Start_onUpdate()
 end
 
 function AttackBothHeavySpecial1End_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackBothLeft1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy2Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_HeavyAttack()
     
-    local b1 = "W_AttackBothLight1"
-	local l1 = "W_AttackBothLeft1"
-	local b2 = "W_AttackBothHeavy2Start"
-	
-	local hand = HAND_RIGHT
-	local style = c_Style
+    -- Adjustments: Flow
+	if IsSpecialCategory("Frostfall") then
+		Follow_L1 = "W_AttackBothLeft3"
+		Follow_B1 = "W_AttackBothLight3"
+		Follow_B2 = "W_AttackBothHeavy1Start"
+	end
     
-	if style == HAND_LEFT_BOTH then
-		hand = HAND_LEFT
-	end
-
-	local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
-	
-    -- Frostfall
-	if sp_kind == 604 then
-		b1 = "W_AttackBothLight3"
-		l1 = "W_AttackBothLeft3"
-		b2 = "W_AttackBothHeavy1Start"
-	end
-
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", l1, "W_AttackLeftHeavy1", b1, b2, FALSE, TRUE) == TRUE then
-        return 
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
+        return
     else
         return 
     end
 end
 
 function AttackBothHeavySpecial2Start_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackBothLeft1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_HeavyAttack()
     
-    local b1 = "W_AttackBothLight1"
-	local l1 = "W_AttackBothLeft1"
-	local b2 = "W_AttackBothHeavy1Start"
-	
-    local hand = HAND_RIGHT
-    local style = c_Style
-    
-    if style == HAND_LEFT_BOTH then
-        hand = HAND_LEFT
-    end
-
-    local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
-	
-    -- Frostfall
-	if sp_kind == 604 then
-		b1 = "W_AttackBothHeavySpecial1End"
-		l1 = "W_AttackBothHeavySpecial2End"
-		b2 = "W_AttackBothHeavy2Start"
+    -- Adjustments: Flow
+	if IsSpecialCategory("Frostfall") then
+		Follow_L1 = "W_AttackBothHeavySpecial2End"
+		Follow_B1 = "W_AttackBothHeavySpecial1End"
+		Follow_B2 = "W_AttackBothHeavy2Start"
 	end
 	
-	if sp_kind == 750 then
-		b1 = "W_AttackBothLight2"
+	if IsSpecialCategory("Kirkhammer") then
+		Follow_B1 = "W_AttackBothLight2"
 	end	
 	
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", l1, "W_AttackLeftHeavy1", b1, b2, FALSE, TRUE) == TRUE then
-        return 
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
+        return
+    -- Heavy ttack Cancel
     elseif env(ActionDuration, ACTION_ARM_R2) <= 0 and env(GetSpEffectID, 100280) == TRUE then
         ExecEventAllBody("W_AttackBothHeavySpecial2End")
         return 
+    -- Beast Claws
     elseif env(GetSpEffectID, 100723) == TRUE then
         ExecEventAllBody("W_AttackBothHeavyKickSpecial")
         return
@@ -8601,34 +8595,33 @@ function AttackBothHeavySpecial2Start_onUpdate()
 end
 
 function AttackBothHeavySpecial2End_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackBothLeft1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_HeavyAttack()
     
-    local b1 = "W_AttackBothLight1"
-	local l1 = "W_AttackBothLeft1"
-	local b2 = "W_AttackBothHeavy1Start"
-	
-    local hand = HAND_RIGHT
-    local style = c_Style
-    
-    if style == HAND_LEFT_BOTH then
-        hand = HAND_LEFT
-    end
-
-    local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
-	
-    -- Frostfall
-	if sp_kind == 604 then
-		b1 = "W_AttackBothLight3"
-		l1 = "W_AttackBothLeft3"
-		b2 = "W_AttackBothHeavy2Start"
+    -- Adjustments: Flow
+	if IsSpecialCategory("Frostfall") then
+		Follow_L1 = "W_AttackBothLeft3"
+		Follow_B1 = "W_AttackBothLight3"
+		Follow_B2 = "W_AttackBothHeavy2Start"
 	end
 	
-	if sp_kind == 750 then
-		b1 = "W_AttackBothLight2"
-	end	
+    if IsSpecialCategory("Kirkhammer") then
+		Follow_B1 = "W_AttackBothLight2"
+	end
 		
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", l1, "W_AttackLeftHeavy1", b1, b2, FALSE, TRUE) == TRUE then
-        return 
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
+        return
     else
         return 
     end
@@ -8645,8 +8638,24 @@ function AttackBothHeavyWepBroken2Start_onUpdate()
 end
 
 function AttackBothHeavyWepBroken1SubStart_onUpdate()
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackBothLeft1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy2Start", FALSE, TRUE) == TRUE then
-        return 
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackBothLeft1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy2Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
+    
+    -- Adjustments: Flow
+    
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
+        return
+    -- Broken
     elseif env(GetEventEzStateFlag, 0) == TRUE or env(IsAnimationOver, 1) == TRUE then
         act(SetSpecialInterpolation, 0, TRUE)
         ExecEventAllBody("W_AttackBothHeavyWepBroken1Start")
@@ -8657,229 +8666,325 @@ function AttackBothHeavyWepBroken1SubStart_onUpdate()
 end
 
 function AttackBothDash_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackBothLeft1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_DashAttack()
     
-    local l1 = "W_AttackBothLeft1"
-	local b1 = "W_AttackBothLight1"
-	local b2 = "W_AttackBothHeavy1Start"
-   	local hand = HAND_RIGHT
-   	local style = c_Style
-	
-   	if style == HAND_LEFT_BOTH then
-      	hand = HAND_LEFT
-    end
-	
-	local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
-	
-	if sp_kind == 272 then
-		b2 = "W_AttackBothHeavy2Start"
+    -- Adjustments: Flow
+	if IsSpecialCategory("Bewitched Alonne Sword") then
+		Follow_B2 = "W_AttackBothHeavy2Start"
 	end
 	
-	if sp_kind == 294 then
-		l1 = "W_AttackBothLeft3"
-		b1 = "W_AttackBothLight3"
-		b2 = "W_AttackBothHeavy2Start"
+	if IsSpecialCategory("Quarterstaff") then
+		Follow_L1 = "W_AttackBothLeft3"
+		Follow_B1 = "W_AttackBothLight3"
+		Follow_B2 = "W_AttackBothHeavy2Start"
 	end
 	
-    -- Frostfall
-	if sp_kind == 604 then
-		l1 = "W_AttackBothLeft2"
-		b1 = "W_AttackBothLight2"
+	if IsSpecialCategory("Frostfall") then
+		Follow_L1 = "W_AttackBothLeft2"
+		Follow_B1 = "W_AttackBothLight2"
 	end
 	
-	if sp_kind == 733 or sp_kind == 721 or sp_kind == 603 or sp_kind == 146 or sp_kind == 600 or sp_kind == 718 or sp_kind == 724 or sp_kind == 727 or sp_kind == 713 or sp_kind == 742 or sp_kind == 750 then
-		b1 = "W_AttackBothLight2"
+	if IsSpecialCategory("Claw") or
+       IsSpecialCategory("Beast Claw") or
+       IsSpecialCategory("Beast Cutter") or
+       IsSpecialCategory("Scythe Alt") or
+       IsSpecialCategory("Fume Slated Swords") or
+       IsSpecialCategory("Greatsword Alt") or
+       IsSpecialCategory("Sunlight Straight Sword") or
+       IsSpecialCategory("Axe Alt") or
+       IsSpecialCategory("Hammer Alt") or
+       IsSpecialCategory("Great Hammer Alt") or
+       IsSpecialCategory("Kirkhammer") then
+		Follow_B1 = "W_AttackBothLight2"
 	end	
 
-	if sp_kind == 731 or sp_kind == 706 then
-		b1 = "W_AttackBothLight3"
+	if IsSpecialCategory("Burial Scythe") or
+       IsSpecialCategory("Dragon Hunter's Great Hammer") then
+		Follow_B1 = "W_AttackBothLight3"
 	end		
 	
-	if sp_kind == 743 or sp_kind == 750 then
-		b1 = "W_AttackBothBackstep"
+	if IsSpecialCategory("Church Pick") or
+       IsSpecialCategory("Kirkhammer") then
+		Follow_B1 = "W_AttackBothBackstep"
 	end			
 
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", l1, "W_AttackLeftHeavy1", b1, b2, FALSE, TRUE) == TRUE then
-        return 
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
+        return
     else
         return 
     end
 end
 
 function AttackBothDashSpecial_onUpdate()
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackBothLeft1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
     ApplyEffect_DashAttack()
-    
-    local b2 = "W_AttackBothHeavy1Start"
-    local hand = HAND_RIGHT
-    local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
-    
-    if sp_kind == 600 or sp_kind == 743 or sp_kind == 745 or sp_kind == 747 or sp_kind == 270 then
-        b2 = "W_AttackBothHeavy2Start"
+    ApplyEffect_DashAttack()
+
+    -- Adjustments: Flow
+    if IsSpecialCategory("Beast Claw") or
+       IsSpecialCategory("Church Pick") or
+       IsSpecialCateogry("Fist Alt") or
+       IsSpecialCategory("Phosphorescent Pole Alt") or
+       IsSpecialCategory("Phosphorescent Pole") then
+        Follow_B2 = "W_AttackBothHeavy2Start"
     end	
 	
-    if sp_kind == 750 or sp_kind == 751 then
-        b2 = "W_AttackBothHeavy2StartAlt"
+    if IsSpecialCategory("Kirkhammer") or
+       IsSpecialCategory("Sunlight Greatsword") then
+        Follow_B2 = "W_AttackBothHeavy2StartAlt"
     end	
 	
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackBothLeft1", "W_AttackLeftHeavy1", "W_AttackBothLight1", b2, FALSE, TRUE) == TRUE then
-        return 
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
+        return
     else
         return 
     end
 end
 
 function AttackBothLightStep_onUpdate()
-    local l1 = "W_AttackBothLeft1"
-	local b1 = "W_AttackBothLight1"
-	local b2 = "W_AttackBothHeavy1Start"
-   	local hand = HAND_RIGHT
-   	local style = c_Style
-	
-   	if style == HAND_LEFT_BOTH then
-      	hand = HAND_LEFT
-    end
-	
-	local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
-	
-	if sp_kind == 272 then
-		b2 = "W_AttackBothHeavy2Start"
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackBothLeft1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
+    
+    -- Adjustments: Flow
+	if IsSpecialCategory("Bewitched Alonne Sword") then
+		Follow_B2 = "W_AttackBothHeavy2Start"
 	end
 	
-	if sp_kind == 294 then
-		l1 = "W_AttackBothLeft3"
-		b1 = "W_AttackBothLight3"
-		b2 = "W_AttackBothHeavy2Start"
+	if IsSpecialCategory("Quarterstaff") then
+		Follow_L1 = "W_AttackBothLeft3"
+		Follow_B1 = "W_AttackBothLight3"
+		Follow_B2 = "W_AttackBothHeavy2Start"
 	end
 	
-    -- Frostfall
-	if sp_kind == 604 then
-		l1 = "W_AttackBothLeft2"
-		b1 = "W_AttackBothLight2"
+	if IsSpecialCategory("Frostfall") then
+		Follow_L1 = "W_AttackBothLeft2"
+		Follow_B1 = "W_AttackBothLight2"
 	end
 	
-	if sp_kind == 712 or sp_kind == 733 or sp_kind == 721 or sp_kind == 717 or sp_kind == 713 or sp_kind == 743 or sp_kind == 746 or sp_kind == 750 then
-		b1 = "W_AttackBothLight2"
+	if IsSpecialCategory("Katana Alt") or
+       IsSpecialCategory("Scythe Alt") or
+       IsSpecialCategory("Fume Ultra Greatsword") or
+       IsSpecialCategory("Greatsword Alt") or
+       IsSpecialCategory("Hammer Alt") or
+       IsSpecialCategory("Church Pick") or
+       IsSpecialCategory("Bloodlust") or
+       IsSpecialCategory("Kirkhammer") then
+		Follow_B1 = "W_AttackBothLight2"
 	end	
 
-	if sp_kind == 146 or sp_kind == 745 or sp_kind == 747 then
-		b1 = "W_AttackBothLight3"
+	if IsSpecialCategory("Claw") or
+       IsSpecialCategory("Phosphorescent Pole Alt") or
+       IsSpecialCategory("Fist Alt") then
+		Follow_B1 = "W_AttackBothLight3"
 	end		
 	
-	if sp_kind == 742 then
-		b1 = "W_AttackBothBackstep"
+	if IsSpecialCategory("Great Hammer Alt") then
+        Follow_B1 = "W_AttackBothBackstep"
 	end			
 
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", l1, "W_AttackLeftHeavy1", b1, b2, FALSE, TRUE) == TRUE then
-        return 
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
+        return
     else
         return 
     end
 end
 
 function AttackBothLightStepSpecial_onUpdate()
-    local b1 = "W_AttackBothLight1"
-    local hand = HAND_RIGHT
-    local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackBothLeft1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
     
-    if sp_kind == 600 then
-        b1 = "W_AttackBothLight2"
+    -- Adjustments: Effects
+    
+    -- Adjustments: Flow
+    if IsSpecialCategory("Beast Claw") then
+        Follow_B1 = "W_AttackBothLight2"
     end	
 	
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackBothLeft1", "W_AttackLeftHeavy1", b1, "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
-        return 
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
+        return
     else
         return 
     end
 end
 
 function AttackBothLightKick_onUpdate()
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackBothLeft1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
-        return 
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackBothLeft1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
+    
+    -- Adjustments: Flow
+    
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
+        return
     else
         return 
     end
 end
 
 function AttackBothHeavyKick_onUpdate()
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackBothLeft1", "W_AttackLeftHeavy1", "W_AttackBothLight1", "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
-        return 
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackBothLeft1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
+    
+    -- Adjustments: Flow
+    
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
+        return
     else
         return 
     end
 end
 
 function AttackBothHeavyKickSpecial_onUpdate()
-    local l1 = "W_AttackBothLeft1"
-	local b1 = "W_AttackBothLight1"
-   	local hand = HAND_RIGHT
-   	local style = c_Style
-	
-   	if style == HAND_LEFT_BOTH then
-      	hand = HAND_LEFT
-    end
-	
-	local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
-	
-    -- Quarterstaff or Frostfall
-	if sp_kind == 294 or sp_kind == 604 then
-		l1 = "W_AttackBothLeft2"
-		b1 = "W_AttackBothLight2"
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackBothLeft1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
+    
+    -- Adjustments: Flow
+	if IsSpecialCategory("Frostfall") or 
+       IsSpecialCategory("Quarterstaff") then
+		Follow_L1 = "W_AttackBothLeft2"
+		Follow_B1 = "W_AttackBothLight2"
 	end
 	
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", l1, "W_AttackLeftHeavy1", b1, "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
-        return 
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
+        return
     else
         return 
     end
 end
 
 function AttackBothBackstep_onUpdate()
-    local b1 = "W_AttackBothLight1"
-   	local hand = HAND_RIGHT
-   	local style = c_Style
-	
-   	if style == HAND_LEFT_BOTH then
-      	hand = HAND_LEFT
-    end
-	
-	local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
-	
-	if sp_kind == 737 or sp_kind == 747 then
-		b1 = "W_SpecialAttackRightHeavy"
+    -- Attack State
+    local Follow_R1 = "W_AttackRightLight1"
+    local Follow_R2 = "W_AttackRightHeavy1Start"
+    local Follow_L1 = "W_AttackBothLeft1"
+    local Follow_L2 = "W_AttackLeftHeavy1"
+    local Follow_B1 = "W_AttackBothLight1"
+    local Follow_B2 = "W_AttackBothHeavy1Start"
+    local UseGuardCondition = FALSE
+    local UseAttackQueue = TRUE
+    
+    -- Adjustments: Effects
+    
+    -- Adjustments: Flow
+    
+	if IsSpecialCategory("Bloodletter") or
+       IsSpecialCategory("Fist Alt") then
+		Follow_B1 = "W_SpecialAttackRightHeavy"
 	end		
 
-	if sp_kind == 600 then
-		b1 = "W_AttackBothLightStepSpecial"
+	if IsSpecialCategory("Beast Claw") then
+		Follow_B1 = "W_AttackBothLightStepSpecial"
 	end	
 	
-	if sp_kind == 742 or sp_kind == 743 or sp_kind == 745 or sp_kind == 750 then
-		b1 = "W_AttackBothLight2"
+	if IsSpecialCategory("Great Hammer Alt") or 
+       IsSpecialCategory("Church Pick") or
+       IsSpecialCategory("Phosphorescent Pole Alt") or
+       IsSpecialCategory("Kirkhammer") then
+		Follow_B1 = "W_AttackBothLight2"
 	end	
 	
-	if sp_kind == 146 then
-		b1 = "W_AttackBothLight1"
+	if IsSpecialCategory("Claw") then
+		Follow_B1 = "W_AttackBothLight1"
 	end		
 	
-    if AttackCommonFunction("W_AttackRightLight1", "W_AttackRightHeavy1Start", "W_AttackBothLeft1", "W_AttackLeftHeavy1", b1, "W_AttackBothHeavy1Start", FALSE, TRUE) == TRUE then
-        return 
+    -- Follow-up Attack
+    if AttackCommonFunction(Follow_R1, Follow_R2, Follow_L1, Follow_L2, Follow_B1, Follow_B2, UseGuardCondition, UseAttackQueue) == TRUE then
+        return
     else
         return 
     end
 end
 
+--------------------------------------------
+-- Bow
+--------------------------------------------
 function AttackArrowRight_Activate()
     SetInterruptType(INTERRUPT_FINDATTACK)
+    
     if c_Style == HAND_LEFT_BOTH then
         SetAttackHand(HAND_LEFT)
     else
         SetAttackHand(HAND_RIGHT)
     end
+    
     return 
 end
 
 function AttackArrowRightStart_Upper_onUpdate()
     act(PrecisionShootPossible)
+    
     local blend_type, lower_state = GetHalfBlendInfo()
+    
     if ArrowCommonFunction(blend_type, FALSE, FALSE) == TRUE then
         return 
     elseif env(IsAnimationOver, 1) == TRUE then
@@ -8907,10 +9012,13 @@ end
 
 function AttackArrowRightLoop_Upper_onUpdate()
     act(PrecisionShootPossible)
+    
     local blend_type, lower_state = GetHalfBlendInfo()
+    
     if lower_state == LOWER_IDLE then
         act(LockonSystemUnableToTurnAngle, 90, 90)
     end
+    
     if ArrowCommonFunction(blend_type, FALSE, FALSE) == TRUE then
         return 
     elseif env(GetAmmunitionSlot, 0) == 0 then
@@ -8922,6 +9030,7 @@ function AttackArrowRightLoop_Upper_onUpdate()
         ExecEventAllBody("W_AttackArrowRightFire")
         return 
     end
+    
     if ArrowLowerCommonFunction(Event_AttackArrowRightLoop, lower_state, FALSE, TRUE) == TRUE then
         return 
     else
@@ -8930,8 +9039,10 @@ function AttackArrowRightLoop_Upper_onUpdate()
 end
 
 function AttackArrowRightFire_onUpdate()
+    -- Adjustments: Effects
     ApplyEffect_AmmoAttack()
     act(PrecisionShootPossible)
+    
     if ArrowCommonFunction(ALLBODY, TRUE, FALSE) == TRUE then
         return 
     elseif env(GetStamina) <= 0 then
@@ -8963,8 +9074,10 @@ function AttackArrowRightFire_onUpdate()
 end
 
 function AttackArrowRightFireDash_onUpdate()
+    -- Adjustments: Effects
     ApplyEffect_AmmoAttack()
     act(PrecisionShootPossible)
+    
     if ArrowCommonFunction(ALLBODY, TRUE, TRUE) == TRUE then
         return 
     elseif MoveStartonCancelTiming(Event_Move, FALSE) == TRUE then
@@ -8975,8 +9088,10 @@ function AttackArrowRightFireDash_onUpdate()
 end
 
 function AttackArrowRightFireStep_onUpdate()
+    -- Adjustments: Effects
     ApplyEffect_AmmoAttack()
     act(PrecisionShootPossible)
+    
     if ArrowCommonFunction(ALLBODY, TRUE, TRUE) == TRUE then
         return 
     elseif MoveStartonCancelTiming(Event_Move, FALSE) == TRUE then
@@ -8996,32 +9111,41 @@ function NoArrow_onUpdate()
     end
 end
 
+--------------------------------------------
+-- Crossbow
+--------------------------------------------
 function AttackCrossbowRight_Activate()
     SetAttackHand(HAND_RIGHT)
+    
     return 
 end
 
 function AttackCrossbowLeft_Activate()
     SetAttackHand(HAND_LEFT)
     ActivateRightArmAdd(START_FRAME_A02)
+    
     return 
 end
 
 function AttackCrossbowLeft_Update()
     UpdateRightArmAdd()
+    
     return 
 end
 
 function AttackCrossbowFire_Activate()
     SetInterruptType(INTERRUPT_FINDATTACK)
+    
     return 
 end
 
 function AttackCrossbowRightStart_Upper_onUpdate()
     local blend_type, lower_state = GetHalfBlendInfo()
+    
     if lower_state == LOWER_IDLE then
         act(LockonSystemUnableToTurnAngle, 90, 90)
     end
+    
     if CrossbowCommonFunction(blend_type) == TRUE then
         return 
     elseif env(IsAnimationOver, 1) == TRUE then
@@ -9049,9 +9173,11 @@ end
 
 function AttackCrossbowRightLoop_Upper_onUpdate()
     local blend_type, lower_state = GetHalfBlendInfo()
+    
     if lower_state == LOWER_IDLE then
         act(LockonSystemUnableToTurnAngle, 90, 90)
     end
+    
     if CrossbowCommonFunction(blend_type) == TRUE then
         return 
     elseif env(GetAmmunitionSlot, 1) == 0 then
@@ -9063,6 +9189,7 @@ function AttackCrossbowRightLoop_Upper_onUpdate()
         ExecEventHalfBlend(Event_AttackCrossbowRightFire, blend_type)
         return 
     end
+    
     if HalfBlendLowerCommonFunction(Event_AttackCrossbowRightLoop, lower_state, FALSE, TRUE) == TRUE then
         return 
     else
@@ -9071,8 +9198,11 @@ function AttackCrossbowRightLoop_Upper_onUpdate()
 end
 
 function AttackCrossbowRightFire_Upper_onUpdate()
+    -- Adjustments: Effects
     ApplyEffect_AmmoAttack()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
+    
     if CrossbowCommonFunction(blend_type) == TRUE then
         return 
     elseif HalfBlendUpperCommonFunction(lower_state) == TRUE then
@@ -9086,7 +9216,9 @@ end
 
 function AttackCrossbowRightReload_Upper_onUpdate()
     act(Set4DirectionMovementThreshold, 60, 80, 60, 60)
+    
     local blend_type, lower_state = GetHalfBlendInfo()
+    
     if CrossbowCommonFunction(blend_type) == TRUE then
         return 
     elseif HalfBlendUpperCommonFunction(lower_state) == TRUE then
@@ -9100,6 +9232,7 @@ end
 
 function AttackCrossbowRightEmpty_Upper_onUpdate()
     local blend_type, lower_state = GetHalfBlendInfo()
+    
     if CrossbowCommonFunction(blend_type) == TRUE then
         return 
     elseif HalfBlendUpperCommonFunction(lower_state) == TRUE then
@@ -9113,9 +9246,11 @@ end
 
 function AttackCrossbowLeftStart_Upper_onUpdate()
     local blend_type, lower_state = GetHalfBlendInfo()
+    
     if lower_state == LOWER_IDLE then
         act(LockonSystemUnableToTurnAngle, 90, 90)
     end
+    
     if CrossbowCommonFunction(blend_type) == TRUE then
         return 
     elseif env(IsAnimationOver, 1) == TRUE then
@@ -9143,9 +9278,11 @@ end
 
 function AttackCrossbowLeftLoop_Upper_onUpdate()
     local blend_type, lower_state = GetHalfBlendInfo()
+    
     if lower_state == LOWER_IDLE then
         act(LockonSystemUnableToTurnAngle, 90, 90)
     end
+    
     if CrossbowCommonFunction(blend_type) == TRUE then
         return 
     elseif env(GetAmmunitionSlot, 1) == 0 then
@@ -9157,6 +9294,7 @@ function AttackCrossbowLeftLoop_Upper_onUpdate()
         ExecEventHalfBlend(Event_AttackCrossbowLeftFire, blend_type)
         return 
     end
+    
     if HalfBlendLowerCommonFunction(Event_AttackCrossbowLeftLoop, lower_state, FALSE, TRUE) == TRUE then
         return 
     else
@@ -9165,8 +9303,11 @@ function AttackCrossbowLeftLoop_Upper_onUpdate()
 end
 
 function AttackCrossbowLeftFire_Upper_onUpdate()
+    -- Adjustments: Effects
     ApplyEffect_AmmoAttack()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
+    
     if CrossbowCommonFunction(blend_type) == TRUE then
         return 
     elseif HalfBlendUpperCommonFunction(lower_state) == TRUE then
@@ -9181,7 +9322,9 @@ end
 function AttackCrossbowLeftReload_Upper_onUpdate()
     act(PrecisionShootPossible)
     act(Set4DirectionMovementThreshold, 60, 45, 60, 60)
+    
     local blend_type, lower_state = GetHalfBlendInfo()
+    
     if CrossbowCommonFunction(blend_type) == TRUE then
         return 
     elseif HalfBlendUpperCommonFunction(lower_state) == TRUE then
@@ -9195,6 +9338,7 @@ end
 
 function AttackCrossbowLeftEmpty_Upper_onUpdate()
     local blend_type, lower_state = GetHalfBlendInfo()
+    
     if CrossbowCommonFunction(blend_type) == TRUE then
         return 
     elseif HalfBlendUpperCommonFunction(lower_state) == TRUE then
@@ -9208,10 +9352,13 @@ end
 
 function AttackCrossbowBothLeftStart_Upper_onUpdate()
     act(PrecisionShootPossible)
+    
     local blend_type, lower_state = GetHalfBlendInfo()
+    
     if lower_state == LOWER_IDLE then
         act(LockonSystemUnableToTurnAngle, 90, 90)
     end
+    
     if CrossbowCommonFunction(blend_type) == TRUE then
         return 
     elseif env(IsAnimationOver, 1) == TRUE then
@@ -9239,10 +9386,13 @@ end
 
 function AttackCrossbowBothLeftLoop_Upper_onUpdate()
     act(PrecisionShootPossible)
+    
     local blend_type, lower_state = GetHalfBlendInfo()
+    
     if lower_state == LOWER_IDLE then
         act(LockonSystemUnableToTurnAngle, 90, 90)
     end
+    
     if CrossbowCommonFunction(blend_type) == TRUE then
         return 
     elseif env(GetAmmunitionSlot, 1) == 0 then
@@ -9254,6 +9404,7 @@ function AttackCrossbowBothLeftLoop_Upper_onUpdate()
         ExecEventHalfBlend(Event_AttackCrossbowBothLeftFire, blend_type)
         return 
     end
+    
     if HalfBlendLowerCommonFunction(Event_AttackCrossbowBothLeftLoop, lower_state, FALSE, TRUE) == TRUE then
         return 
     else
@@ -9262,9 +9413,12 @@ function AttackCrossbowBothLeftLoop_Upper_onUpdate()
 end
 
 function AttackCrossbowBothLeftFire_Upper_onUpdate()
+    -- Adjustments: Effects
     ApplyEffect_AmmoAttack()
     act(PrecisionShootPossible)
+    
     local blend_type, lower_state = GetHalfBlendInfo()
+    
     if CrossbowCommonFunction(blend_type) == TRUE then
         return 
     elseif HalfBlendUpperCommonFunction(lower_state) == TRUE then
@@ -9279,7 +9433,9 @@ end
 function AttackCrossbowBothLeftReload_Upper_onUpdate()
     act(PrecisionShootPossible)
     act(Set4DirectionMovementThreshold, 60, 80, 60, 60)
+    
     local blend_type, lower_state = GetHalfBlendInfo()
+    
     if CrossbowCommonFunction(blend_type) == TRUE then
         return 
     elseif HalfBlendUpperCommonFunction(lower_state) == TRUE then
@@ -9293,13 +9449,15 @@ end
 
 function AttackCrossbowBothLeftEmpty_Upper_onUpdate()
     -- Frostfall Frost Surge return to idle
-    if env(GetEquipWeaponSpecialCategoryNumber, HAND_LEFT) == 604 then 
-		if (env(ActionDuration, ACTION_ARM_L1) <= 0 or env(GetStamina) <= 0) and env(GetSpEffectID, 100740) == TRUE then -- Not holding L1 or stamina depleted
+    if IsSpecialCategory("Frostfall") then 
+        -- Not holding L1 or stamina depleted
+		if (env(ActionDuration, ACTION_ARM_L1) <= 0 or env(GetStamina) <= 0) and env(GetSpEffectID, 100740) == TRUE then 
 			ExecEventAllBody("W_Idle")
 		end
 	end
     
     local blend_type, lower_state = GetHalfBlendInfo()
+    
     if CrossbowCommonFunction(blend_type) == TRUE then
         return 
     elseif HalfBlendUpperCommonFunction(lower_state) == TRUE then
@@ -9313,16 +9471,21 @@ end
 
 function AttackCrossbowBothRightStart_Upper_onUpdate()
     -- Frostfall
-    if env(GetEquipWeaponSpecialCategoryNumber, HAND_RIGHT) == 604 and env(GetSpEffectID, 100731) == TRUE then
-		ExecEventAllBody("W_Idle")
-		return FALSE
+    if IsSpecialCategory("Frostfall") then
+        if env(GetSpEffectID, 100731) == TRUE then
+            ExecEventAllBody("W_Idle")
+            return FALSE
+        end
 	end
     
     act(PrecisionShootPossible)
+    
     local blend_type, lower_state = GetHalfBlendInfo()
+    
     if lower_state == LOWER_IDLE then
         act(LockonSystemUnableToTurnAngle, 90, 90)
     end
+    
     if CrossbowCommonFunction(blend_type) == TRUE then
         return 
     elseif env(IsAnimationOver, 1) == TRUE then
@@ -9350,10 +9513,13 @@ end
 
 function AttackCrossbowBothRightLoop_Upper_onUpdate()
     act(PrecisionShootPossible)
+    
     local blend_type, lower_state = GetHalfBlendInfo()
+    
     if lower_state == LOWER_IDLE then
         act(LockonSystemUnableToTurnAngle, 90, 90)
     end
+    
     if CrossbowCommonFunction(blend_type) == TRUE then
         return 
     elseif env(GetAmmunitionSlot, 1) == 0 then
@@ -9365,6 +9531,7 @@ function AttackCrossbowBothRightLoop_Upper_onUpdate()
         ExecEventHalfBlend(Event_AttackCrossbowBothRightFire, blend_type)
         return 
     end
+    
     if HalfBlendLowerCommonFunction(Event_AttackCrossbowBothRightLoop, lower_state, FALSE, TRUE) == TRUE then
         return 
     else
@@ -9373,9 +9540,12 @@ function AttackCrossbowBothRightLoop_Upper_onUpdate()
 end
 
 function AttackCrossbowBothRightFire_Upper_onUpdate()
+    -- Adjustments: Effects
     ApplyEffect_AmmoAttack()
     act(PrecisionShootPossible)
+    
     local blend_type, lower_state = GetHalfBlendInfo()
+    
     if CrossbowCommonFunction(blend_type) == TRUE then
         return 
     elseif HalfBlendUpperCommonFunction(lower_state) == TRUE then
@@ -9390,7 +9560,9 @@ end
 function AttackCrossbowBothRightReload_Upper_onUpdate()
     act(PrecisionShootPossible)
     act(Set4DirectionMovementThreshold, 60, 80, 60, 60)
+    
     local blend_type, lower_state = GetHalfBlendInfo()
+    
     if CrossbowCommonFunction(blend_type) == TRUE then
         return 
     elseif HalfBlendUpperCommonFunction(lower_state) == TRUE then
@@ -9403,14 +9575,16 @@ function AttackCrossbowBothRightReload_Upper_onUpdate()
 end
 
 function AttackCrossbowBothRightEmpty_Upper_onUpdate()
-    -- Frostfall Frost Surge return to idle
-    if env(GetEquipWeaponSpecialCategoryNumber, HAND_RIGHT) == 604 then 
-		if (env(ActionDuration, ACTION_ARM_L1) <= 0 or env(GetStamina) <= 0) and env(GetSpEffectID, 100740) == TRUE then -- Not holding L1 or stamina depleted
+    -- Frostfall: Frost Surge return to idle
+    if IsSpecialCategory("Frostfall") then 
+        -- Not holding L1 or stamina depleted
+		if (env(ActionDuration, ACTION_ARM_L1) <= 0 or env(GetStamina) <= 0) and env(GetSpEffectID, 100740) == TRUE then 
 			ExecEventAllBody("W_Idle")
 		end
 	end
     
     local blend_type, lower_state = GetHalfBlendInfo()
+    
     if CrossbowCommonFunction(blend_type) == TRUE then
         return 
     elseif HalfBlendUpperCommonFunction(lower_state) == TRUE then
@@ -9422,6 +9596,9 @@ function AttackCrossbowBothRightEmpty_Upper_onUpdate()
     end
 end
 
+--------------------------------------------
+-- Sword Arts
+--------------------------------------------
 function SwordArtsRight_Activate()
     local style = c_Style
     if style == HAND_LEFT_BOTH then
@@ -16818,6 +16995,390 @@ end
 function Master_onGenerate()
     return 
 end
+
+-------------------------------
+-- Mod: Utility Functions
+-------------------------------
+function AddToSet(set, key)
+    set[key] = true
+end
+
+function RemoveFromSet(set, key)
+    set[key] = nil
+end
+
+function SetContains(set, key)
+    return set[key] ~= nil
+end
+
+-- Checks the spAtkCategory for the primary hand
+function IsSpecialCategory(name)
+    local hand = HAND_RIGHT
+    
+    if style == HAND_LEFT_BOTH then
+        hand = HAND_LEFT
+    end
+    
+    local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
+    
+    if SetContains(special_category_table, name) then
+        if sp_kind == special_category_table[name] then
+            return true
+        else
+            return false
+        end
+    else
+        return false
+    end
+end
+
+-- Checks the spAtkCategory for the left hand
+function IsSpecialCategoryLeft(name)
+    local hand = HAND_LEFT
+    
+    local sp_kind = env(GetEquipWeaponSpecialCategoryNumber, hand)
+    
+    if SetContains(special_category_table, name) then
+        if sp_kind == special_category_table[name] then
+            return true
+        else
+            return false
+        end
+    else
+        return false
+    end
+end
+
+-- Checks the spAtkCategory for the primary hand
+function IsBaseCategory(name)
+    local hand = HAND_RIGHT
+    
+    if style == HAND_LEFT_BOTH then
+        hand = HAND_LEFT
+    end
+    
+    local base_kind = env(GetEquipWeaponCategory, hand)
+    
+    if SetContains(weapon_category_table, name) then
+        if base_kind == weapon_category_table[name] then
+            return true
+        else
+            return false
+        end
+    else
+        return false
+    end
+end
+
+-- Checks the wepmotionCategory for the left hand
+function IsBaseCategoryLeft(name)
+    local hand = HAND_LEFT
+    
+    local base_kind = env(GetEquipWeaponCategory, hand)
+    
+    if SetContains(weapon_category_table, name) then
+        if base_kind == weapon_category_table[name] then
+            return true
+        else
+            return false
+        end
+    else
+        return false
+    end
+end
+
+-- Checks the wepmotionOneHandId/wepmotionBothHandId
+function IsStayCategory(name)
+    local stay_kind = env(GetStayAnimCategory)
+    
+    if SetContains(stay_category_table, name) then
+        if stay_kind == stay_category_table[name] then
+            return true
+        else
+            return false
+        end
+    else
+        return false
+    end
+end
+
+-------------------------------
+-- Mod: Global Variables
+-------------------------------
+-- Associate spAtkCategory values to specific names.
+-- Names should match weapon name or if shared, a suitable collective name.
+
+-- TAE Overrides
+special_category_table = {}
+special_category_table["Scythe"] = 50
+special_category_table["Broadsword"] = 53
+special_category_table["Shortsword"] = 54
+special_category_table["Dark Sword"] = 57
+special_category_table["Club"] = 59
+special_category_table["Partizan"] = 63
+special_category_table["Silver Knight Spear"] = 66
+special_category_table["Pike"] = 67
+special_category_table["Dragonslayer's Spear"] = 68
+special_category_table["Large Club"] = 69
+special_category_table["Smough's Great Hammer"] = 70
+special_category_table["Parrying Dagger"] = 71
+special_category_table["Dagger Alt"] = 72
+special_category_table["Claymore"] = 74
+special_category_table["Flamberge"] = 75
+special_category_table["Black Knight Sword"] = 80
+special_category_table["Short Bow"] = 81
+special_category_table["Black Bow of Pharis"] = 82
+special_category_table["Dragonslayer Greatbow"] = 83
+special_category_table["Avelyn"] = 84
+special_category_table["Sniper Crossbow"] = 85
+special_category_table["Rakuyo"] = 90
+special_category_table["Buckler"] = 91
+special_category_table["Pierce Shield"] = 93
+special_category_table["Havel's Greatshield"] = 94
+special_category_table["Cathedral Knight Greatsword"] = 95
+special_category_table["Shotel"] = 99
+special_category_table["Painting Guardian's Curved Sword"] = 101
+special_category_table["Hand Axe"] = 102
+special_category_table["Butcher Knife"] = 103
+special_category_table["Black Knight Greataxe"] = 107
+special_category_table["Halberd"] = 108
+special_category_table["Black Knight Glaive"] = 112
+special_category_table["Estoc"] = 113
+special_category_table["Ricard's Rapier"] = 115
+special_category_table["Dark Hand"] = 123
+special_category_table["Bonewheel Shield"] = 126
+special_category_table["White Hair Talisman"] = 127
+special_category_table["Black Knight Greatsword"] = 128
+special_category_table["Wolf Knight's Greatsword"] = 131
+special_category_table["Four-Pronged Plow"] = 134
+special_category_table["Sellsword Twinblades"] = 137
+special_category_table["Winged Knight Twinaxes"] = 138
+special_category_table["Dancer's Enchanted Twinswords"] = 139
+special_category_table["Missionary Axes"] = 140
+special_category_table["Brigand Twindaggers"] = 141
+special_category_table["Gotthard Twinswords"] = 142
+special_category_table["Ciaran's Tracers"] = 143
+special_category_table["Onikiri and Ubadachi"] = 144
+special_category_table["Drang Twinspears"] = 145
+special_category_table["Claw"] = 146
+special_category_table["Drang Hammers"] = 148
+special_category_table["Pyromancy Flame"] = 149
+special_category_table["Medium Shield"] = 150
+special_category_table["Scimitar"] = 151
+special_category_table["Demon's Fist"] = 152
+special_category_table["Dagger"] = 153
+special_category_table["Greatsword of Judgment"] = 154
+special_category_table["Twin Princes' Greatsword"] = 155
+special_category_table["Wolnir's Holy Sword"] = 156
+special_category_table["Hollowslayer Greatsword"] = 157
+special_category_table["Moonlight Greatsword"] = 158
+special_category_table["Smouldering Blade"] = 159
+special_category_table["Astora Greatsword"] = 160
+special_category_table["Farron Greatsword"] = 161
+special_category_table["Profaned Greatsword"] = 162
+special_category_table["Demon's Machete"] = 163
+special_category_table["Pontiff Knight Curved Sword"] = 164
+special_category_table["Old Wolf Curved Sword"] = 166
+special_category_table["Eleonora"] = 167
+special_category_table["Demon King's Greataxe"] = 168
+special_category_table["Yhorm's Great Machete"] = 169
+special_category_table["Pickaxe"] = 171
+special_category_table["Gargoyle Flame Hammer"] = 172
+special_category_table["Old King's Great Hammer"] = 174
+special_category_table["Gargoyle Flame Spear"] = 175
+special_category_table["Lance"] = 177
+special_category_table["Golden Ritual Spear"] = 178
+special_category_table["Pontiff Knight Great Scythe"] = 179
+special_category_table["Onislayer Greatbow"] = 184
+special_category_table["Sacred Chime"] = 185
+special_category_table["Irithyll Rapier"] = 187
+special_category_table["Lothric's Holy Sword"] = 188
+special_category_table["Lorian's Greatsword"] = 189
+special_category_table["Greatsword"] = 193
+special_category_table["Murakumo"] = 195
+special_category_table["Drakeblood Greatsword"] = 196
+special_category_table["Yorshka's Spear"] = 197
+special_category_table["Dragonslayer Greataxe"] = 199
+special_category_table["Arstor's Spear"] = 200
+special_category_table["Winged Knight Halberd"] = 201
+special_category_table["Lothric Knight Greatsword"] = 202
+special_category_table["Zweihander"] = 203
+special_category_table["Tailbone Short Sword"] = 204
+special_category_table["Mail Breaker"] = 205
+special_category_table["Scholar's Candlestick"] = 206
+special_category_table["Cleric's Candlestick"] = 207
+special_category_table["Channeler's Trident"] = 209
+special_category_table["Reinforced Club"] = 210
+special_category_table["Grant"] = 211
+special_category_table["Storm Curved Sword"] = 212
+special_category_table["Great Club"] = 213
+special_category_table["Spell Parry Shield"] = 214
+special_category_table["Gundyr's Halberd"] = 215
+special_category_table["Immolation Tinder"] = 217
+special_category_table["Rapier"] = 218
+special_category_table["Heysel Pick"] = 220
+special_category_table["Executioner's Greatsword"] = 221
+special_category_table["Moaning Shield"] = 222
+special_category_table["Catalyst WA"] = 224
+special_category_table["Dragonslayer Greatshield"] = 225
+special_category_table["Silver Knight Straight Sword"] = 226
+special_category_table["Spiked Shield"] = 227
+special_category_table["Warpick"] = 228
+special_category_table["Witch's Locks"] = 229
+special_category_table["Darkmoon Longbow"] = 230
+special_category_table["Whip"] = 231
+special_category_table["Friede's Great Scythe"] = 232
+special_category_table["Rose of Ariandel"] = 234
+special_category_table["Crow Talons"] = 235
+special_category_table["Valorheart"] = 236
+special_category_table["Crow Quills"] = 237
+special_category_table["Pyromancer's Parting Flame"] = 239
+special_category_table["Follower Torch"] = 240
+special_category_table["Millwood Battle Axe"] = 241
+special_category_table["Earth Seeker"] = 242
+special_category_table["Quakestone Hammer"] = 243
+special_category_table["Millwood Greatbow"] = 244
+special_category_table["Onyx Blade"] = 245
+special_category_table["Follower Javelin"] = 246
+special_category_table["Follower Sabre"] = 247
+special_category_table["Splitleaf Glaive"] = 248
+special_category_table["White Birch Bow"] = 249
+special_category_table["Giant Door Shield"] = 250
+special_category_table["Ringed Knight Straight Sword"] = 251
+special_category_table["Ringed Knight Spear"] = 252
+special_category_table["Ringed Knight Paired Greatswords"] = 253
+special_category_table["Dragonhead Shield"] = 254
+special_category_table["Dragonhead Greatshield"] = 255
+special_category_table["Aquamarine Dagger"] = 256
+special_category_table["Demon's Scar"] = 257
+special_category_table["Frayed Blade"] = 258
+special_category_table["Ledo's Great Hammer"] = 259
+special_category_table["Lothric War Banner"] = 260
+special_category_table["Crucifix of the Mad King"] = 261
+special_category_table["Repeating Crossbow"] = 262
+special_category_table["Gael's Greatsword"] = 263
+special_category_table["Harald Curved Greatsword"] = 264
+special_category_table["Preacher's Right Arms"] = 265
+special_category_table["Sacred Chime of Filianore"] = 267
+special_category_table["Tonitrus"] = 269
+special_category_table["Phosphorescent Pole"] = 270
+special_category_table["Censuring Palm"] = 271
+special_category_table["Bewitched Alonne Sword"] = 272
+special_category_table["Runelock"] = 273
+special_category_table["Slap Fist"] = 274
+special_category_table["Frying Pan"] = 275
+special_category_table["Dragonslayer Swordspear"] = 276
+special_category_table["Black Dragon Greatsword"] = 277
+special_category_table["Black Dragon Sword"] = 278
+special_category_table["Ancient Dragon Halberd"] = 279
+special_category_table["Writhing Hammer"] = 280
+special_category_table["Scythe of Want"] = 281
+special_category_table["Vordt's Great Hammer"] = 282
+special_category_table["Black Dragon Greataxe"] = 283
+special_category_table["Twinspears of the Forlorn"] = 284
+special_category_table["Cannon"] = 285
+special_category_table["Church Cannon"] = 286
+special_category_table["Hunter's Pistol"] = 287
+special_category_table["Repeating Pistol"] = 288
+special_category_table["Evelynn"] = 289
+special_category_table["Hunter's Blunderbuss"] = 290
+special_category_table["Rosamarius"] = 291
+special_category_table["Fist of Gratia"] = 292
+special_category_table["Black Dragon Shield"] = 293
+special_category_table["Quarterstaff"] = 294
+special_category_table["Manus Catalyst"] = 295
+special_category_table["Golem Axe"] = 296
+special_category_table["Rampart Golem Lance"] = 297
+special_category_table["Catalyst: Firestorm"] = 298
+special_category_table["Catalyst: Force"] = 299
+special_category_table["Beast Claw"] = 600
+special_category_table["Gravelord Sword"] = 601
+special_category_table["Penetrating Sword"] = 602
+special_category_table["Beast Cutter"] = 603
+special_category_table["Frostfall"] = 604
+special_category_table["Longstaff of Rosaria"] = 605
+special_category_table["Red Rust Sword"] = 701
+special_category_table["Warped Sword"] = 703
+special_category_table["Dragon Hunter's Greataxe"] = 704
+special_category_table["Dragon Hunter's Warpick"] = 705
+special_category_table["Dragon Hunter's Great Hammer"] = 706
+special_category_table["Ivory King Ultra Greatsword"] = 707
+special_category_table["Gargoyle Halberd"] = 709
+special_category_table["Gargoyle Tail Axe"] = 710
+special_category_table["Gargoyle Bident"] = 711
+special_category_table["Katana Alt"] = 712
+special_category_table["Scythe Alt"] = 713
+special_category_table["Sacred Chime Hammer"] = 714
+special_category_table["Fume Ultra Greatsword"] = 717
+special_category_table["Fume Slated Swords"] = 718
+special_category_table["Demon's Spear"] = 719
+special_category_table["Demon's Great Axe"] = 720
+special_category_table["Greatsword Alt"] = 721
+special_category_table["Greataxe Alt"] = 722
+special_category_table["Spear Alt"] = 723
+special_category_table["Sunlight Straight Sword"] = 724
+special_category_table["Hallowed Sword"] = 726
+special_category_table["Axe Alt"] = 727
+special_category_table["Rotten Ghru Curved Sword"] = 728
+special_category_table["Beasthuner Saif"] = 729
+special_category_table["Burial Blade"] = 730
+special_category_table["Burial Scythe"] = 731
+special_category_table["Tonitrus"] = 732
+special_category_table["Hammer Alt"] = 733
+special_category_table["Halberd Alt"] = 734
+special_category_table["Hunter Axe"] = 735
+special_category_table["Sanguinus"] = 736
+special_category_table["Bloodletter"] = 737
+special_category_table["Great Hammer Alt"] = 742
+special_category_table["Church Pick"] = 743
+special_category_table["Boom Hammer"] = 744
+special_category_table["Phosphorescent Pole Alt"] = 745
+special_category_table["Bloodlust"] = 746
+special_category_table["Fist Alt"] = 747
+special_category_table["Aldia Hammer"] = 748
+special_category_table["Sanctum Mace"] = 749
+special_category_table["Kirkhammer"] = 750
+special_category_table["Sunlight Greatsword"] = 751
+special_category_table["Curved Greatsword Alt"] = 752
+special_category_table["Nil Bow and Blade"] = 754
+special_category_table["Carthus Shotel"] = 755
+
+-- Weapon Hold Positions
+stay_category_table = {}
+stay_category_table["1H - Default"] = 0
+stay_category_table["1H - Greatsword"] = 2
+stay_category_table["1H - Spear"] = 3
+stay_category_table["2H - Default"] = 10
+stay_category_table["2H - Greatsword"] = 12
+stay_category_table["2H - Spear"] = 13
+stay_category_table["2H - Bow"] = 14
+stay_category_table["2H - Shield"] = 15
+stay_category_table["2H - Crossbow"] = 16
+
+-- Weapon TAE
+weapon_category_table = {}
+weapon_category_table["Dagger"] = 20
+weapon_category_table["Straight Sword"] = 23
+weapon_category_table["Greatsword"] = 25
+weapon_category_table["Ultra Greatsword"] = 26
+weapon_category_table["Thrusting Sword"] = 27
+weapon_category_table["Curved Sword"] = 28
+weapon_category_table["Katana"] = 29
+weapon_category_table["Axe"] = 30
+weapon_category_table["Greataxe"] = 32
+weapon_category_table["Hammer"] = 33
+weapon_category_table["Great Hammer"] = 35
+weapon_category_table["Spear"] = 36
+weapon_category_table["Halberd"] = 38
+weapon_category_table["Catalyst"] = 41
+weapon_category_table["Fist"] = 42
+weapon_category_table["Whip/Claw"] = 43
+weapon_category_table["Bow"] = 44
+weapon_category_table["Greatbow"] = 45
+weapon_category_table["Crossbow"] = 46
+weapon_category_table["Greatshield"] = 47
+weapon_category_table["Shield"] = 48
+weapon_category_table["Torch"] = 49
 
 ------------------------
 -- Conditions 

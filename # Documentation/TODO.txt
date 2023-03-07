@@ -3,12 +3,11 @@
 #-------------------------------------------------
 Fix incorrect icons in some cases due to usage of Cinders icon sheet
 
+Fix Lothric castle bonfire
 #-------------------------------------------------
 # Ideas
 #-------------------------------------------------
 Weapons to add:
- Phosphorescent Pole
- Bewitched Alonne Sword
  Runelock
  Frying Pan
  Black Dragon Greatsword
@@ -55,9 +54,6 @@ Add transmogrification system
 
 Add 'Crystal Tear' system, using covenant slot as the Tear slot
  Add 'Wonderous Flask' that triggers the Tear slot when used
-
-30020000 Phosphorescent Pole
- - WA not working correctly
  
 Place treasures:
 21010 Bestial Fang
@@ -69,4 +65,7 @@ Place treasures:
 21070 Beastbane Oil
 21080 Korg's Talon
 21090 Dashmaster's Bell
+30020000 Phosphorescent Pole
 
+
+ Bewitched Alonne Sword
