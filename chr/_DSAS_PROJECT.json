@@ -172,14 +172,14 @@
         "M43": 0.0,
         "M44": 1.0
       },
-      "DisableAllInput": true,
+      "DisableAllInput": false,
       "RequestRecenter": false,
       "FollowingLockon": false,
       "FollowingLockonDummyPoly": 220,
       "AngleSnap": 0.7853982,
       "AngleSnapEnable": false,
       "PivotPrimIsEnabled": false,
-      "OrbitCamCenter_DummyPolyFollowRefPoint": "-0.048954427, 0.6537179, -0.066774845",
+      "OrbitCamCenter_DummyPolyFollowRefPoint": "-2.9942612E-07, 1.2921416, -0.07529658",
       "OrbitCamCenter_DummyPolyFollowRefPoint_Init": "-0.10528319, 1.3254398, 0.06959634",
       "OverallMouseSpeedMult": 1.0,
       "CameraTurnSpeedMouse": 1.0,
@@ -225,7 +225,7 @@
       "OrbitCamDistance": 5.0,
       "ProjectionIsOrthographic": false,
       "ProjectionVerticalFovRatio": 1.0,
-      "PivotPrimVisRatio": 0.94599605
+      "PivotPrimVisRatio": 0.0
     }
   ]
 }

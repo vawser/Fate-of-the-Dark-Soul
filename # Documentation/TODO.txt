@@ -36,17 +36,8 @@ Weapons to add:
  Demon's Spear
  Sanctum Mace
  Aldia Hammer
+ Bewitched Alonne Sword
  
-Ring ideas to add:
- Heavy Attack Boost
- Guard Attack Boost
- Ammunition Attack Boost
- Throwing Item Boost
- Luck/Vigor/Attunement/Endurance/Vitality Boost
- Boost flat defence (reduce roll distance)
- Reduce evasive stamina cost
- Backstep dodge frames + distance boost
-
 #-------------------------------------------------
 # WIP
 #-------------------------------------------------
@@ -55,17 +46,3 @@ Add transmogrification system
 Add 'Crystal Tear' system, using covenant slot as the Tear slot
  Add 'Wonderous Flask' that triggers the Tear slot when used
  
-Place treasures:
-21010 Bestial Fang
-21020 Ironwood Ring
-21030 Demonbane Oil
-21040 Deathbane Oil
-21050 Hollowbane Oil
-21060 Cursebane Oil
-21070 Beastbane Oil
-21080 Korg's Talon
-21090 Dashmaster's Bell
-30020000 Phosphorescent Pole
-
-
- Bewitched Alonne Sword

@@ -345,53 +345,61 @@
 25000536 Dashmaster's Bell +1
 25000537 Dashmaster's Bell +2
 
-25000540 X
-25000541 X +1
-25000542 X +2
+25000540 Runic Seal 
+25000541 Runic Seal +1
+25000542 Runic Seal +2
 
-25000545 X
-25000546 X +1
-25000547 X +2
+25000545 Greatwood Remnants 
+25000546 Greatwood Remnants +1
+25000547 Greatwood Remnants +2
 
-25000550 X
-25000551 X +1
-25000552 X +2
+25000550 Acrobat's Signet 
+25000551 Acrobat's Signet +1
+25000552 Acrobat's Signet +2
 
-25000555 X
-25000556 X +1
-25000557 X +2
+25000555 Acrobat's Bracelet
+25000556 Acrobat's Bracelet +1
+25000557 Acrobat's Bracelet +2
 
-25000560 X
-25000561 X +1
-25000562 X +2
+25000560 Rite of Tardus 
+25000561 Rite of Tardus +1
+25000562 Rite of Tardus +2
 
-25000565 X
-25000566 X +1
-25000567 X +2
+25000565 Thumb Ring
+25000566 Thumb Ring +1
+25000567 Thumb Ring +2
 
-25000570 X
-25000571 X +1
-25000572 X +2
+25000570 Smouldering Crucible
+25000571 Smouldering Crucible +1
+25000572 Smouldering Crucible +2
 
-25000575 X
-25000576 X +1
-25000577 X +2
+25000575 Mercenary Ring
+25000576 Mercenary Ring +1
+25000577 Mercenary Ring +2
 
-25000580 X
-25000581 X +1
-25000582 X +2
+25000580 Heretic's Ring 
+25000581 Heretic's Ring +1
+25000582 Heretic's Ring +2
 
-25000585 X
-25000586 X +1
-25000587 X +2
+25000585 Merchant's Ring
+25000586 Merchant's Ring +1
+25000587 Merchant's Ring +2
 
-25000590 X
-25000591 X +1
-25000592 X +2
+25000590 Physician Ring
+25000591 Physician Ring +1
+25000592 Physician Ring +2
 
-25000595 X
-25000596 X +1
-25000597 X +2
+25000595 Jester's Ring
+25000596 Jester's Ring +1
+25000597 Jester's Ring +2
+
+25000600 X
+25000601 X +1
+25000602 X +2
+
+25000605 X
+25000606 X +1
+25000607 X +2
 
 # Castigation
 25000900 Abyssal Maw

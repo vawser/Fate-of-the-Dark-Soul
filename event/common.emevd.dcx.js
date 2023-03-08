@@ -168,8 +168,8 @@ $Event(0, Default, function() {
     SetEventFlag(303, ON);
     
     InitializeEvent(0, 10000, 0); // Darksign Warp
-    InitializeEvent(0, 10001, 0); // Journey Type Effect: Player
-    InitializeEvent(0, 10002, 0); // Journey Type Effect: Enemy
+    InitializeEvent(0, 10001, 0); // Effect: Player
+    InitializeEvent(0, 10002, 0); // Effect: Enemy
     InitializeEvent(0, 10003, 0); // Level Adjustments
     InitializeEvent(0, 10004, 0); // Slave Knight Gael - Warp
     InitializeEvent(0, 10005, 0); // Slave Knight Gael - Unlock Boss Fight
@@ -343,6 +343,19 @@ $Event(0, Default, function() {
     InitializeEvent(66, 13000, 21070, 21071, 21072, 25000525, 25000526, 25000527); // Beastbane Oil
     InitializeEvent(67, 13000, 21080, 21081, 21082, 25000530, 25000531, 25000532); // Korg's Talon
     InitializeEvent(68, 13000, 21090, 21091, 21092, 25000535, 25000536, 25000537); // Dashmaster's Bell
+    
+    InitializeEvent(69, 13000, 21100, 21101, 21102, 25000540, 25000541, 25000542); // Runic Seal 
+    InitializeEvent(70, 13000, 21110, 21111, 21112, 25000545, 25000546, 25000547); // Greatwood Remnants 
+    InitializeEvent(71, 13000, 21120, 21121, 21122, 25000550, 25000551, 25000552); // Acrobat's Signet 
+    InitializeEvent(72, 13000, 21130, 21131, 21132, 25000555, 25000556, 25000557); // Acrobat's Bracelet
+    InitializeEvent(73, 13000, 21140, 21141, 21142, 25000560, 25000561, 25000562); // Rite of Tardus 
+    InitializeEvent(74, 13000, 21150, 21151, 21152, 25000565, 25000566, 25000567); // Thumb Ring
+    InitializeEvent(75, 13000, 21160, 21161, 21162, 25000570, 25000571, 25000572); // Smouldering Crucible
+    InitializeEvent(76, 13000, 21170, 21171, 21172, 25000575, 25000576, 25000577); // Mercenary Ring
+    InitializeEvent(77, 13000, 21180, 21181, 21182, 25000580, 25000581, 25000582); // Heretic's Ring 
+    InitializeEvent(78, 13000, 21190, 21191, 21192, 25000585, 25000586, 25000587); // Merchant's Ring
+    InitializeEvent(79, 13000, 21200, 21201, 21202, 25000590, 25000591, 25000592); // Physician Ring
+    InitializeEvent(80, 13000, 21210, 21211, 21212, 25000595, 25000596, 25000597); // Jester's Ring
     
     //----------------------
     // Accursed - Detriment System
@@ -1636,7 +1649,7 @@ $Event(10000, Default, function(X0_1, X4_4) {
     }
 });
 
-// Journey Type Effect: Player
+// Effect: Player
 $Event(10001, Default, function() {
     // Hollow
     if(EventFlag(25000101))
@@ -1663,7 +1676,7 @@ $Event(10001, Default, function() {
     }
 });
 
-// Journey Type Effect: Enemy
+// Effect: Enemy
 $Event(10002, Default, function() {
     // Hollow
     if(EventFlag(25000101))
@@ -1687,6 +1700,43 @@ $Event(10002, Default, function() {
     if(EventFlag(25000104))
     {
         SetSpEffect(3605800, 200103010);
+    }
+    
+    // Rite of Tardus
+    if(CharacterHasSpEffect(10000, 113500000, ComparisonType.Equal, 1))
+    {
+        SetSpEffect(3605800, 101050);
+    }
+    else
+    {
+        ClearSpEffect(3605800, 101050);
+    }
+    // Rite of Tardus +1
+    if(CharacterHasSpEffect(10000, 113500100, ComparisonType.Equal, 1))
+    {
+        SetSpEffect(3605800, 101051);
+    }
+    else
+    {
+        ClearSpEffect(3605800, 101051);
+    }
+    // Rite of Tardus +2
+    if(CharacterHasSpEffect(10000, 113500200, ComparisonType.Equal, 1))
+    {
+        SetSpEffect(3605800, 101052);
+    }
+    else
+    {
+        ClearSpEffect(3605800, 101052);
+    }
+    // Rite of Tardus +3
+    if(CharacterHasSpEffect(10000, 113500300, ComparisonType.Equal, 1))
+    {
+        SetSpEffect(3605800, 101053);
+    }
+    else
+    {
+        ClearSpEffect(3605800, 101053);
     }
     
     // Loops so generated enemies are given the SpEffects.

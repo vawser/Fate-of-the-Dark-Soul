@@ -1556,6 +1556,17 @@ function ExecMove(move_type, is_on_cancel)
         movement_speed_mult = 3.0
     end
     
+    -- Rite of Tardus
+    if env(GetSpEffectID, 101050) == TRUE then
+        movement_speed_mult = movement_speed_mult * 0.85
+    elseif env(GetSpEffectID, 101051) == TRUE then
+        movement_speed_mult = movement_speed_mult * 0.8
+    elseif env(GetSpEffectID, 101052) == TRUE then
+        movement_speed_mult = movement_speed_mult * 0.75
+    elseif env(GetSpEffectID, 101053) == TRUE then
+        movement_speed_mult = movement_speed_mult * 0.7
+    end
+    
     -- Apply movement speed change
     act(SetMovementScaleMult, movement_speed_mult)
     

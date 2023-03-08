@@ -301,6 +301,78 @@
 +2 Effect: Increases movement speed by 20%.
 +3 Effect: Increases movement speed by 25%.
 
+# Runic Seal 
++0 Effect: Boosts the attack power of heavy attacks by 15%.
++1 Effect: Boosts the attack power of heavy attacks by 20%.
++2 Effect: Boosts the attack power of heavy attacks by 25%.
++3 Effect: Boosts the attack power of heavy attacks by 30%.
+
+# Greatwood Remnants 
++0 Effect: Boosts flat defense by 20%, but reduces roll distance by 25%.
++1 Effect: Boosts flat defense by 30%, but reduces roll distance by 25%.
++2 Effect: Boosts flat defense by 40%, but reduces roll distance by 25%.
++3 Effect: Boosts flat defense by 50%, but reduces roll distance by 25%.
+
+# Acrobat's Signet 
++0 Effect: Reduces the stamina consumption of evasive actions by 10%.
++1 Effect: Reduces the stamina consumption of evasive actions by 15%.
++2 Effect: Reduces the stamina consumption of evasive actions by 20%.
++3 Effect: Reduces the stamina consumption of evasive actions by 25%.
+
+# Acrobat's Bracelet 
++0 Effect: Extends invulnerability during backsteps.
++1 Effect: Extends invulnerability during backsteps.
++2 Effect: Extends invulnerability during backsteps.
++3 Effect: Extends invulnerability during backsteps.
+
+# Rite of Tardus 
++0 Effect: Reduces the movement speed of enemies by 15%.
++1 Effect: Reduces the movement speed of enemies by 20%.
++2 Effect: Reduces the movement speed of enemies by 25%.
++3 Effect: Reduces the movement speed of enemies by 30%.
+
+# Thumb Ring 
++0 Effect: Boosts the attack power of ammunition by 15%.
++1 Effect: Boosts the attack power of ammunition by 20%.
++2 Effect: Boosts the attack power of ammunition by 25%.
++3 Effect: Boosts the attack power of ammunition by 30%.
+
+# Smouldering Crucible 
++0 Effect: Boosts the attack power of throwable items by 15%.
++1 Effect: Boosts the attack power of throwable items by 20%.
++2 Effect: Boosts the attack power of throwable items by 25%.
++3 Effect: Boosts the attack power of throwable items by 30%.
+
+# Mercenary Ring 
++0 Effect: Raises endurance by 4.
++1 Effect: Raises endurance by 6.
++2 Effect: Raises endurance by 8.
++3 Effect: Raises endurance by 10.
+
+# Heretic's Ring 
++0 Effect: Raises attunement by 4.
++1 Effect: Raises attunement by 6.
++2 Effect: Raises attunement by 8.
++3 Effect: Raises attunement by 10.
+
+# Merchant's Ring 
++0 Effect: Raises vigor by 4.
++1 Effect: Raises vigor by 6.
++2 Effect: Raises vigor by 8.
++3 Effect: Raises vigor by 10.
+
+# Physician Ring 
++0 Effect: Raises vitality by 4.
++1 Effect: Raises vitality by 6.
++2 Effect: Raises vitality by 8.
++3 Effect: Raises vitality by 10.
+
+# Jester's Ring 
++0 Effect: Raises luck by 4.
++1 Effect: Raises luck by 6.
++2 Effect: Raises luck by 8.
++3 Effect: Raises luck by 10.
+
 # Painter's Pendant
 +0 Effect: Attacks slow enemy movement by 95% for 12 seconds.
 

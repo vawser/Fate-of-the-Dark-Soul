@@ -5,12 +5,6 @@ function TestFunction()
     --if env(ActionRequest, ACTION_ARM_JUMP) == TRUE then
     --    act(AddSpEffect, 119900000)
     --end
-    
-    --ExecEventAllBody("W_SlideStart")
-    -- Debug - ACTION_ARM_JUMP
-    --if env(ActionRequest, ACTION_ARM_ROLLING) == TRUE then
-    --    act(AddSpEffect, 119900000) -- Timed Block
-    --end
 end
 
 function UpdateFP()
@@ -41,7 +35,17 @@ function ApplyEffect_LightAttack()
 end
 
 function ApplyEffect_HeavyAttack()
-    
+    -- Runic Seal
+    if env(GetSpEffectID, 113100000) == TRUE then
+        act(AddSpEffect, 101020)
+        act(AddSpEffect, 119900000)
+    elseif env(GetSpEffectID, 113100100) == TRUE then
+        act(AddSpEffect, 101021)
+    elseif env(GetSpEffectID, 113100200) == TRUE then
+        act(AddSpEffect, 101022)
+    elseif env(GetSpEffectID, 113100300) == TRUE then
+        act(AddSpEffect, 101023)
+    end
 end
 
 function ApplyEffect_SkillAttack()
@@ -51,17 +55,11 @@ function ApplyEffect_SkillAttack()
     -- Birchwood Ring
     if env(GetSpEffectID, 112014000) == TRUE then
         act(AddSpEffect, 101010)
-    end
-
-    if env(GetSpEffectID, 112014100) == TRUE then
+    elseif env(GetSpEffectID, 112014100) == TRUE then
         act(AddSpEffect, 101011)
-    end
-
-    if env(GetSpEffectID, 112014200) == TRUE then
+    elseif env(GetSpEffectID, 112014200) == TRUE then
         act(AddSpEffect, 101012)
-    end
-
-    if env(GetSpEffectID, 112014300) == TRUE then
+    elseif env(GetSpEffectID, 112014300) == TRUE then
         act(AddSpEffect, 101013)
     end
 end
@@ -70,17 +68,11 @@ function ApplyEffect_DashAttack()
     -- Bestial Fang
     if env(GetSpEffectID, 112200000) == TRUE then
         act(AddSpEffect, 101000)
-    end
-    
-    if env(GetSpEffectID, 112200100) == TRUE then
+    elseif env(GetSpEffectID, 112200100) == TRUE then
         act(AddSpEffect, 101001)
-    end
-    
-    if env(GetSpEffectID, 112200200) == TRUE then
+    elseif env(GetSpEffectID, 112200200) == TRUE then
         act(AddSpEffect, 101002)
-    end
-    
-    if env(GetSpEffectID, 112200300) == TRUE then
+    elseif env(GetSpEffectID, 112200300) == TRUE then
         act(AddSpEffect, 101003)
     end
 end
@@ -90,11 +82,31 @@ function ApplyEffect_GuardAttack()
 end
 
 function ApplyEffect_AmmoAttack()
-
+    -- Thumb Ring
+    if env(GetSpEffectID, 113600000) == TRUE then
+        act(AddSpEffect, 101030)
+        act(AddSpEffect, 119900000)
+    elseif env(GetSpEffectID, 113600010) == TRUE then
+        act(AddSpEffect, 101031)
+    elseif env(GetSpEffectID, 113600020) == TRUE then
+        act(AddSpEffect, 101032)
+    elseif env(GetSpEffectID, 113600030) == TRUE then
+        act(AddSpEffect, 101033)
+    end
 end
 
-function ApplyEffect_ItemUse()
-
+function ApplyEffect_ThrowableItem()
+    -- Smouldering Crucible
+    if env(GetSpEffectID, 113700000) == TRUE then
+        act(AddSpEffect, 101040)
+        act(AddSpEffect, 119900000)
+    elseif env(GetSpEffectID, 113700010) == TRUE then
+        act(AddSpEffect, 101041)
+    elseif env(GetSpEffectID, 113700020) == TRUE then
+        act(AddSpEffect, 101042)
+    elseif env(GetSpEffectID, 113700030) == TRUE then
+        act(AddSpEffect, 101043)
+    end
 end
 
 function ApplyEffect_Dragonhead()
@@ -438,7 +450,7 @@ function SetArtsGeneratorTransitionIndex(gen_hand, is_from)
     end
     
     local changetype = GetHandChangeType(hand)
-    if offset == 4 and env(GetEquipWeaponSpecialCategoryNumber, HAND_RIGHT) == 161 then
+    if offset == 4 and IsSpecialCategory("Farron Greatsword") then
         offset = 0
         changetype = WEAPON_CHANGE_REQUEST_LEFT_BACK
     end
@@ -938,6 +950,7 @@ end
 
 function SetEvasionStaminaCost()
     local weight = env(GetMoveAnimParamID)
+    
     if weight == WEIGHT_LIGHT then
         c_StaminaCostRolling = -16
         c_StaminaCostBackStep = -11
@@ -959,6 +972,18 @@ function SetEvasionStaminaCost()
         c_StaminaCostBackStep = -11
         c_StaminaCostJump = -16
     end
+    
+    -- Thumb Ring
+    if env(GetSpEffectID, 113600000) == TRUE then
+        c_StaminaCostRolling = c_StaminaCostRolling * 0.9
+    elseif env(GetSpEffectID, 113600010) == TRUE then
+        c_StaminaCostRolling = c_StaminaCostRolling * 0.85
+    elseif env(GetSpEffectID, 113600020) == TRUE then
+        c_StaminaCostRolling = c_StaminaCostRolling * 0.8
+    elseif env(GetSpEffectID, 113600030) == TRUE then
+        c_StaminaCostRolling = c_StaminaCostRolling * 0.75
+    end
+    
     return 
 end
 
@@ -3407,6 +3432,7 @@ function ExecEvasion(backstep_limit, estep, is_usechainrecover)
         SetVariable("EnableTAE_RollingBack", back)
         SetVariable("EnableTAE_RollingLeft", left)
         SetVariable("EnableTAE_RollingRight", right)
+        
         AddStamina(c_StaminaCostRolling)
         ExecEventAllBody(event)
     -- Jump
@@ -6333,10 +6359,18 @@ function Rolling_onUpdate()
     elseif style == HAND_RIGHT_BOTH and GetEquipType(HAND_RIGHT, WEAPON_CATEGORY_SMALL_ARROW, WEAPON_CATEGORY_LARGE_ARROW, WEAPON_CATEGORY_CROSSBOW) == TRUE then
         act(PrecisionShootPossible)
     end
+    
+    local base_mult = 1.0
     local rolling_angle = GetVariable("RollingAngleReal")
     local addratio = 0.400000005960464
     local endratio = 1
-    act(SetMovementScaleMult, math.abs(1 + addratio * math.abs(math.sin(math.rad(2 * rolling_angle)))))
+    
+    -- Greatwood Remnants
+    if env(GetSpEffectID, 113200000) == TRUE or env(GetSpEffectID, 113200010) == TRUE or env(GetSpEffectID, 113200020) == TRUE or env(GetSpEffectID, 113200030) == TRUE then
+        base_mult = 0.75
+    end
+    
+    act(SetMovementScaleMult, math.abs(base_mult + addratio * math.abs(math.sin(math.rad(2 * rolling_angle)))))
     
     -- Quarterstaff
     if sp_kind == 272 then
@@ -8113,7 +8147,6 @@ function AttackBothLight3_onUpdate()
        IsSpecialCategory("Great Hammer Alt") or 
        IsSpecialCategory("Church Pick") or 
        IsSpecialCategory("Fist Alt") or 
-       IsSpecialCategory("Phosphorescent Pole") or 
        IsSpecialCategory("Kirkhammer") then
 		Follow_B1 = "W_AttackBothBackstep"
 	end
@@ -12367,7 +12400,6 @@ function HandChangeEnd_Upper_onUpdate()
 end
 
 function QuickItemEnchantNormal_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     local blend_type, lower_state = GetHalfBlendInfo()
     if QuickItemCommonFunction(g_r1, g_r2, g_l1, g_l2, g_b1, g_b2, blend_type, QUICKTYPE_NORMAL) == TRUE then
         return 
@@ -12389,7 +12421,6 @@ function QuickItemEnchantDash_Upper_onActivate()
 end
 
 function QuickItemEnchantDash_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     act(LockonFixedAngleCancel)
     local r1 = "W_AttackRightLight1"
     local r2 = "W_AttackRightHeavy1Start"
@@ -12416,7 +12447,6 @@ function QuickItemEnchantDash_Upper_onUpdate()
 end
 
 function QuickItemEnchantStep_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     if QuickItemCommonFunction(g_r1, g_r2, g_l1, g_l2, g_b1, g_b2, ALLBODY, QUICKTYPE_NORMAL) == TRUE then
         return 
     else
@@ -12425,7 +12455,6 @@ function QuickItemEnchantStep_Upper_onUpdate()
 end
 
 function QuickItemEnchantAttackRight_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     if QuickItemCommonFunction(g_r1, g_r2, g_l1, g_l2, g_b1, g_b2, ALLBODY, QUICKTYPE_NORMAL) == TRUE then
         return 
     else
@@ -12434,7 +12463,6 @@ function QuickItemEnchantAttackRight_Upper_onUpdate()
 end
 
 function QuickItemEnchantAttackLeft_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     if QuickItemCommonFunction(g_r1, g_r2, g_l1, g_l2, g_b1, g_b2, ALLBODY, QUICKTYPE_NORMAL) == TRUE then
         return 
     else
@@ -12443,7 +12471,7 @@ function QuickItemEnchantAttackLeft_Upper_onUpdate()
 end
 
 function QuickItemThrowKnifeNormal_Upper_onUpdate()
-    ApplyEffect_ItemUse()
+    ApplyEffect_ThrowableItem()
     if QuickItemCommonFunction(g_r1, g_r2, g_l1, g_l2, g_b1, g_b2, ALLBODY, QUICKTYPE_COMBO) == TRUE then
         return 
     else
@@ -12452,13 +12480,13 @@ function QuickItemThrowKnifeNormal_Upper_onUpdate()
 end
 
 function QuickItemThrowKnifeDash_Upper_onActivate()
-    ApplyEffect_ItemUse()
+    ApplyEffect_ThrowableItem()
     act(LockonFixedAngleCancel)
     return 
 end
 
 function QuickItemThrowKnifeDash_Upper_onUpdate()
-    ApplyEffect_ItemUse()
+    ApplyEffect_ThrowableItem()
     act(LockonFixedAngleCancel)
     if QuickItemCommonFunction(g_r1, g_r2, g_l1, g_l2, g_b1, g_b2, ALLBODY, QUICKTYPE_COMBO) == TRUE then
         return 
@@ -12468,7 +12496,7 @@ function QuickItemThrowKnifeDash_Upper_onUpdate()
 end
 
 function QuickItemThrowKnifeStep_Upper_onUpdate()
-    ApplyEffect_ItemUse()
+    ApplyEffect_ThrowableItem()
     if QuickItemCommonFunction(g_r1, g_r2, g_l1, g_l2, g_b1, g_b2, ALLBODY, QUICKTYPE_COMBO) == TRUE then
         return 
     else
@@ -12477,7 +12505,7 @@ function QuickItemThrowKnifeStep_Upper_onUpdate()
 end
 
 function QuickItemThrowKnifeAttackRight_Upper_onUpdate()
-    ApplyEffect_ItemUse()
+    ApplyEffect_ThrowableItem()
     if QuickItemCommonFunction(g_r1, g_r2, g_l1, g_l2, g_b1, g_b2, ALLBODY, QUICKTYPE_COMBO) == TRUE then
         return 
     else
@@ -12486,7 +12514,7 @@ function QuickItemThrowKnifeAttackRight_Upper_onUpdate()
 end
 
 function QuickItemThrowKnifeAttackRight2_Upper_onUpdate()
-    ApplyEffect_ItemUse()
+    ApplyEffect_ThrowableItem()
     if QuickItemCommonFunction(g_r1, g_r2, g_l1, g_l2, g_b1, g_b2, ALLBODY, QUICKTYPE_ATTACK) == TRUE then
         return 
     else
@@ -12495,7 +12523,7 @@ function QuickItemThrowKnifeAttackRight2_Upper_onUpdate()
 end
 
 function QuickItemThrowKnifeAttackLeft_Upper_onUpdate()
-    ApplyEffect_ItemUse()
+    ApplyEffect_ThrowableItem()
     if QuickItemCommonFunction(g_r1, g_r2, g_l1, g_l2, g_b1, g_b2, ALLBODY, QUICKTYPE_COMBO) == TRUE then
         return 
     else
@@ -12504,7 +12532,7 @@ function QuickItemThrowKnifeAttackLeft_Upper_onUpdate()
 end
 
 function QuickItemThrowKnifeAttackLeft2_Upper_onUpdate()
-    ApplyEffect_ItemUse()
+    ApplyEffect_ThrowableItem()
     if QuickItemCommonFunction(g_r1, g_r2, g_l1, g_l2, g_b1, g_b2, ALLBODY, QUICKTYPE_ATTACK) == TRUE then
         return 
     else
@@ -12530,8 +12558,8 @@ function NormalItem_Upper_Activate()
     return 
 end
 
+-- Standard Consumable
 function ItemRecover_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return 
@@ -12544,8 +12572,8 @@ function ItemRecover_Upper_onUpdate()
     end
 end
 
+-- Pine Resin
 function ItemWeaponEnchant_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return 
@@ -12558,8 +12586,9 @@ function ItemWeaponEnchant_Upper_onUpdate()
     end
 end
 
+-- Kukri/Dung Pie
 function ItemThrowKnife_Upper_onUpdate()
-    ApplyEffect_ItemUse()
+    ApplyEffect_ThrowableItem()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return 
@@ -12572,8 +12601,9 @@ function ItemThrowKnife_Upper_onUpdate()
     end
 end
 
+-- Firebomb
 function ItemThrowBottle_Upper_onUpdate()
-    ApplyEffect_ItemUse()
+    ApplyEffect_ThrowableItem()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return 
@@ -12586,8 +12616,8 @@ function ItemThrowBottle_Upper_onUpdate()
     end
 end
 
+-- Binoculars
 function ItemMeganeStart_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return 
@@ -12625,8 +12655,8 @@ function ItemMeganeEnd_Upper_onUpdate()
     end
 end
 
+-- Repair Powder
 function ItemWeaponRepair_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return 
@@ -12639,8 +12669,8 @@ function ItemWeaponRepair_Upper_onUpdate()
     end
 end
 
+-- Crush Consumable
 function ItemSoul_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return 
@@ -12653,8 +12683,8 @@ function ItemSoul_Upper_onUpdate()
     end
 end
 
+-- Soapstone
 function ItemMessage_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return 
@@ -12667,8 +12697,8 @@ function ItemMessage_Upper_onUpdate()
     end
 end
 
+-- Tool
 function ItemPray_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return 
@@ -12681,8 +12711,8 @@ function ItemPray_Upper_onUpdate()
     end
 end
 
+-- Prism Stone/Carving
 function ItemTrap_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return 
@@ -12695,23 +12725,8 @@ function ItemTrap_Upper_onUpdate()
     end
 end
 
-function ItemDrinkStart_Upper_onUpdate()
-    ApplyEffect_ItemUse()
-    local blend_type, lower_state = GetHalfBlendInfo()
-    if ItemCommonFunction(blend_type) == TRUE then
-        return 
-    elseif env(GetEventEzStateFlag, 0) == TRUE then
-        ExecEventHalfBlendNoReset(Event_ItemDrinking, blend_type)
-        return 
-    elseif HalfBlendLowerCommonFunction(Event_ItemDrinkStart, lower_state, FALSE, FALSE) == TRUE then
-        return 
-    else
-        return 
-    end
-end
-
+-- Dragon Head Stone
 function DragonHeadStartBefore_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     ApplyEffect_Dragonhead()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
@@ -12727,7 +12742,6 @@ function DragonHeadStartBefore_Upper_onUpdate()
 end
 
 function DragonHeadEndBefore_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     ApplyEffect_Dragonhead()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
@@ -12742,7 +12756,6 @@ function DragonHeadEndBefore_Upper_onUpdate()
 end
 
 function DragonHeadStartAfter_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     ApplyEffect_Dragonhead()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
@@ -12758,7 +12771,6 @@ function DragonHeadStartAfter_Upper_onUpdate()
 end
 
 function DragonHeadLoopAfter_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     ApplyEffect_Dragonhead()
     local dT = GetDeltaTime()
     dash_dt_sum = dash_dt_sum + dT
@@ -12784,7 +12796,6 @@ function DragonHeadLoopAfter_Upper_onUpdate()
 end
 
 function DragonHeadEndAfter_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     ApplyEffect_Dragonhead()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
@@ -12799,7 +12810,6 @@ function DragonHeadEndAfter_Upper_onUpdate()
 end
 
 function DragonHeadStartAfterLVL2_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     ApplyEffect_Dragonhead()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
@@ -12815,7 +12825,6 @@ function DragonHeadStartAfterLVL2_Upper_onUpdate()
 end
 
 function DragonHeadLoopAfterLVL2_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     ApplyEffect_Dragonhead()
     local dT = GetDeltaTime()
     dash_dt_sum = dash_dt_sum + dT
@@ -12841,7 +12850,6 @@ function DragonHeadLoopAfterLVL2_Upper_onUpdate()
 end
 
 function DragonHeadEndAfterLVL2_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     ApplyEffect_Dragonhead()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
@@ -12855,8 +12863,8 @@ function DragonHeadEndAfterLVL2_Upper_onUpdate()
     end
 end
 
+-- Dragon Torso Stone
 function DragonFullStartBefore_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     ApplyEffect_Dragonhead()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
@@ -12872,7 +12880,6 @@ function DragonFullStartBefore_Upper_onUpdate()
 end
 
 function DragonFullEndBefore_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     ApplyEffect_Dragonhead()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
@@ -12887,7 +12894,6 @@ function DragonFullEndBefore_Upper_onUpdate()
 end
 
 function DragonFullStartAfter_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     ApplyEffect_Dragonhead()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
@@ -12902,7 +12908,6 @@ function DragonFullStartAfter_Upper_onUpdate()
 end
 
 function DragonFullStartAfterLVL2_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     ApplyEffect_Dragonhead()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
@@ -12916,8 +12921,23 @@ function DragonFullStartAfterLVL2_Upper_onUpdate()
     end
 end
 
+-- Estus Flask
+function ItemDrinkStart_Upper_onUpdate()
+    local blend_type, lower_state = GetHalfBlendInfo()
+    if ItemCommonFunction(blend_type) == TRUE then
+        return 
+    elseif env(GetEventEzStateFlag, 0) == TRUE then
+        ExecEventHalfBlendNoReset(Event_ItemDrinking, blend_type)
+        return 
+    elseif HalfBlendLowerCommonFunction(Event_ItemDrinkStart, lower_state, FALSE, FALSE) == TRUE then
+        return 
+    else
+        return 
+    end
+end
+
+-- No Estus Flask
 function ItemDrinkNothing_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return 
@@ -12931,7 +12951,6 @@ function ItemDrinkNothing_Upper_onUpdate()
 end
 
 function ItemDrinking_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return 
@@ -12946,7 +12965,6 @@ function ItemDrinking_Upper_onUpdate()
 end
 
 function ItemDrinkEnd_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return 
@@ -12959,8 +12977,8 @@ function ItemDrinkEnd_Upper_onUpdate()
     end
 end
 
+-- 
 function ItemShockWeaveStart_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return 
@@ -12974,7 +12992,6 @@ function ItemShockWeaveStart_Upper_onUpdate()
 end
 
 function ItemShockWeaveEnd_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return 
@@ -12987,8 +13004,8 @@ function ItemShockWeaveEnd_Upper_onUpdate()
     end
 end
 
+-- Ashen Estus Flask
 function ItemDrinkStartMP_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return 
@@ -13003,7 +13020,6 @@ function ItemDrinkStartMP_Upper_onUpdate()
 end
 
 function ItemDrinkingMP_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return 
@@ -13018,7 +13034,6 @@ function ItemDrinkingMP_Upper_onUpdate()
 end
 
 function ItemDrinkEndMP_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return 
@@ -13032,7 +13047,6 @@ function ItemDrinkEndMP_Upper_onUpdate()
 end
 
 function ItemDrinkNothingMP_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return 
@@ -13045,8 +13059,8 @@ function ItemDrinkNothingMP_Upper_onUpdate()
     end
 end
 
+-- Siegbrau
 function ItemDrinkStartSake_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return 
@@ -13061,7 +13075,6 @@ function ItemDrinkStartSake_Upper_onUpdate()
 end
 
 function ItemDrinkingSake_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return 
@@ -13076,7 +13089,6 @@ function ItemDrinkingSake_Upper_onUpdate()
 end
 
 function ItemDrinkEndSake_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return 
@@ -13090,7 +13102,6 @@ function ItemDrinkEndSake_Upper_onUpdate()
 end
 
 function ItemDrinkEmpty_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return 
@@ -13103,8 +13114,9 @@ function ItemDrinkEmpty_Upper_onUpdate()
     end
 end
 
+-- Backwards Firebomb
 function ItemBackBottle_Upper_onUpdate()
-    ApplyEffect_ItemUse()
+    ApplyEffect_ThrowableItem()
     act(LockonFixedAngleCancel)
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
@@ -13121,8 +13133,8 @@ function ItemBackBottle_Upper_onUpdate()
     end
 end
 
+-- Young White Branch
 function ItemChameleon_Upper_onUpdate()
-    ApplyEffect_ItemUse()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return 
@@ -13135,8 +13147,9 @@ function ItemChameleon_Upper_onUpdate()
     end
 end
 
+-- Ritual Spear Fragment
 function ItemOldMonk_Upper_onUpdate()
-    ApplyEffect_ItemUse()
+    ApplyEffect_ThrowableItem()
     local blend_type, lower_state = GetHalfBlendInfo()
     if ItemCommonFunction(blend_type) == TRUE then
         return 
@@ -16965,9 +16978,11 @@ function Update()
     
     act(SwitchMotion, FALSE)
     act(LockonSystemUnableToTurnAngle, 0, 0)
+    
     SetVariable("LocomotionState", GetLocomotionState())
     SetVariable("ArtsTransition", 0)
     SetMoveType()
+    
     if IsLowerQuickTurn() == TRUE then
         SetVariable("LookAtTwist30_OnGain", 1)
         SetVariable("LookAtTwist60_OnGain", 1)
@@ -16975,11 +16990,14 @@ function Update()
         SetVariable("LookAtTwist30_OnGain", 0.100000001490116)
         SetVariable("LookAtTwist60_OnGain", 0.200000002980232)
     end
+    
     SetSwordArtsCancelType()
     SetGender()
+    
     if IsNodeActive("QuickItem_Script", "SwordArtsRight_Script") == FALSE then
         ClearAttackQueue()
     end
+    
     SetTimeActEditorVariable()
     UpdateFemaleBlend()
     UpdateShoulderTwist()

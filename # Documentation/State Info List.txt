@@ -1,3 +1,7 @@
 ﻿#----------------------------------
 # State Info
 #----------------------------------
+3000 Backstep Dodge Frames 1
+3001 Backstep Dodge Frames 2
+3002 Backstep Dodge Frames 3
+3003 Backstep Dodge Frames 4
