@@ -274,6 +274,9 @@ def t511100_x50():
         # Select Journey Type
         AddTalkListDataIf(GetEventStatus(25000100) == 0, 10, 80000100, -1)
         
+        # Select Journey Restrictions
+        AddTalkListDataIf(GetEventStatus(25000100) == 0, 12, 80000105, -1)
+        
         # Build Loadout
         AddTalkListDataIf(GetEventStatus(25000100) == 0, 11, 80000101, -1)
         
@@ -293,6 +296,10 @@ def t511100_x50():
         # Build Loadout
         elif GetTalkListEntryResult() == 11:
             assert t511100_x52()
+            continue
+        # Select Journey Restrictions
+        elif GetTalkListEntryResult() == 12:
+            assert t511100_x53()
             continue
         # Commit
         elif GetTalkListEntryResult() == 20:
@@ -472,6 +479,62 @@ def t511100_x52():
         elif not (CheckSpecificPersonMenuIsOpen(-1, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0)):
             return 0
             
+# Journey Restrictions
+def t511100_x53():
+    MainBonfireMenuFlag()
+    
+    while True:
+        ClearTalkListData()
+        
+        # Flameless
+        AddTalkListDataIf(GetEventStatus(25000140) == 0, 1, 80000150, -1)
+        # Flameless (selected)
+        AddTalkListDataIf(GetEventStatus(25000140) == 1, 10, 80000160, -1)
+        
+        # Deathless
+        AddTalkListDataIf(GetEventStatus(25000141) == 0, 2, 80000151, -1)
+        # Deathless (selected)
+        AddTalkListDataIf(GetEventStatus(25000141) == 1, 11, 80000161, -1)
+        
+        # Deathless
+        AddTalkListDataIf(GetEventStatus(25000142) == 0, 3, 80000152, -1)
+        # Deathless (selected)
+        AddTalkListDataIf(GetEventStatus(25000142) == 1, 12, 80000162, -1)
+        
+        # Leave
+        AddTalkListData(99, 80000999, -1)
+        
+        ShowShopMessage(1)
+        assert not (CheckSpecificPersonMenuIsOpen(1, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
+
+        # Flameless
+        if GetTalkListEntryResult() == 1:
+            assert t511100_x63(80000170, 25000140, 1)
+            continue
+        # Deathless
+        elif GetTalkListEntryResult() == 2:
+            assert t511100_x63(80000171, 25000141, 1)
+            continue
+        # Hitless
+        elif GetTalkListEntryResult() == 3:
+            assert t511100_x63(80000172, 25000142, 1)
+            continue
+        # Flameless (selected)
+        elif GetTalkListEntryResult() == 1:
+            assert t511100_x63(80000170, 25000140, 0)
+            continue
+        # Deathless (selected)
+        elif GetTalkListEntryResult() == 2:
+            assert t511100_x63(80000171, 25000141, 0)
+            continue
+        # Hitless (selected)
+        elif GetTalkListEntryResult() == 3:
+            assert t511100_x63(80000172, 25000142, 0)
+            continue
+        else:
+            return 0
+        assert CheckSpecificPersonTalkHasEnded(0) == 1
+        
 # Description Prompt
 def t511100_x60(action1=_):
     """State 0,1"""
@@ -538,6 +601,35 @@ def t511100_x62():
         GiveSpEffectToPlayer(200000100)
         PlayerEquipmentQuantityChange(3, 2160, -1)
         assert t511100_x60(80000211)
+        
+        return 0
+    # Cancel
+    elif GetTalkListEntryResult() == 2:
+        return 1
+    else:
+        return 2
+        
+# Restrictions - YES/NO Choice
+def t511100_x63(text=_, flag=_, value=_):
+    assert t511100_x60(text)
+            
+    MainBonfireMenuFlag()
+
+    ClearTalkListData()
+    
+    # Yes
+    AddTalkListData(1, 80000103, -1)
+    
+    # No
+    AddTalkListData(2, 80000104, -1)
+    
+    OpenConversationChoicesMenu(0)
+    
+    assert not (CheckSpecificPersonMenuIsOpen(12, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
+
+    # Yes
+    if GetTalkListEntryResult() == 1:
+        SetEventState(flag, value)
         
         return 0
     # Cancel

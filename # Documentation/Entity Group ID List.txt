@@ -7,3 +7,4 @@
 3605810 Level Scaling: Weak
 3605820 Level Scaling: Average
 3605830 Level Scaling: Strong
+

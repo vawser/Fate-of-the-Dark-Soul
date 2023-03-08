@@ -9,6 +9,12 @@
  - Accursed: enemies have +25% damage and absorption, and the player is given a persistent debuff for each death.
   - Defeating Slave Knight Gael whilst in this mode will reward the Painter's Pendant.
  
+- The player has the ability to select 3 restrictions at game start:
+ - Flameless: removes all bonfires except World's End. Increases soul absorption by 50%.
+ - Deathless: dying will condemn your character to a prison, ending your journey. Increases soul absorption by 100%.
+ - Hitless: being hit for damage will always be immediately fatal. Increases soul absorption by 50%.
+- These can all be active at the same time.
+ 
 - Added the ability to build a custom loadout at game start:
  - The player is given 8 Hollow Fragments. These are spent at the Slumbering Maiden.
  - All weapons, armor and spells are available.

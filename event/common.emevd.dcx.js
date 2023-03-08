@@ -179,6 +179,11 @@ $Event(0, Default, function() {
     InitializeEvent(0, 10022, 0); // Imbued Artifacts
     InitializeEvent(0, 10023, 0); // Imbued Artifacts
     
+    // Restrictions
+    InitializeEvent(0, 15000, 0);
+    InitializeEvent(0, 15001, 0);
+    InitializeEvent(0, 15002, 0);
+    
     // Boss Teleports
     InitializeEvent( 0, 10006, 25000151, 3000972, 3002952, 30, 0); // Vordt
     InitializeEvent( 1, 10006, 25000152, 3000971, 3002951, 30, 0); // Oceiros
@@ -1637,12 +1642,21 @@ $Event(870, Default, function(X0_1, X4_4) {
 $Event(10000, Default, function(X0_1, X4_4) {
     WaitFor(CharacterHasSpEffect(10000, 3227, ComparisonType.Equal, 1));
     
+    // Deathless Prison
+    if(EventFlag(25000132))
+    {
+        WarpPlayer(51, 1, 5110975);
+        SetPlayerRespawnPoint(5112955);
+        EndEvent();
+    }
+    
+    // Normal
     if(EventFlag(25000100))
     {
         WarpPlayer(51, 1, 5110970);
         SetPlayerRespawnPoint(5112950);
     }
-    else
+    else // Game Start
     {
         WarpPlayer(51, 1, 5110973);
         SetPlayerRespawnPoint(5112953);
@@ -2557,3 +2571,36 @@ $Event(14020, Restart, function(X0_4, X4_4) {
     
     RestartEvent();
 });
+
+// Restriction - Flameless
+$Event(15000, Restart, function() {
+    EndIf(!EventFlag(25000140));
+    
+    SetSpEffect(10000, 200110000);
+});
+
+// Restriction - Deathless
+$Event(15001, Restart, function() {
+    EndIf(!EventFlag(25000141));
+    
+    SetSpEffect(10000, 200110100);
+    
+    WaitFor(CharacterHasSpEffect(10000, 113010, ComparisonType.Equal, 1));
+    
+    SetEventFlag(25000132, ON);
+    WarpPlayer(51, 1, 5110975);
+    SetPlayerRespawnPoint(5112955);
+});
+
+// Restriction - Hitless
+$Event(15002, Restart, function() {
+    EndIf(!EventFlag(25000142));
+    
+    SetSpEffect(10000, 200110200);
+    
+    WaitFor(CharacterHasSpEffect(10000, 112000, ComparisonType.Equal, 1));
+    
+    SetSpEffect(10000, 200110201);
+});
+
+

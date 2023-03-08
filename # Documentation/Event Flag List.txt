@@ -48,6 +48,11 @@
 
 25000130 NG+ Allowed
 25000131 Accursed Run completed
+25000132 Deathless failed
+
+25000140 Flameless
+25000141 Deathless
+25000142 Hitless
 
 25000150 Dancer
 25000151 Vordt
