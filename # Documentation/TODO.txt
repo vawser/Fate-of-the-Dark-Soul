@@ -8,8 +8,7 @@ Fix Lothric castle bonfire
 # Ideas
 #-------------------------------------------------
 Weapons to add:
- Runelock
- Frying Pan
+ 
  Black Dragon Greatsword
  Black Dragon Sword
  Ancient Dragon Halberd
@@ -36,13 +35,31 @@ Weapons to add:
  Demon's Spear
  Sanctum Mace
  Aldia Hammer
- Bewitched Alonne Sword
  
-#-------------------------------------------------
-# WIP
-#-------------------------------------------------
 Add transmogrification system
 
 Add 'Crystal Tear' system, using covenant slot as the Tear slot
  Add 'Wonderous Flask' that triggers the Tear slot when used
  
+Add a friendly NPC to each level that you can rescue
+ Include dialogue to explain there predicatment
+ The player will need to kill a special enemy once they've spoken to the NPC (this enemy is only shown after this talk)
+ Killing the enemy will send the NPC back to World's End.
+ 
+ In World's End:
+  The NPC will have a few sets of random dialogue.
+  Occasionally they will call for the player and give them some consumable items.
+  Saving all of them will reward a special item
+  
+Add 'estus' fountains in the mid-map spots bonfires may have been
+ These should be once-per-life
+ 
+#-------------------------------------------------
+# WIP
+#-------------------------------------------------
+# Place
+30030000 Bewitched Alonne Sword
+30040000 Runelock 
+30050000 Frying Pan
+
+
