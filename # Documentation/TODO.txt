@@ -62,4 +62,3 @@ Add 'estus' fountains in the mid-map spots bonfires may have been
 30040000 Runelock 
 30050000 Frying Pan
 
-
