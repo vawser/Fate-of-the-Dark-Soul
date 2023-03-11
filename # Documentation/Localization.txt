@@ -2,6 +2,7 @@
 <font color="#31994d">Green</font>
 <font color="#c2ba23">Yellow</font>
 <font color="#ad3723">Red</font>
+<font color="#a38d5d">Brown</font>
 
 <font color="#7a6559">Physical</font>
 <font color="#497499">Magic</font>

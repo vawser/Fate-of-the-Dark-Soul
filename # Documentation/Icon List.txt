@@ -1705,14 +1705,14 @@
 4197 Armor of the Bear
 4198 USED
 4199 USED
-4200 Hunter's Mark (Unassigned)
-4201 Cannon
-4202 Church Cannon
-4203 Hunter's Pistol
-4204 Repeating Pistol
-4205 Evelynn
-4206 Hunter's Blunderbuss
-4207 Rosamarius
+4200 Class Covenant Icon 1
+4201 Class Covenant Icon 2
+4202 Class Covenant Icon 3
+4203 Class Covenant Icon 4
+4204 Class Covenant Icon 5
+4205 Class Covenant Icon 6
+4206 Class Covenant Icon 7
+4207 Class Covenant Icon 8
 4208 Corvian Knight T
 4209 USED
 4210 USED
@@ -1971,10 +1971,10 @@
 6025 Company of Champions
 6026 Gargoyle Helm
 6027 Velka's Rapier
-6028 Gold Ardeo
-6029 Iron Cage
-6030 Iron Keeper Helm
-6031 Executioner Gauntlets
+6028 Class Covenant Icon 9
+6029 Class Covenant Icon 10
+6030 Class Covenant Icon 11
+6031 Class Covenant Icon 12
 6032 Vileblood Helmet
 6033 Vileblood Armor
 6034 Vileblood

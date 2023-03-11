@@ -7,6 +7,9 @@ function TestFunction()
     --end
 end
 
+--------------------
+-- FP Regeneration
+--------------------
 function UpdateFP()
     -- Lethargic Mind
     if env(GetSpEffectID, 200400400) == FALSE then   
@@ -25,20 +28,27 @@ function UpdateFP()
     end
 end
 
+--------------------
+-- Conditional Attack Effects
+--------------------
 function ApplyEffect_Magic()
+    g_CurrentAttackType = "Magic"
     -- FP Cooldown: block FP regen whilst using magic
     act(AddSpEffect, 111000)
 end
 
-function ApplyEffect_LightAttack()
-
+function ApplyEffect_LightAttack()  
+    g_CurrentAttackType = "Light"
+    UpdatePact_Fighter()
 end
 
 function ApplyEffect_HeavyAttack()
+    g_CurrentAttackType = "Heavy"
+    UpdatePact_Fighter()
+    
     -- Runic Seal
     if env(GetSpEffectID, 113100000) == TRUE then
         act(AddSpEffect, 101020)
-        act(AddSpEffect, 119900000)
     elseif env(GetSpEffectID, 113100100) == TRUE then
         act(AddSpEffect, 101021)
     elseif env(GetSpEffectID, 113100200) == TRUE then
@@ -51,7 +61,10 @@ end
 function ApplyEffect_SkillAttack()
     -- FP Cooldown: block FP regen whilst using weapon skills
     act(AddSpEffect, 111000)
-
+    
+    g_CurrentAttackType = "Skill"
+    UpdatePact_Fighter()
+    
     -- Birchwood Ring
     if env(GetSpEffectID, 112014000) == TRUE then
         act(AddSpEffect, 101010)
@@ -65,6 +78,9 @@ function ApplyEffect_SkillAttack()
 end
 
 function ApplyEffect_DashAttack()
+    g_CurrentAttackType = "Dash"
+    UpdatePact_Fighter()
+    
     -- Bestial Fang
     if env(GetSpEffectID, 112200000) == TRUE then
         act(AddSpEffect, 101000)
@@ -78,14 +94,17 @@ function ApplyEffect_DashAttack()
 end
 
 function ApplyEffect_GuardAttack()
-
+    g_CurrentAttackType = "Guard"
+    UpdatePact_Fighter()
 end
 
 function ApplyEffect_AmmoAttack()
+    g_CurrentAttackType = "Ammunition"
+    UpdatePact_Fighter()
+    
     -- Thumb Ring
     if env(GetSpEffectID, 113600000) == TRUE then
         act(AddSpEffect, 101030)
-        act(AddSpEffect, 119900000)
     elseif env(GetSpEffectID, 113600010) == TRUE then
         act(AddSpEffect, 101031)
     elseif env(GetSpEffectID, 113600020) == TRUE then
@@ -96,10 +115,12 @@ function ApplyEffect_AmmoAttack()
 end
 
 function ApplyEffect_ThrowableItem()
+    g_CurrentAttackType = "Throwable"
+    UpdatePact_Fighter()
+    
     -- Smouldering Crucible
     if env(GetSpEffectID, 113700000) == TRUE then
         act(AddSpEffect, 101040)
-        act(AddSpEffect, 119900000)
     elseif env(GetSpEffectID, 113700010) == TRUE then
         act(AddSpEffect, 101041)
     elseif env(GetSpEffectID, 113700020) == TRUE then
@@ -117,6 +138,9 @@ function ApplyEffect_Gesture()
 
 end
 
+--------------------
+-- Timed Block
+--------------------
 function ApplyTimedBlock()
     local apply_timed_block = true
     
@@ -170,6 +194,106 @@ function FireBullet(deflect_type, bullet_effect)
         elseif env(GetSpEffectID, 150950) == TRUE then
             act(AddSpEffect, bullet_effect) 
         end
+    end
+end
+
+--------------------
+-- Pact Switch
+--------------------
+g_PactApplied = false
+
+-- This applies the pact switch punishment, but ignores the instance that occurs on map load
+function UpdatePact_Switch()
+    if env(GetSpEffectID, 116901) == FALSE then
+        if env(GetSpEffectID, 200790000) == TRUE then
+            if g_PactApplied == true then
+                act(AddSpEffect, 116900)
+            end
+        
+            act(AddSpEffect, 116901)
+            g_PactApplied = true
+        end
+    end
+end
+
+--------------------
+-- Fighter's Pact
+--------------------
+g_PreviousAttackType = nil
+g_CurrentAttackType = nil
+
+function UpdatePact_Fighter()
+    -- Fighter's Pact equipped
+    if env(GetSpEffectID, 200700000) == TRUE then
+        -- Apply buff if current attack is different to previous attack
+        if g_CurrentAttackType ~= g_PreviousAttackType then
+            act(AddSpEffect, 116000)
+        end
+        
+        g_PreviousAttackType = g_CurrentAttackType
+    end
+end
+
+--------------------
+-- Sorcerer's Pact
+--------------------
+g_IsInConcentration = false
+g_ConcentrationFrames = 0
+
+function UpdatePact_Sorcerer()
+    -- Sorcerer's Pact equipped
+    if env(GetSpEffectID, 200702000) == TRUE then
+        if GetVariable("MoveSpeedLevel") < 0.5 then
+            g_IsInConcentration = true
+            g_ConcentrationFrames = g_ConcentrationFrames + 1
+            
+            if g_ConcentrationFrames > 1000 then
+                g_ConcentrationFrames = 1000
+            end
+        else
+            g_IsInConcentration = false
+            g_ConcentrationFrames = 0
+        end
+        
+        -- Is in Concentration State
+        if g_IsInConcentration == true and g_ConcentrationFrames > 100 then
+            act(AddSpEffect, 116010)
+        end
+    end
+end
+
+--------------------
+-- Pyromancers's Pact
+--------------------
+function UpdatePact_Pyromancer()
+    act(AddSpEffect, 116020)
+end
+
+--------------------
+-- Warrior's Pact
+--------------------
+function UpdatePact_Warrior_Hold()
+    if env(GetSpEffectID, 200704000) == TRUE then
+        act(AddSpEffect, 116030)
+    end
+end
+
+function UpdatePact_Warrior_Fire()
+    if env(GetSpEffectID, 200704000) == TRUE then
+        if env(GetSpEffectID, 116032) == FALSE then
+            act(AddSpEffect, 116031)
+            act(AddSpEffect, 116032)
+        end
+    end
+end
+
+--------------------
+-- Assassin's Pact
+--------------------
+function UpdatePact_Assassin_Backstab_Activate()
+    if env(GetSpEffectID, 200705000) == TRUE then
+        act(AddSpEffect, 116040)
+        act(AddSpEffect, 116041)
     end
 end
 
@@ -4098,9 +4222,15 @@ function ExecDamage(is_parry, is_attackwhileguard)
     local damage_angle = env(GetReceivedDamageDirection)
     local style = c_Style
     
-    -- Mod: Timed Block: Is Hit
+    -- Is Damaged
     if is_damaged == TRUE then
         act(AddSpEffect, 112000) 
+        UpdatePact_Pyromancer()
+    end
+    
+    -- Warrior's Pact - Casting Spell
+    if env(GetSpEffectID, 116030) == TRUE then
+        return FALSE
     end
     
     if damage_type == DAMAGE_TYPE_PARRY then
@@ -15112,6 +15242,8 @@ end
 function MagicLaunchRight_Upper_onUpdate()
     act(DisableMagicIDSwitching)
     
+    UpdatePact_Warrior_Hold()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     
     if MagicCommonFunction(blend_type, QUICKTYPE_NORMAL) == TRUE then
@@ -15161,6 +15293,8 @@ end
 function MagicLaunchRightSA_Upper_onUpdate()
     act(DisableMagicIDSwitching)
     
+    UpdatePact_Warrior_Hold()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     
     if MagicCommonFunction(blend_type, QUICKTYPE_NORMAL) == TRUE then
@@ -15189,6 +15323,8 @@ end
 
 function MagicLoopRight_Upper_onUpdate()
     local blend_type, lower_state = GetHalfBlendInfo()
+    
+    UpdatePact_Warrior_Hold()
     
     if lower_state == LOWER_IDLE then
         act(LockonSystemUnableToTurnAngle, 45, 45)
@@ -15231,6 +15367,8 @@ end
 function MagicLoopRightSA_Upper_onUpdate()
     local blend_type, lower_state = GetHalfBlendInfo()
     
+    UpdatePact_Warrior_Hold()
+    
     if lower_state == LOWER_IDLE then
         act(LockonSystemUnableToTurnAngle, 45, 45)
     end
@@ -15252,6 +15390,8 @@ end
 
 function MagicLoopRightLvl2_Upper_onUpdate()
     local blend_type, lower_state = GetHalfBlendInfo()
+    
+    UpdatePact_Warrior_Hold()
     
     if lower_state == LOWER_IDLE then
         act(LockonSystemUnableToTurnAngle, 45, 45)
@@ -15290,6 +15430,9 @@ function MagicFireRight_Upper_onUpdate()
     -- Adjustments: Effect
     ApplyEffect_Magic()
     
+    UpdatePact_Warrior_Hold()
+    UpdatePact_Warrior_Fire()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     
     if lower_state == LOWER_TURN or lower_state == LOWER_END_TURN then
@@ -15312,6 +15455,9 @@ end
 function MagicFireRight2_Upper_onUpdate()
     -- Adjustments: Effect
     ApplyEffect_Magic()
+    
+    UpdatePact_Warrior_Hold()
+    UpdatePact_Warrior_Fire()
     
     local blend_type, lower_state = GetHalfBlendInfo()
     
@@ -15336,6 +15482,9 @@ function MagicFireRight3_Upper_onUpdate()
     -- Adjustments: Effect
     ApplyEffect_Magic()
     
+    UpdatePact_Warrior_Hold()
+    UpdatePact_Warrior_Fire()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     
     if lower_state == LOWER_TURN or lower_state == LOWER_END_TURN then
@@ -15358,6 +15507,9 @@ end
 function MagicFireRightLvl2_Upper_onUpdate()
     -- Adjustments: Effect
     ApplyEffect_Magic()
+    
+    UpdatePact_Warrior_Hold()
+    UpdatePact_Warrior_Fire()
     
     local blend_type, lower_state = GetHalfBlendInfo()
     
@@ -15385,6 +15537,8 @@ end
 
 function MagicLaunchLeft_Upper_onUpdate()
     act(DisableMagicIDSwitching)
+    
+    UpdatePact_Warrior_Hold()
     
     local blend_type, lower_state = GetHalfBlendInfo()
     
@@ -15434,6 +15588,8 @@ end
 function MagicLaunchLeftSA_Upper_onUpdate()
     act(DisableMagicIDSwitching)
     
+    UpdatePact_Warrior_Hold()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     
     if MagicCommonFunction(blend_type, QUICKTYPE_NORMAL) == TRUE then
@@ -15462,6 +15618,8 @@ end
 
 function MagicLoopLeft_Upper_onUpdate()
     local blend_type, lower_state = GetHalfBlendInfo()
+    
+    UpdatePact_Warrior_Hold()
     
     if lower_state == LOWER_IDLE then
         act(LockonSystemUnableToTurnAngle, 45, 45)
@@ -15504,6 +15662,8 @@ end
 function MagicLoopLeftSA_Upper_onUpdate()
     local blend_type, lower_state = GetHalfBlendInfo()
     
+    UpdatePact_Warrior_Hold()
+    
     if lower_state == LOWER_IDLE then
         act(LockonSystemUnableToTurnAngle, 45, 45)
     end
@@ -15525,6 +15685,8 @@ end
 
 function MagicLoopLeftLvl2_Upper_onUpdate()
     local blend_type, lower_state = GetHalfBlendInfo()
+    
+    UpdatePact_Warrior_Hold()
     
     if lower_state == LOWER_IDLE then
         act(LockonSystemUnableToTurnAngle, 45, 45)
@@ -15562,6 +15724,9 @@ function MagicFireLeft_Upper_onUpdate()
     -- Adjustments: Effect
     ApplyEffect_Magic()
     
+    UpdatePact_Warrior_Hold()
+    UpdatePact_Warrior_Fire()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     
     if lower_state == LOWER_TURN or lower_state == LOWER_END_TURN then
@@ -15584,6 +15749,9 @@ end
 function MagicFireLeft2_Upper_onUpdate()
     -- Adjustments: Effect
     ApplyEffect_Magic()
+    
+    UpdatePact_Warrior_Hold()
+    UpdatePact_Warrior_Fire()
     
     local blend_type, lower_state = GetHalfBlendInfo()
     
@@ -15608,6 +15776,9 @@ function MagicFireLeft3_Upper_onUpdate()
     -- Adjustments: Effect
     ApplyEffect_Magic()
     
+    UpdatePact_Warrior_Hold()
+    UpdatePact_Warrior_Fire()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     
     if lower_state == LOWER_TURN or lower_state == LOWER_END_TURN then
@@ -15631,6 +15802,9 @@ function MagicFireLeftLvl2_Upper_onUpdate()
     -- Adjustments: Effect
     ApplyEffect_Magic()
     
+    UpdatePact_Warrior_Hold()
+    UpdatePact_Warrior_Fire()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     
     if lower_state == LOWER_TURN or lower_state == LOWER_END_TURN then
@@ -15653,6 +15827,9 @@ end
 function QuickMagicFireRightNormal_Upper_onUpdate()
     -- Adjustments: Effect
     ApplyEffect_Magic()
+    
+    UpdatePact_Warrior_Hold()
+    UpdatePact_Warrior_Fire()
     
     local blend_type, lower_state = GetHalfBlendInfo()
     
@@ -15680,6 +15857,9 @@ function QuickMagicFireRightDash_Upper_onUpdate()
     -- Adjustments: Effect
     ApplyEffect_Magic()
     
+    UpdatePact_Warrior_Hold()
+    UpdatePact_Warrior_Fire()
+    
     act(LockonFixedAngleCancel)
     
     local blend_type, lower_state = GetHalfBlendInfo()
@@ -15703,6 +15883,9 @@ function QuickMagicFireRightStep_Upper_onUpdate()
     -- Adjustments: Effect
     ApplyEffect_Magic()
     
+    UpdatePact_Warrior_Hold()
+    UpdatePact_Warrior_Fire()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     
     if lower_state == LOWER_TURN or lower_state == LOWER_END_TURN then
@@ -15723,6 +15906,9 @@ end
 function QuickMagicFireRightAttackRight_Upper_onUpdate()
     -- Adjustments: Effect
     ApplyEffect_Magic()
+    
+    UpdatePact_Warrior_Hold()
+    UpdatePact_Warrior_Fire()
     
     local blend_type, lower_state = GetHalfBlendInfo()
     
@@ -15745,6 +15931,9 @@ function QuickMagicFireRightAttackRight2_Upper_onUpdate()
     -- Adjustments: Effect
     ApplyEffect_Magic()
     
+    UpdatePact_Warrior_Hold()
+    UpdatePact_Warrior_Fire()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     
     if lower_state == LOWER_TURN or lower_state == LOWER_END_TURN then
@@ -15765,6 +15954,9 @@ end
 function QuickMagicFireRightAttackLeft_Upper_onUpdate()
     -- Adjustments: Effect
     ApplyEffect_Magic()
+    
+    UpdatePact_Warrior_Hold()
+    UpdatePact_Warrior_Fire()
     
     local blend_type, lower_state = GetHalfBlendInfo()
     
@@ -15787,6 +15979,9 @@ function QuickMagicFireRightAttackLeft2_Upper_onUpdate()
     -- Adjustments: Effect
     ApplyEffect_Magic()
     
+    UpdatePact_Warrior_Hold()
+    UpdatePact_Warrior_Fire()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     
     if lower_state == LOWER_TURN or lower_state == LOWER_END_TURN then
@@ -15807,6 +16002,9 @@ end
 function QuickMagicFireLeftNormal_Upper_onUpdate()
     -- Adjustments: Effect
     ApplyEffect_Magic()
+    
+    UpdatePact_Warrior_Hold()
+    UpdatePact_Warrior_Fire()
     
     local blend_type, lower_state = GetHalfBlendInfo()
     
@@ -15834,6 +16032,9 @@ function QuickMagicFireLeftDash_Upper_onUpdate()
     -- Adjustments: Effect
     ApplyEffect_Magic()
     
+    UpdatePact_Warrior_Hold()
+    UpdatePact_Warrior_Fire()
+    
     act(LockonFixedAngleCancel)
     
     local blend_type, lower_state = GetHalfBlendInfo()
@@ -15857,6 +16058,9 @@ function QuickMagicFireLeftStep_Upper_onUpdate()
     -- Adjustments: Effect
     ApplyEffect_Magic()
     
+    UpdatePact_Warrior_Hold()
+    UpdatePact_Warrior_Fire()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     
     if lower_state == LOWER_TURN or lower_state == LOWER_END_TURN then
@@ -15877,6 +16081,9 @@ end
 function QuickMagicFireLeftAttackRight_Upper_onUpdate()
     -- Adjustments: Effect
     ApplyEffect_Magic()
+    
+    UpdatePact_Warrior_Hold()
+    UpdatePact_Warrior_Fire()
     
     local blend_type, lower_state = GetHalfBlendInfo()
     
@@ -15899,6 +16106,9 @@ function QuickMagicFireLeftAttackRight2_Upper_onUpdate()
     -- Adjustments: Effect
     ApplyEffect_Magic()
     
+    UpdatePact_Warrior_Hold()
+    UpdatePact_Warrior_Fire()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     
     if lower_state == LOWER_TURN or lower_state == LOWER_END_TURN then
@@ -15919,6 +16129,9 @@ end
 function QuickMagicFireLeftAttackLeft_Upper_onUpdate()
     -- Adjustments: Effect
     ApplyEffect_Magic()
+    
+    UpdatePact_Warrior_Hold()
+    UpdatePact_Warrior_Fire()
     
     local blend_type, lower_state = GetHalfBlendInfo()
     
@@ -15941,6 +16154,9 @@ function QuickMagicFireLeftAttackLeft2_Upper_onUpdate()
     -- Adjustments: Effect
     ApplyEffect_Magic()
     
+    UpdatePact_Warrior_Hold()
+    UpdatePact_Warrior_Fire()
+    
     local blend_type, lower_state = GetHalfBlendInfo()
     
     if lower_state == LOWER_TURN or lower_state == LOWER_END_TURN then
@@ -15961,6 +16177,8 @@ end
 function MagicInvalidRight_Upper_onUpdate()
     local blend_type, lower_state = GetHalfBlendInfo()
     
+    UpdatePact_Warrior_Hold()
+    
     if MagicCommonFunction(ALLBODY, QUICKTYPE_NORMAL) == TRUE then
         return 
     elseif HalfBlendUpperCommonFunction(lower_state) == TRUE then
@@ -15974,6 +16192,8 @@ end
 
 function MagicInvalidLeft_Upper_onUpdate()
     local blend_type, lower_state = GetHalfBlendInfo()
+    
+    UpdatePact_Warrior_Hold()
     
     if MagicCommonFunction(ALLBODY, QUICKTYPE_NORMAL) == TRUE then
         return 
@@ -15996,6 +16216,9 @@ function ThrowBackStab_Activate()
     else
         SetAttackHand(HAND_RIGHT)
     end
+    
+    UpdatePact_Assassin_Backstab_Activate()
+    
     return 
 end
 
@@ -18695,6 +18918,8 @@ function Update()
     UpdateFP()
     TrackTimedBlock()
     TestFunction()
+    UpdatePact_Switch()
+    UpdatePact_Sorcerer()
     
     act(SwitchMotion, FALSE)
     act(LockonSystemUnableToTurnAngle, 0, 0)

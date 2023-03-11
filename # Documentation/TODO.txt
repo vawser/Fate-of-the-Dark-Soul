@@ -11,9 +11,6 @@ Weapons to add:
  
  Black Dragon Greatsword
  Black Dragon Sword
- Ancient Dragon Halberd
- Writhing Hammer
- Scythe of Want
  Black Dragon Greataxe
  Twinspears of the Forlorn
  Quarterstaff
@@ -37,9 +34,6 @@ Weapons to add:
  Aldia Hammer
  
 Add transmogrification system
-
-Add 'Crystal Tear' system, using covenant slot as the Tear slot
- Add 'Wonderous Flask' that triggers the Tear slot when used
  
 Add a friendly NPC to each level that you can rescue
  Include dialogue to explain there predicatment
@@ -61,4 +55,27 @@ Add 'estus' fountains in the mid-map spots bonfires may have been
 30030000 Bewitched Alonne Sword
 30040000 Runelock 
 30050000 Frying Pan
+30060000 Ancient Dragon Halberd
+
+# TODO
+30070000 Writhing Hammer
+30080000 Scythe of Want
+
+Finish Pact stuff
+
+# c2ba23
+
+<font color="#a38d5d">Lore</font>
+A beloved pendant, belonging to the Painter that Slave Knight Gael wished to please.
+
+<font color="#a38d5d">Effect</font>
+Attacks will slow enemy movement massively for <font color="#c2ba23">12</font> seconds.
+
+
+
+
+
+
+
+
 

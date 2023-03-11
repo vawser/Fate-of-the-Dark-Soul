@@ -836,6 +836,7 @@ function ExecSpDamage(pre_sp_damage)
         Fire("W_DamageSpecial")
         return TRUE
     end
+    
     if pre_sp_damage == SP_DAMAGE_FAT_BREAK and TRUE == IsSpDamageAllowed() then
         Replanning()
         act(SetDamageAnimType, DAMAGE_FLAG_LARGE)
@@ -851,6 +852,7 @@ function ExecSpDamage(pre_sp_damage)
         Fire(event)
         return TRUE
     end
+    
     if TRUE == env(GetSpEffectID, SP_EFFECT_ROCK_LIZARD) and TRUE == env(GetBehaviorID, BEH_IDENTIFIER_KICK) and TRUE == IsSpDamageAllowed() then
         act(BlowDamageTurn)
         Replanning()
@@ -858,12 +860,14 @@ function ExecSpDamage(pre_sp_damage)
         Fire("W_Event20000")
         return TRUE
     end
+    
     if TRUE == env(GetSpEffectID, SP_EFFECT_GARGOYLE_AT_CASTLE) and TRUE == IsSpDamageAllowed() then
         Replanning()
         act(SetDamageAnimType, DAMAGE_FLAG_LARGE)
         Fire("W_Event20010")
         return TRUE
     end
+    
     if TRUE == env(GetSpEffectID, SP_EFFECT_SKELETON_KNIGHT) and 2 == env(GetPhysicalAttribute) then
         local damage_level = env(GetDamageLevel)
         if (damage_level == DAMAGE_LEVEL_MIDDLE or damage_level == DAMAGE_LEVEL_LARGE or damage_level == DAMAGE_LEVEL_SMALL_BLOW or damage_level == DAMAGE_LEVEL_LARGE_BLOW) and TRUE == IsSpDamageAllowed() then
@@ -882,6 +886,7 @@ function ExecSpDamage(pre_sp_damage)
             return TRUE
         end
     end
+    
     if TRUE == env(GetSpEffectID, SP_EFFECT_DLC_HAE_TATAKI) then
         local damage_level = env(GetDamageLevel)
         if damage_level ~= DAMAGE_LEVEL_NONE and damage_level ~= DAMAGE_LEVEL_FLING and TRUE == IsSpDamageAllowed() then
@@ -892,6 +897,7 @@ function ExecSpDamage(pre_sp_damage)
             return TRUE
         end
     end
+    
     if TRUE == env(GetSpEffectID, SP_EFFECT_DLC_KARASUKISI_COUNTER_R) then
         local damage_level = env(GetDamageLevel)
         local damage_type = env(GetReceivedDamageType)
@@ -903,6 +909,7 @@ function ExecSpDamage(pre_sp_damage)
             return TRUE
         end
     end
+    
     if TRUE == env(GetSpEffectID, SP_EFFECT_DLC_KARASUKISI_COUNTER_L) then
         local damage_level = env(GetDamageLevel)
         local damage_type = env(GetReceivedDamageType)
@@ -914,6 +921,7 @@ function ExecSpDamage(pre_sp_damage)
             return TRUE
         end
     end
+    
     return FALSE
 end
 
@@ -922,16 +930,21 @@ function ExecNoSyncAddDamage(damage_level, is_damaged)
         if TRUE == env(IsPartDamageAdditiveBlendInvalid) then
             return TRUE
         end
+        
         if TRUE == env(GetBehaviorID, BEH_IDENTIFIER_MAGMA) then
             return FALSE
         end
+        
         if FALSE == IsExistAnime(ANIME_ID_NO_ADD) then
             return TRUE
         end
+        
         if TRUE == env(GetSpEffectID, SP_EFFECT_VARIANT_YUPA) and TRUE == env(GetSpEffectID, SP_EFFECT_BLUE_LIGHTNING) then
             return FALSE
         end
+        
         local damage_part = env(GetPartGroup)
+        
         if damage_part > 0 then
             local anim_id = 0
             if damage_part > 8 then
@@ -945,6 +958,7 @@ function ExecNoSyncAddDamage(damage_level, is_damaged)
                 return TRUE
             end
         end
+        
         if TRUE == IsExistAnime(ANIME_ID_ADD_BLEND_FRONT) then
             local damage_direction = env(GetReceivedDamageDirection)
             local offsetanim = GetDamageDirectionOffset(damage_direction)
@@ -1097,8 +1111,10 @@ function ExecWeakDamage()
     if env(GetSpEffectID, SP_EFFECT_VARIANT_YUPA_NO_WEAKDAMAGE) == TRUE then
         return FALSE
     end
+    
     if env(GetIsWeakPoint) == TRUE then
         local dir = GetDirOfPlayableDamage(ANIME_ID_DAMAGE_WEAK, FALSE)
+
         if dir ~= INVALID then
             SetVariable("IndexDamageDirection", dir)
             act(SetDamageAnimType, DAMAGE_FLAG_WEAK)
@@ -1365,33 +1381,42 @@ function ExecDamage(is_weak, ignore_guard_block)
     local damage_level = env(GetDamageLevel)
     local damage_type = env(GetReceivedDamageType)
     local is_damaged = env(HasReceivedAnyDamage)
+    
     if damage_level == DAMAGE_LEVEL_MINIMUM and env(GetBehaviorID, BEH_IDENTIFIER_ROLLING) == TRUE and env(GetSpEffectID, SP_EFFECT_ROLLING_PUSH) == TRUE and env(GetSpEffectID, SP_EFFECT_IGNORE_ROLLING_PUSH) == FALSE then
         damage_level = DAMAGE_LEVEL_PUSH
     end
+    
     local pre_sp_damage = SP_DAMAGE_NONE
     if env(GetSpEffectID, SP_EFFECT_SLEEP) == TRUE and env(GetSpEffectID, SP_EFFECT_MIMIC) == TRUE and env(GetSpEffectID, SP_EFFECT_DISABLE_SLEEP) == FALSE then
         pre_sp_damage = SP_DAMAGE_MIMIC
     end
+    
     if env(GetBehaviorID, BEH_IDENTIFIER_ITEM_PARRY) == TRUE and env(GetSpEffectID, SP_EFFECT_KING_OF_STORM) == TRUE then
         pre_sp_damage = SP_DAMAGE_ITEM_PARRY
     end
+    
     if env(GetBehaviorID, BEH_IDENTIFIER_FAT_BREAK) == TRUE and env(GetSpEffectID, SP_EFFECT_ROLLING_PUSH) == TRUE and env(GetSpEffectID, SP_EFFECT_IGNORE_ROLLING_PUSH) == FALSE then
         pre_sp_damage = SP_DAMAGE_FAT_BREAK
     end
+    
     if is_damaged == FALSE and (damage_level == DAMAGE_LEVEL_NONE or damage_level == DAMAGE_LEVEL_MINIMUM) and (damage_type == DAMAGE_TYPE_NONE or damage_type == DAMAGE_TYPE_WEAK_FRAME) and pre_sp_damage == SP_DAMAGE_NONE then
         return FALSE
     end
+    
     if env(GetSpEffectID, SP_EFFECT_HALLECK) == TRUE and env(GetSpEffectID, SP_EFFECT_STORMRULER) == TRUE and env(GetPartGroup) == 6 then
         act(AddSpEffect, SP_EFFECT_HALLECK_BREAK)
     end
+    
     if env(GetSpEffectID, SP_EFFECT_DLC_BOSUMUSUME) == TRUE and TRUE == IsSpDamageAllowed() then
         Replanning()
         act(SetDamageAnimType, DAMAGE_FLAG_LARGE)
         Fire("W_DamageSpecial")
         return TRUE
     end
+    
     if env(GetSpEffectID, SP_EFFECT_DLC2_BLACKKNIGHT) == TRUE then
         local DamageType = env(GetReceivedDamageType)
+        
         if TRUE == IsSpDamageAllowed() and DamageType ~= DAMAGE_TYPE_PARRY_ENEMY1 and DamageType ~= DAMAGE_TYPE_PARRY_ENEMY2 then
             Replanning()
             act(SetDamageAnimType, DAMAGE_FLAG_LARGE)
@@ -1399,6 +1424,7 @@ function ExecDamage(is_weak, ignore_guard_block)
             return TRUE
         end
     end
+    
     if env(GetSpEffectID, SP_EFFECT_DLC2_MIYAKONOMOUJA_SEISYOKUSYA_IKARING) == TRUE then
         local damage_level = env(GetDamageLevel)
         if damage_level ~= DAMAGE_LEVEL_NONE and damage_level ~= DAMAGE_LEVEL_SMALL and damage_level ~= DAMAGE_LEVEL_MINIMUM and damage_level ~= DAMAGE_LEVEL_PUSH and TRUE == IsSpDamageAllowed() then
@@ -1408,53 +1434,68 @@ function ExecDamage(is_weak, ignore_guard_block)
             return TRUE
         end
     end
+    
     SetVariable("BlendDamageDir", 0)
     SetVariable("BlendDamageFire", 0)
+    
     if ignore_guard_block == TRUE and damage_type == DAMAGE_TYPE_GUARD then
         return FALSE
     end
+    
     if ExecGuardBlock(damage_type) == TRUE then
         return TRUE
     end
+    
     if ExecDamageExLarge(damage_level) == TRUE then
         return TRUE
     end
+    
     if pre_sp_damage == SP_DAMAGE_MIMIC then
         Fire("W_Event20000")
         return TRUE
     end
+    
     if env(IsDamageMotionOff) == FALSE then
         if ExecSpDamage(pre_sp_damage) == TRUE then
             return TRUE
         end
+        
         if is_weak == FALSE and TRUE == ExecWeakDamage() then
             return TRUE
         end
+        
         if ExecSaBreakDamage(damage_level) == TRUE then
             return TRUE
         end
     end
+    
     if ExecTypeDamage(damage_type) == TRUE then
         return TRUE
     end
+    
     if env(GetSpEffectID, SP_EFFECT_FULL_ARMOR_BEAST) == TRUE then
         damage_level = DAMAGE_LEVEL_NONE
     end
+    
     if ExecNoSyncAddDamage(damage_level, is_damaged) == TRUE then
         return FALSE
     end
+    
     if ExecDamageDefault(damage_level) == TRUE then
         return TRUE
     end
+    
     if damage_level ~= DAMAGE_LEVEL_NONE and damage_level ~= DAMAGE_LEVEL_MINIMUM and TRUE == ExecDamageDefault(DAMAGE_LEVEL_MIDDLE) then
         return TRUE
     end
+    
     return FALSE
 end
 
 function GetDeathType()
     local damage_level = env(GetDamageLevel)
     local death_type = DEATH_TYPE_DEFAULT
+    
     if damage_level == DAMAGE_LEVEL_LARGE_BLOW or damage_level == DAMAGE_LEVEL_SMALL_BLOW or damage_level == DAMAGE_LEVEL_EX_BLAST or damage_level == DAMAGE_LEVEL_BREATH then
         death_type = DEATH_TYPE_BLAST
         if damage_level == DAMAGE_LEVEL_SMALL_BLOW and env(GetSpEffectID, SP_EFFECT_UNDEAD_DOG) == TRUE and env(GetSpecialAttribute) == DAMAGE_ELEMENT_FIRE then
@@ -1469,6 +1510,7 @@ function GetDeathType()
     elseif env(GetSpecialAttribute) == DAMAGE_ELEMENT_FIRE then
         death_type = DEATH_TYPE_FIRE
     end
+    
     return death_type
 end
 

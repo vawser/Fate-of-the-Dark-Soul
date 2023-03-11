@@ -9,7 +9,67 @@ M - 0x67
 R - 0x00
 D - 0x67
 
+N:\FDP\data\Material\mtd\map\M[ARSN].mtd
+
 #------------------------------------------------
 # Added Objects
 #------------------------------------------------
- 
+5000 Dead Tree (Standard)
+5001 Dead Tree (Large)
+
+5010 Swamp (no collision)
+5011 Swamp (collision)
+
+5100 Wooden Platform (short)
+5101 Wooden Platform (wide) MESH LOD ISSUE
+
+#------------------------------------------------
+# Map Pieces to Convert
+#------------------------------------------------
+# m30
+m007225 # Wooden Balcony Hut
+m001803 # Lothric Fountain
+
+m001260 # High Wall Tower
+m001250 # High Wall Tower Buttress
+
+m000760 # Rooftop Circular Tower Cap
+m001910 # Rooftop Pointed Tower Cap
+
+# m32
+m020001 # Statue Plinth
+m020000 # Nameless King Statue
+
+m004180 # Ornate Stone Arch
+m004150 # Open Stone Mausoleum
+
+m002108 # Pillars and Arches (Long)
+
+m004114 # Pillars and Arches A
+m004116 # Pillars and Arches C
+
+m003020 # Wooden Platform Structure A
+m003202 # Wooden Bridge
+m003200 # Wooden Scaffolding
+
+m003001 # Wooden Bridge (Sagging)
+
+# m34_1
+m100524 # Double Bookcase 1
+m100526 # Double Bookcase 2
+m100527 # Single Bookcase
+
+m101151 # Wax Pool
+
+m109111 # Small Pile of Books
+m101157 # Medium Pile of Books
+
+m109210 # Hall Pillar
+
+m103161 # Iron Fence
+
+m109310 # Statue (Maiden)
+m109320 # Statue (King)
+m109340 # Statue (Frampt)
+m109350 # Statue (Wax Scholar)
+

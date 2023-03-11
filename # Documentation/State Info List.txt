@@ -5,3 +5,7 @@
 3001 Backstep Dodge Frames 2
 3002 Backstep Dodge Frames 3
 3003 Backstep Dodge Frames 4
+
+4000 Block Sorcery
+4001 Block Pyromany
+4002 Block Miracles
