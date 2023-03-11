@@ -92,7 +92,7 @@ Switching to another pact will reduce the strength, dexterity, intelligence, fai
 # Assassin's Pact
 #-------------------------
 <font color="#a38d5d">Assassin's Creed</font>
-Conducting a successful backstab will cloak the attacker in invisiblity for <font color="#c2ba23">30</font> seconds.
+Conducting a successful backstab will turn the body nigh on invisible, mask the noises of the caster and prevent fall damage for <font color="#c2ba23">30</font> seconds.
 
 <font color="#a38d5d">Benefits</font>
 Increases damage during backstabs by <font color="#c2ba23">30%</font>.
@@ -100,6 +100,9 @@ Increases stamina recovery by <font color="#c2ba23">10</font>.
 
 <font color="#a38d5d">Drawbacks</font>
 Reduces physical damage absorption by <font color="#c2ba23">30%</font>.
+
+<font color="#a38d5d">Betrayal</font>    
+Switching to another pact will reduce the strength, dexterity, intelligence, faith and luck by <font color="#c2ba23">99</font> for <font color="#c2ba23">10</font> seconds.
 
 #-------------------------
 # Hunter's Pact
