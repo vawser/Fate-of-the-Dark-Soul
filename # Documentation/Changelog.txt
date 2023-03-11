@@ -303,6 +303,11 @@ Guard stability is reduced by 50%.
   
 - There is a passive Ringed Knight present for practising attacks on. You can interact with him to make him hostile.
 
+# Maps
+- Added a wooden bridge in Depths of Carthus in the start section drop-down area.
+- Added a lower section in the Depths of Carthus near the start section.
+- Added a scaffold structure in Irithyll to open up a secondary path down into the flooded area from the start.
+
 #-------------------------------------------------
 # Items
 #-------------------------------------------------
