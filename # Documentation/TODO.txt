@@ -44,9 +44,6 @@ Add a friendly NPC to each level that you can rescue
   The NPC will have a few sets of random dialogue.
   Occasionally they will call for the player and give them some consumable items.
   Saving all of them will reward a special item
-  
-Add 'estus' fountains in the mid-map spots bonfires may have been
- These should be once-per-life
  
 #-------------------------------------------------
 # WIP
@@ -62,13 +59,4 @@ Add 'estus' fountains in the mid-map spots bonfires may have been
 30080000 Scythe of Want
 
 Finish Pact stuff
-
-# c2ba23
-
-<font color="#a38d5d">Lore</font>
-A beloved pendant, belonging to the Painter that Slave Knight Gael wished to please.
-
-<font color="#a38d5d">Effect</font>
-Attacks will slow enemy movement massively for <font color="#c2ba23">12</font> seconds.
-
 

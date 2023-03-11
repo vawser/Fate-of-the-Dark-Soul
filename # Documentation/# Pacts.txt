@@ -1,138 +1,131 @@
 ﻿#-------------------------
 # Switching Pact
 #-------------------------
-Switching to another pact will reduce the Strength, Dexterity, Intelligence, Faith, Luck by 99 for 10 seconds.
+Betrayal    
+Switching to another pact will reduce the strength, dexterity, intelligence, faith and luck by 99 for 10 seconds.
 
 #-------------------------
 # Fighter's Pact
 #-------------------------
-<font color="#a38d5d">Versatility</font>
-Consecutive attacks will reduces weapon stamina consumption by <font color="#c2ba23">25%</font> and increase all damage by <font color="#c2ba23">10%</font>.
+# Versatility
+Consecutive attacks will reduces weapon stamina consumption by 25% and increase all damage by 10%.
 
-<font color="#a38d5d">Benefits</font>
-Increases physical absorption by <font color="#c2ba23">10%</font>.
+# Benefits
+Increases physical absorption by 10%.
 
-<font color="#a38d5d">Drawbacks</font>
-Reduces magic, fire, lightning and dark damage absorption by <font color="#c2ba23">10%</font>.
-    
-<font color="#a38d5d">Betrayal</font>    
-Switching to another pact will reduce the strength, dexterity, intelligence, faith and luck by <font color="#c2ba23">99</font> for <font color="#c2ba23">10</font> seconds.
+# Drawbacks
+Reduces magic, fire, lightning and dark damage absorption by 10%.
 
 #-------------------------
 # Barbarian's Pact
 #-------------------------
-<font color="#a38d5d">Bloodthirst</font>
-Attacks against enemies will restore <font color="#c2ba23">1%</font> HP per hit.
+# Bloodthirst
+Attacks against enemies will restore 1% HP per hit.
 
-<font color="#a38d5d">Benefits</font>
-Increases physical damage by <font color="#c2ba23">20%</font>.
-Increases stamina damage by <font color="#c2ba23">20%</font>.
-Increases stamina recovery by <font color="#c2ba23">4</font>.
+# Benefits
+Increases physical damage by 20%.
+Increases stamina damage by 20%.
+Increases stamina recovery by 4.
 
-<font color="#a38d5d">Drawbacks</font>
-Reduces all damage absorption by <font color="#c2ba23">20%</font>.
+# Drawbacks
+Reduces all damage absorption by 20%.
 
 Prevents the usage of sorcery, pyromancy and miracles.
-
-<font color="#a38d5d">Betrayal</font>    
-Switching to another pact will reduce the strength, dexterity, intelligence, faith and luck by <font color="#c2ba23">99</font> for <font color="#c2ba23">10</font> seconds.
 
 #-------------------------
 # Sorcerer's Pact
 #-------------------------
-<font color="#a38d5d">Still Mind</font>
-Staying still will increase magic damage by <font color="#c2ba23">20%</font> and reduce sorcery FP consumption by <font color="#c2ba23">25%</font>. 
+# Still Mind
+Staying still will increase magic damage by 20% and reduce sorcery FP consumption by 25%. 
 
-<font color="#a38d5d">Benefits</font>
-Restores <font color="#c2ba23">1</font> FP per second.
+# Benefits
+Restores 1 FP per second.
 
-<font color="#a38d5d">Drawbacks</font>
-Reduces maximum HP by <font color="#c2ba23">20%</font>.
+# Drawbacks
+Reduces maximum HP by 20%.
 
 Prevents the usage of pyromancy and miracles.
-
-<font color="#a38d5d">Betrayal</font>    
-Switching to another pact will reduce the strength, dexterity, intelligence, faith and luck by <font color="#c2ba23">99</font> for <font color="#c2ba23">10</font> seconds.
 
 #-------------------------
 # Pyromancer's Pact
 #-------------------------
-<font color="#a38d5d">Fan the Flames</font>
-Whenever damage is suffered, cast speed is increased by <font color="#c2ba23">25</font> and fire damage by <font color="#c2ba23">20%</font>.
+# Fan the Flames
+Whenever damage is suffered, cast speed is increased by 25 and fire damage by 20%.
 
-<font color="#a38d5d">Benefits</font>
-Increases fire damage absorption by <font color="#c2ba23">20%</font>.
+# Benefits
+Increases fire damage absorption by 20%.
 
-<font color="#a38d5d">Drawbacks</font>
-Reduces maximum stamina by <font color="#c2ba23">20%</font>.
+# Drawbacks
+Reduces maximum stamina by 20%.
 
 Prevents the usage of sorcery and miracles.
-
-<font color="#a38d5d">Betrayal</font>    
-Switching to another pact will reduce the strength, dexterity, intelligence, faith and luck by <font color="#c2ba23">99</font> for <font color="#c2ba23">10</font> seconds.
 
 #-------------------------
 # Warrior's Pact
 #-------------------------
-<font color="#a38d5d">Glory to the Sun</font>
-Whenever a spell is cast, lighting damage is increased by <font color="#c2ba23">5%</font> for <font color="#c2ba23">12</font> seconds, stacking for each cast.
+# Glory to the Sun
+Whenever a spell is cast, lighting damage is increased by 5% for 12 seconds, stacking for each cast.
 
 During casting, the caster is immune to stagger.
 
-<font color="#a38d5d">Benefits</font>
-Increases lightning damage absorption by <font color="#c2ba23">20%</font>.
+# Benefits
+Increases lightning damage absorption by 20%.
 
-<font color="#a38d5d">Drawbacks</font>
+# Drawbacks
 Prevents the usage of sorcery and pyromancy.
-
-<font color="#a38d5d">Betrayal</font>    
-Switching to another pact will reduce the strength, dexterity, intelligence, faith and luck by <font color="#c2ba23">99</font> for <font color="#c2ba23">10</font> seconds.
 
 #-------------------------
 # Assassin's Pact
 #-------------------------
-<font color="#a38d5d">Assassin's Creed</font>
-Conducting a successful backstab will turn the body nigh on invisible, mask the noises of the caster and prevent fall damage for <font color="#c2ba23">30</font> seconds.
+# Assassin's Creed
+Conducting a successful backstab will turn the body nigh on invisible, mask the noises of the caster and prevent fall damage for 30 seconds.
 
-<font color="#a38d5d">Benefits</font>
-Increases damage during backstabs by <font color="#c2ba23">30%</font>.
-Increases stamina recovery by <font color="#c2ba23">10</font>.
+# Benefits
+Increases damage during backstabs by 30%.
+Increases stamina recovery by 10.
 
-<font color="#a38d5d">Drawbacks</font>
-Reduces physical damage absorption by <font color="#c2ba23">30%</font>.
-
-<font color="#a38d5d">Betrayal</font>    
-Switching to another pact will reduce the strength, dexterity, intelligence, faith and luck by <font color="#c2ba23">99</font> for <font color="#c2ba23">10</font> seconds.
+# Drawbacks
+Reduces physical damage absorption by 30%.
 
 #-------------------------
 # Hunter's Pact
 #-------------------------
-    Kills grant a stacking self-buff:
-        +5% damage
-        +2 stamina regen
-    +10% Bow Distance
-    +10% Ammunition Damage
-    -20% Equip Load
-    -20% Max HP
-    
+# Hunter's Mark
+Holding a shot for a short while will boost the attack power of ammunition by 50% for that shot.
+
+# Benefits
+Boosts the attack power of ammunition by 10%.
+Increases the effective range of bows by 100 meters.
+
+# Drawbacks
+Reduces maximum equipment load by 20%.
+Reduces maximum HP by 20%.
+
 #-------------------------
 # Cannibal's Pact
 #-------------------------
-    Kills grant a stacking buff:
-        1 HP regen
-        +5% Damage
-    +25% Status Resist
-    -25% Max FP
+# Murderous Rampage
+Every 3 enemy kills increase physical damage by 5%, and restores 1 HP per second.
+This caps out at 30 kill count.
+
+Kill count will decay by 1 every 10 seconds.
+
+# Benefits
+Increases maximum HP by 10%.
+
+# Drawbacks
+Reduces all damage absorption by 10%.
+Reduces maximum FP by 50%.
 
 #-------------------------
 # Daredevil's Pact
 #-------------------------
-    Damage is boosted the closer the player is to death:
-        < 50%: +10% Damage, -20% HP recovery effectiveness
-        < 40%: +20% Damage, -40% HP recovery effectiveness
-        < 30%: +30% Damage, -60% HP recovery effectiveness
-        < 20%: +40% Damage, -80% HP recovery effectiveness
-        < 10%: +50% Damage, -100% HP recovery effectiveness
-    +20% Max Stamina
-    -25% absorption
-    
+# Daredevil's Gambit
+As HP lowers, damage is increased dramatically, up to 100%. However, HP recovery is reduced alongside, up to 100% reduction.
+
+# Benefits
+Increases maximum Stamina by 20%.
+
+# Drawbacks
+Poise is reduced by 50%.
+Guard stability is reduced by 50%.

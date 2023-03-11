@@ -2602,5 +2602,3 @@ $Event(15002, Restart, function() {
     
     SetSpEffect(10000, 200110201);
 });
-
-

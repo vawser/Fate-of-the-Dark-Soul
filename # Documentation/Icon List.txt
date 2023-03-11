@@ -6,36 +6,36 @@
 10006   Open Red Eye
 10007   Closed Black Eye
 10008   Estus with Down Blue Arrow
-10009	Attack                      - Sword with up arrow
-10010	Magic                       - Scroll with up arrow
-10011	Defence                     - Armor with up arrow
-10012	Resistances                 - Person with up arrow
-10013	Stamina Regen               - Three green up arrows
-10014	HP Regen                    - Yellow orb
-10015	FP Regen                    - Blue orb
-10016	Estus                       - Estus Flask with Yellow up arrow
-10017	Ashen Estus                 - Ashen Estus Flask with Yellow up arrow
-10018	Absorb HP                   - Black Eye with yellow up arrow
-10019	Absorb FP                   - Black eye with blue up arrow
-10020	FP Cost                     - Blue square with scroll icon
-10021	Weapon Skill                - Blue square with WA icon
-10022	Durability                  - Wood Grain Ring
-10023	Carthus Milkring            - Tumbling person
-10024	Silvercat Ring              - Silver cat
-10025	Slumbering Dragoncrest Ring - Foot with silent aura
-10026	Ring of Sacrifice           - Ring of Sacrifice
-10027	Bow Distance                - Bow and arrow
-10028	Leo Ring                    - Spear thrusting
+10009	Attack                      
+10010	Magic                       
+10011	Defence                     
+10012	Resistances                 
+10013	Stamina Regen               
+10014	HP Regen                    
+10015	FP Regen                    
+10016	Estus                       
+10017	Ashen Estus                 
+10018	Absorb HP                   
+10019	Absorb FP                   
+10020	FP Cost                     
+10021	Weapon Skill                
+10022	Durability                  
+10023	Tumbling Person
+10024	Silvercat
+10025	Foot with White Glow
+10026	Ring of Sacrifice           
+10027	Wooden Bow
+10028	Thrusting Spear
 10029   Message Icon
-10030	Item Discovery              - Gold Serpent
-10031	Souls                       - Silver Serpent
-10032	Skull Ring                  - Alluring Skull
-10033	Poise                       - Poise icon
-10034	Calamity Ring               - Calamity ring
-10035   Seed of a Giant Tree
-10036   Damaged Helm
-10037   Broken Helm 
-10038   Damaged Armor
+10030	Gold Serpent
+10031	Silver Serpent
+10032	Alluring Skull
+10033	Poise
+10034	Calamity Ring
+10035   Golden Bow
+10036   Bronze Fist
+10037   Silver Fist
+10038   Gold Fist
 10039   Broken Armor
 10040   Damaged Gauntlets
 10041   Broken Gauntlets
