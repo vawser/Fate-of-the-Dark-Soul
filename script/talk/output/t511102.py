@@ -334,6 +334,9 @@ def t511102_x51():
         # Profaned Depths
         AddTalkListData(8, 80050017, -1)
         
+        # Blighted Cemetery
+        AddTalkListData(14, 80050023, -1)
+        
         # Archdragon Peak
         AddTalkListData(9, 80050018, -1)
         
@@ -345,6 +348,9 @@ def t511102_x51():
         
         # The Ringed City
         AddTalkListData(12, 80050021, -1)
+        
+        # Convergence of the Kingdoms
+        AddTalkListData(15, 80050024, -1)
         
         # World's End
         AddTalkListData(13, 80050022, -1)
@@ -393,6 +399,12 @@ def t511102_x51():
             continue
         elif GetTalkListEntryResult() == 13:
             assert t511102_x64()
+            continue
+        elif GetTalkListEntryResult() == 14:
+            assert t511102_x65()
+            continue
+        elif GetTalkListEntryResult() == 15:
+            assert t511102_x66()
             continue
         elif GetTalkListEntryResult() == 99 or not GetTalkListEntryResult():
             return 0
@@ -752,6 +764,52 @@ def t511102_x64():
 
     return 0
 
+# Blighted Cemetery
+def t511102_x65():
+    while True:
+        ClearTalkListData()
+        
+        # Champion Gundyr
+        AddTalkListDataIf(GetEventStatus(9320) == 1, 1, 80050122, -1)
+
+        # Leave
+        AddTalkListData(99, 80000999, -1)
+    
+        ShowShopMessage(1)
+        assert not (CheckSpecificPersonMenuIsOpen(1, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
+         
+        # Champion Gundyr
+        if GetTalkListEntryResult() == 1:
+            assert t511102_x100(14000830, 0, 0, 0, 0, 25000172)
+            return 0
+        elif GetTalkListEntryResult() == 99 or not GetTalkListEntryResult():
+            return 0
+
+    return 0
+    
+# Convergence of the Kingdoms
+def t511102_x66():
+    while True:
+        ClearTalkListData()
+        
+        # Soul of Cinder
+        AddTalkListDataIf(GetEventStatus(9321) == 1, 1, 80050123, -1)
+
+        # Leave
+        AddTalkListData(99, 80000999, -1)
+    
+        ShowShopMessage(1)
+        assert not (CheckSpecificPersonMenuIsOpen(1, 0) == 1 and not CheckSpecificPersonGenericDialogIsOpen(0))
+         
+        # Soul of Cinder
+        if GetTalkListEntryResult() == 1:
+            assert t511102_x100(14100800, 0, 0, 0, 0, 25000173)
+            return 0
+        elif GetTalkListEntryResult() == 99 or not GetTalkListEntryResult():
+            return 0
+
+    return 0
+    
 # Boss Menu 
 def t511102_x100(flag1=_, flag2=_, flag3=_, flag4=_, flag5=_, teleport_flag=_):
     while True:

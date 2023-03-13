@@ -218,6 +218,9 @@ $Event(0, Default, function() {
     InitializeEvent(19, 10006, 25000169, 5100970, 5102950, 51, 0); // Halflight
     InitializeEvent(20, 10006, 25000170, 5100971, 5102951, 51, 0); // Midir
     
+    InitializeEvent(21, 10006, 25000172, 4000976, 4002951, 40, 0); // Champion Gundyr
+    InitializeEvent(22, 10006, 25000173, 4100975, 4102955, 41, 0); // Soul of Cinder
+    
     InitializeEvent(0, 10007, 25000171, 5110974, 5112954, 51, 1); // Gael
     
     // Castigations
@@ -1798,6 +1801,8 @@ $Event(10005, Default, function() {
     WaitFor(EventFlag(9315)); // Wolnir
     WaitFor(EventFlag(9317)); // Old Demon King
     WaitFor(EventFlag(9318)); // Yhorm
+    WaitFor(EventFlag(9320)); // Champion Gundyr
+    WaitFor(EventFlag(9321)); // Soul of Cinder
     WaitFor(EventFlag(9322)); // Sister Fride
     WaitFor(EventFlag(9323)); // Gravetender
     WaitFor(EventFlag(9324)); // Demon Prince

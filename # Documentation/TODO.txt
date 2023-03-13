@@ -1,7 +1,6 @@
 ﻿#-------------------------------------------------
 # Bugs
 #-------------------------------------------------
-Fix incorrect icons in some cases due to usage of Cinders icon sheet
 
 #-------------------------------------------------
 # Ideas
@@ -49,7 +48,6 @@ Add a friendly NPC to each level that you can rescue
 #-------------------------------------------------
 # Place
 30030000 Bewitched Alonne Sword
-30040000 Runelock 
 30050000 Frying Pan
 30060000 Ancient Dragon Halberd
 
@@ -57,3 +55,13 @@ Add a friendly NPC to each level that you can rescue
 30070000 Writhing Hammer
 30080000 Scythe of Want
 
+ID,Name
+3000,Brightbug
+3010,Old Growth Balm
+3020,Vine Balm
+3030,Blackweed Balm
+3040,Goldenfruit Balm
+3050,Ancient Growth Balm
+
+9320 Champion Gundyr
+9321 Soul of Cinder

@@ -17,6 +17,8 @@
 9315 Wolnir
 9317 Old Demon King
 9318 Yhorm
+9320 Champion Gundyr
+9321 Soul of Cinder
 9322 Sister Friede
 9323 Gravetender
 9324 Demon Prince
@@ -76,6 +78,8 @@
 25000169 Halflight
 25000170 Midir
 25000171 Gael
+25000172 Champion Gundyr
+25000173 Soul of Cinder
 
 # Talisman Forge
 25000200 Life Ring 

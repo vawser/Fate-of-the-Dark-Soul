@@ -102,7 +102,7 @@
 51  Vine Balm
 52  Blackweed Balm
 53  Goldenfruit Balm
-54  Soul (Unassigned)
+54  Ancient Growth Balm
 55  Hexing Urn
 56  Bubble Wall
 57  Witching Urn
@@ -1506,9 +1506,9 @@
 # BLOCK 4
 #------------------------
 4000 Soul Arrow
-4001 Soul Instability
-4002 Static Field
-4003 Blood Corruption
+4001 Great Soul Arrow
+4002 Great Soul Arrow
+4003 Great Heavy Soul Arrow
 4004 Homing Soulmass
 4005 Homing Crystal Soulmass
 4006 Soul Spear
@@ -1636,16 +1636,16 @@
 4128 Deep Protection
 4129 Blessed Weapon
 4130 Farron Dart
-4131 Maelstrom
+4131 Great Farron Dart
 4132 Heal Aid
-4133 Combustum Petal
-4134 Vindicti Petal
+4133 Soul Instability
+4134 Static Field
 4135 Frozen Weapon
 4136 Snap Freeze
 4137 Floating Chaos
 4138 Way of White Corona
-4139 Barathrum Petal
-4140 Celeritas Stem
+4139 Blood Corruption
+4140 Maelstrom
 4141 Proof of a Pact
 4142 Veloxi Moss
 4143 Dominating Skull (Unassigned)
