@@ -70,6 +70,17 @@ GOAL_NPC_Tarukas = 29200
 GOAL_NPC_Creighton = 29300
 GOAL_NPC_Aruba = 29400
 GOAL_NPC_Kirk = 29500
+
+GOAL_NPC_Pact_Fighter = 30000
+GOAL_NPC_Pact_Barbarian = 30100
+GOAL_NPC_Pact_Sorcerer = 30200
+GOAL_NPC_Pact_Pyromancer = 30300
+GOAL_NPC_Pact_SunWarrior = 30400
+GOAL_NPC_Pact_Assassin = 30500
+GOAL_NPC_Pact_Hunter = 30600
+GOAL_NPC_Pact_Cannibal = 30700
+GOAL_NPC_Pact_Daredevil = 30800
+
 GOAL_Gunshuu_A102000_Battle = 102000
 GOAL_ProtoSkeleton_107000_Battle = 107000
 GOAL_ProtoSkeleton_107001_Battle = 107001

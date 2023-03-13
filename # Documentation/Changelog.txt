@@ -92,112 +92,17 @@
 - Added pacts, which replace the covenant accessories.
 - Pacts act as class archetype talismans, providing a mechanic, benefits and drawbacks.
 - Each pact is dropped by a mini-boss type enemy within each of the levels. 
-
 - You may switch pacts at any time, but there is a betrayal penalty for 10 seconds after switching between different ones. This penalty reduces STR, DEX, INT, FTH and LCK by 99. This is to discourage reactive switching.
 
-# Fighter's Pact
-Versatility: 
-- Consecutive attacks will reduces weapon stamina consumption by 25% and increase all damage by 10%.
-
-Benefits: 
-- Increases physical absorption by 10%.
-
-Drawbacks: 
-- Reduces magic, fire, lightning and dark damage absorption by 10%.
-    
-# Barbarian's Pact
-Bloodthirst: 
-- Attacks against enemies will restore 1% HP per hit.
-
-Benefits: 
-- Increases physical damage by 20%.
-- Increases stamina damage by 20%
-- Increases stamina recovery by 4.
-
-Drawbacks: 
-- Reduces all damage absorption by 20%.
-- Prevents the usage of sorcery, pyromancy and miracles.
-
-# Sorcerer's Pact
-Still Mind:
-- Staying still will increase magic damage by 20% and reduce sorcery FP consumption by 25%.
-
-Benefits:
-- Restores 1 FP per second.
-
-Drawbacks:
-- Reduces maximum HP by 20%.
-- Prevents the usage of pyromancy and miracles.
-
-# Pyromancer's Pact
-Fan the Flames:
-- Whenever damage is suffered, cast speed is increased by 25 and fire damage by 20%.
-
-Benefits:
-- Increases fire damage absorption by 20%.
-
-Drawbacks:
-- Reduces maximum stamina by 20%.
-- Prevents the usage of sorcery and miracles.
-
-# Warrior's Pact
-Glory to the Sun
-- Whenever a spell is cast, lighting damage is increased by 5% for 12 seconds, stacking for each cast.
-- During casting, the caster is immune to stagger.
-
-Benefits:
-- Increases lightning damage absorption by 20%.
-
-Drawbacks
-- Prevents the usage of sorcery and pyromancy.
-
-# Assassin's Pact
-Assassin's Creed
-- Conducting a successful backstab will turn the body nigh on invisible, mask the noises of the caster and prevent fall damage for 30 seconds.
-
-Benefits:
-- Increases damage during backstabs by 30%.
-- Increases stamina recovery by 10.
-
-Drawbacks
-- Reduces physical damage absorption by 30%.
-
-# Hunter's Pact
-Hunter's Mark
-- Holding a shot for a short while will boost the attack power of ammunition by 50% for that shot.
-
-Benefits:
-Boosts the attack power of ammunition by 10%
-Increases the effective range of bows by 100 meters.
-
-Drawbacks:
-Reduces maximum equipment load by 20%.
-Reduces maximum HP by 20%.
-
-# Cannibal's Pact
-Murderous Rampage
-- Every 3 enemy kills increase physical damage by 5%, and restores 1 HP per second.
-This caps out at 30 kill count.
-
-Kill count will decay by 1 every 10 seconds.
-
-Benefits:
-Increases maximum HP by 10%
-
-Drawbacks:
-Reduces all damage absorption by 10%.
-Reduces maximum FP by 50%.
-
-# Daredevil's Pact
-Daredevil's Gambit
-As HP lowers, damage is increased dramatically, up to 100%. However, HP recovery is reduced alongside, up to 100% reduction.
-
-Benefits:
-Increases maximum Stamina by 20%.
-
-Drawbacks:
-Poise is reduced by 50%.
-Guard stability is reduced by 50%.
+- Added Fighter's Pact: dropped by Zerei the Wanderer in High Wall of Lothric.
+- Added Barbarian's Pact: dropped by Barbarian Dalk in the Undead Settlement.
+- Added Sorcerer's Pact: dropped by Sorceress Fleurette in the Swamp of Farron.
+- Added Pyromancer's Pact: dropped by Aldosh the Inflamed in the Depths of Carthus.
+- Added Warrior's Pact: dropped by Sun Worshipper Marius in the Ringed City. 
+- Added Assassin's Pact: dropped by Silent Holk in Irithyll of the Boreal Valley.
+- Added Hunter's Pact: dropped by Tracker Isabell in Lothric Castle.
+- Added Cannibal's Pact: dropped by Khen the Depraved in the Profaned Depths.
+- Added Daredevil's Pact: dropped by Jace the Gloryhound in Cathedral of the Deep.
 
 #-------------------------------------------------
 # Player

@@ -38,18 +38,25 @@ end
 --------------------
 function ApplyEffect_Magic()
     g_CurrentAttackType = "Magic"
+    
     -- FP Cooldown: block FP regen whilst using magic
     act(AddSpEffect, 111000)
+    
+    act(AddSpEffect, 150008) -- AI Notify
 end
 
 function ApplyEffect_LightAttack()  
     g_CurrentAttackType = "Light"
     UpdateAttackType_Fighter()
+    
+    act(AddSpEffect, 150000) -- AI Notify
 end
 
 function ApplyEffect_HeavyAttack()
     g_CurrentAttackType = "Heavy"
     UpdateAttackType_Fighter()
+    
+    act(AddSpEffect, 150001) -- AI Notify
     
     -- Runic Seal
     if env(GetSpEffectID, 113100000) == TRUE then
@@ -70,6 +77,8 @@ function ApplyEffect_SkillAttack()
     g_CurrentAttackType = "Skill"
     UpdateAttackType_Fighter()
     
+    act(AddSpEffect, 150002) -- AI Notify
+    
     -- Birchwood Ring
     if env(GetSpEffectID, 112014000) == TRUE then
         act(AddSpEffect, 101010)
@@ -86,6 +95,8 @@ function ApplyEffect_DashAttack()
     g_CurrentAttackType = "Dash"
     UpdateAttackType_Fighter()
     
+    act(AddSpEffect, 150003) -- AI Notify
+    
     -- Bestial Fang
     if env(GetSpEffectID, 112200000) == TRUE then
         act(AddSpEffect, 101000)
@@ -101,12 +112,16 @@ end
 function ApplyEffect_GuardAttack()
     g_CurrentAttackType = "Guard"
     UpdateAttackType_Fighter()
+    
+    act(AddSpEffect, 150004) -- AI Notify
 end
 
 function ApplyEffect_AmmoAttack()
     g_CurrentAttackType = "Ammunition"
     UpdateAttackType_Fighter()
     UpdateAmmoAttack_Hunter()
+    
+    act(AddSpEffect, 150005) -- AI Notify
     
     -- Thumb Ring
     if env(GetSpEffectID, 113600000) == TRUE then
@@ -123,6 +138,8 @@ end
 function ApplyEffect_ThrowableItem()
     g_CurrentAttackType = "Throwable"
     UpdateAttackType_Fighter()
+    
+    act(AddSpEffect, 150006) -- AI Notify
     
     -- Smouldering Crucible
     if env(GetSpEffectID, 113700000) == TRUE then
@@ -141,7 +158,7 @@ function ApplyEffect_Dragonhead()
 end
 
 function ApplyEffect_Gesture()
-
+    act(AddSpEffect, 150007) -- AI Notify
 end
 
 --------------------
@@ -3140,18 +3157,24 @@ function ExecItem(quick_type, blend_type)
         act(OpenMenuWhenUsingItem)
         return TRUE
     end
+    
     local item_type = env(GetItemAnimType)
+    
     if IsNodeActive("ItemDrinking_Upper_CMSG") == TRUE then
+        act(AddSpEffect, 150009) -- AI Notify
         if item_type ~= ITEM_DRINK then
             return FALSE
         end
     elseif IsNodeActive("ItemDrinkingMP_Upper_CMSG") == TRUE then
+        act(AddSpEffect, 150009) -- AI Notify
         if item_type ~= ITEM_DRINK_MP then
             return FALSE
         end
     elseif IsNodeActive("ItemDrinkingSake_Upper_CMSG") == TRUE and item_type ~= ITEM_DRINK_SAKE then
+        act(AddSpEffect, 150009) -- AI Notify
         return FALSE
     end
+    
     if item_type == ITEM_RECOVER then
         if blend_type == ALLBODY and MoveStart(LOWER, Event_MoveLong, FALSE) == TRUE then
             blend_type = UPPER

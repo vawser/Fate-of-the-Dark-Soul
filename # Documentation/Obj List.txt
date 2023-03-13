@@ -73,3 +73,9 @@ m109320 # Statue (King)
 m109340 # Statue (Frampt)
 m109350 # Statue (Wax Scholar)
 
+# m39
+m000219 # Broken Arch (Huge)
+m000450 # Statye Plinth
+
+# m45
+m008620 # Walkable Roots

@@ -3,7 +3,6 @@
 #-------------------------------------------------
 Fix incorrect icons in some cases due to usage of Cinders icon sheet
 
-Fix Lothric castle bonfire
 #-------------------------------------------------
 # Ideas
 #-------------------------------------------------
@@ -58,26 +57,3 @@ Add a friendly NPC to each level that you can rescue
 30070000 Writhing Hammer
 30080000 Scythe of Want
 
-Add Pact sources
-10000,Fighter's Pact
-
-10010,Barbarian's Pact
-
-10020,Sorcerer's Pact
-
-10030,Pyromancer's Pact
-
-10040,Warrior's Pact
-
-10050,Assassin's Pact
-
-10060,Hunter's Pact
-
-10070,Cannibal's Pact
-
-10080,Daredevil's Pact
-
-
-5100 Wooden Platform (short)
-
-o320500 Ladder Medium

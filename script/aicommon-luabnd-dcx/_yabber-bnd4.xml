@@ -1267,6 +1267,61 @@
     </file>
     <file>
       <flags>0x40</flags>
+      <id>9190</id>
+      <root>N:\FDP\data\INTERROOT_win64\</root>
+      <path>script\ai\out\bin\030000_battle.lua</path>
+    </file>
+    <file>
+      <flags>0x40</flags>
+      <id>9191</id>
+      <root>N:\FDP\data\INTERROOT_win64\</root>
+      <path>script\ai\out\bin\030100_battle.lua</path>
+    </file>
+    <file>
+      <flags>0x40</flags>
+      <id>9192</id>
+      <root>N:\FDP\data\INTERROOT_win64\</root>
+      <path>script\ai\out\bin\030200_battle.lua</path>
+    </file>
+    <file>
+      <flags>0x40</flags>
+      <id>9193</id>
+      <root>N:\FDP\data\INTERROOT_win64\</root>
+      <path>script\ai\out\bin\030300_battle.lua</path>
+    </file>
+    <file>
+      <flags>0x40</flags>
+      <id>9194</id>
+      <root>N:\FDP\data\INTERROOT_win64\</root>
+      <path>script\ai\out\bin\030400_battle.lua</path>
+    </file>
+    <file>
+      <flags>0x40</flags>
+      <id>9195</id>
+      <root>N:\FDP\data\INTERROOT_win64\</root>
+      <path>script\ai\out\bin\030500_battle.lua</path>
+    </file>
+    <file>
+      <flags>0x40</flags>
+      <id>9196</id>
+      <root>N:\FDP\data\INTERROOT_win64\</root>
+      <path>script\ai\out\bin\030600_battle.lua</path>
+    </file>
+    <file>
+      <flags>0x40</flags>
+      <id>9197</id>
+      <root>N:\FDP\data\INTERROOT_win64\</root>
+      <path>script\ai\out\bin\030700_battle.lua</path>
+    </file>
+    <file>
+      <flags>0x40</flags>
+      <id>9198</id>
+      <root>N:\FDP\data\INTERROOT_win64\</root>
+      <path>script\ai\out\bin\030800_battle.lua</path>
+    </file>
+    
+    <file>
+      <flags>0x40</flags>
       <id>1000000</id>
       <root>N:\FDP\data\INTERROOT_win64\</root>
       <path>script\ai\aiCommon.luagnl</path>

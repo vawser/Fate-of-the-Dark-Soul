@@ -150,8 +150,8 @@ $Event(0, Default, function() {
     InitializeEvent(2, 9020, 14500161, 14500162, 14500162, 6952, 45);
     
     // Fate
-    //SetSpEffect(10000, 200000000);
-    //SetEventFlag(13000800, ON);
+    SetSpEffect(10000, 200000000);
+    //SetEventFlag(13100358, OFF);
     //AwardItemLot(10);
     
     // Kill Tracker
