@@ -6,7 +6,6 @@
 # Ideas
 #-------------------------------------------------
 Weapons to add:
- 
  Black Dragon Greatsword
  Black Dragon Sword
  Black Dragon Greataxe
@@ -30,8 +29,13 @@ Weapons to add:
  Demon's Spear
  Sanctum Mace
  Aldia Hammer
+ 30070000 Writhing Hammer
+ 30080000 Scythe of Want
  
 Add transmogrification system
+ 
+Change status Curse to block the AI's ability to attack + % damage
+ Add Curse infusion
  
 Add a friendly NPC to each level that you can rescue
  Include dialogue to explain there predicatment
@@ -43,6 +47,7 @@ Add a friendly NPC to each level that you can rescue
   Occasionally they will call for the player and give them some consumable items.
   Saving all of them will reward a special item
  
+
 #-------------------------------------------------
 # WIP
 #-------------------------------------------------
@@ -51,17 +56,3 @@ Add a friendly NPC to each level that you can rescue
 30050000 Frying Pan
 30060000 Ancient Dragon Halberd
 
-# TODO
-30070000 Writhing Hammer
-30080000 Scythe of Want
-
-ID,Name
-3000,Brightbug
-3010,Old Growth Balm
-3020,Vine Balm
-3030,Blackweed Balm
-3040,Goldenfruit Balm
-3050,Ancient Growth Balm
-
-9320 Champion Gundyr
-9321 Soul of Cinder
