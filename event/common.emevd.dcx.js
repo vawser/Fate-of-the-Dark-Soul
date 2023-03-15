@@ -150,7 +150,7 @@ $Event(0, Default, function() {
     InitializeEvent(2, 9020, 14500161, 14500162, 14500162, 6952, 45);
     
     // Fate
-    //SetSpEffect(10000, 200000000);
+    SetSpEffect(10000, 200000000);
     //SetEventFlag(13100358, OFF);
     //AwardItemLot(10);
     
@@ -1801,7 +1801,7 @@ $Event(10005, Default, function() {
     WaitFor(EventFlag(9315)); // Wolnir
     WaitFor(EventFlag(9317)); // Old Demon King
     WaitFor(EventFlag(9318)); // Yhorm
-    WaitFor(EventFlag(9320)); // Champion Gundyr
+    WaitFor(EventFlag(9319)); // Champion Gundyr
     WaitFor(EventFlag(9321)); // Soul of Cinder
     WaitFor(EventFlag(9322)); // Sister Fride
     WaitFor(EventFlag(9323)); // Gravetender

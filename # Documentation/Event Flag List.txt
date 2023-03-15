@@ -17,7 +17,8 @@
 9315 Wolnir
 9317 Old Demon King
 9318 Yhorm
-9320 Champion Gundyr
+9319 Champion Gundyr
+9320 Champion Gundyr (OLD)
 9321 Soul of Cinder
 9322 Sister Friede
 9323 Gravetender

@@ -770,7 +770,7 @@ def t511102_x65():
         ClearTalkListData()
         
         # Champion Gundyr
-        AddTalkListDataIf(GetEventStatus(9320) == 1, 1, 80050122, -1)
+        AddTalkListDataIf(GetEventStatus(9319) == 1, 1, 80050122, -1)
 
         # Leave
         AddTalkListData(99, 80000999, -1)
@@ -780,7 +780,7 @@ def t511102_x65():
          
         # Champion Gundyr
         if GetTalkListEntryResult() == 1:
-            assert t511102_x100(14000830, 0, 0, 0, 0, 25000172)
+            assert t511102_x100(14000800, 0, 0, 0, 0, 25000172)
             return 0
         elif GetTalkListEntryResult() == 99 or not GetTalkListEntryResult():
             return 0
