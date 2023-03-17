@@ -56,3 +56,6 @@ Add a friendly NPC to each level that you can rescue
 30050000 Frying Pan
 30060000 Ancient Dragon Halberd
 
+m001016 5216 - Catacombs: Arch
+m001019 5217 - Catacombs: Upper Arch
+m001020 5218 - Catacombs: Pillar - Tall
