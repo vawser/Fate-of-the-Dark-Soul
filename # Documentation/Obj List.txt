@@ -4,10 +4,12 @@
 Format in map tpf.dcx file for each texture
 
 A - 0x00
-N - 0x6A
-M - 0x67
+E - 0x00
 R - 0x00
+M - 0x67
 D - 0x67
+V - 0x68
+N - 0x6A
 
 N:\FDP\data\Material\mtd\map\M[ARSN].mtd
 
@@ -18,6 +20,7 @@ h38_00_00_00_000500 Catacombs: Floor
 h38_00_00_00_000501 Catacombs: Floor - Corner
 h38_00_00_00_000502 Catacombs: Floor - Junction
 h38_00_00_00_000503 Catacombs: Floor - Hole
+h38_00_00_00_000504 Lava Floor
 
 #------------------------------------------------
 # Added Objects
@@ -60,6 +63,8 @@ m004002 XXXX - Catacombs: Wall - Roots
 m004006 XXXX - Catacombs: Floor - Roots
 m004018 XXXX - Catacombs: Pillar - Roots
 m000148 XXXX - Catacombs: Entrance - Tall, Wide
+m001581 5227 - Lava Floor
+m001581 5228 - Lava Floor (no collision)
 
 m005000 5250 - Asylum Demon (Corpse A)
 m005001 5251 - Asylum Demon (Corpse B)
