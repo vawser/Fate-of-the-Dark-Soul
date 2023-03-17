@@ -64,16 +64,13 @@ m000148 XXXX - Catacombs: Entrance - Tall, Wide
 m005000 5250 - Asylum Demon (Corpse A)
 m005001 5251 - Asylum Demon (Corpse B)
 m005002 5252 - Asylum Demon (Statue)
-
 m005100 5253 - Capra Demon (Corpse A)
-m005101 XXXX - Capra Demon (Corpse B)
-
-m005200 XXXX - Taurus Demon (Corpse A)
-m005201 XXXX - Taurus Demon (Corpse B)
-m005202 XXXX - Taurus Demon (Statue)
-
-m005300 XXXX - Centipede Demon (Corpse A)
-m005301 XXXX - Centipede Demon (Corpse B)
+m005101 5254 - Capra Demon (Corpse B)
+m005200 5255 - Taurus Demon (Corpse A)
+m005201 5256 - Taurus Demon (Corpse B)
+m005202 5257 - Taurus Demon (Statue)
+m005300 5258 - Centipede Demon (Corpse A)
+m005301 5259 - Centipede Demon (Corpse B)
 
 #------------------------------------------------
 # Map Pieces to Convert
