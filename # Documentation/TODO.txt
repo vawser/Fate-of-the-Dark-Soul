@@ -52,12 +52,5 @@ Add a friendly NPC to each level that you can rescue
 #-------------------------------------------------
 # Place
 30030000 Bewitched Alonne Sword
-30050000 Frying Pan
 30060000 Ancient Dragon Halberd
 
-# Map
-- Add lava burn region to lava sections
-
-3800640
-
-o000250_0064
