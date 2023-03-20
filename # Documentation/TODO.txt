@@ -46,7 +46,6 @@ Add a friendly NPC to each level that you can rescue
   The NPC will have a few sets of random dialogue.
   Occasionally they will call for the player and give them some consumable items.
   Saving all of them will reward a special item
- 
 
 #-------------------------------------------------
 # WIP
@@ -58,3 +57,7 @@ Add a friendly NPC to each level that you can rescue
 
 # Map
 - Add lava burn region to lava sections
+
+3800640
+
+o000250_0064
