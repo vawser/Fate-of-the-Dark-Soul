@@ -82,7 +82,7 @@ m005201 5256 - Taurus Demon (Corpse B)
 m005202 5257 - Taurus Demon (Statue)
 m005300 5258 - Centipede Demon (Corpse A)
 m005301 5259 - Centipede Demon (Corpse B)
-XXXXXXX 5260 - Betwitched Alonne Sword
+XXXXXXX 5260 - Bewitched Alonne Sword
 
 #------------------------------------------------
 # Map Pieces to Convert

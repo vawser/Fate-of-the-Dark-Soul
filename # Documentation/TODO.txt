@@ -29,10 +29,6 @@ Weapons to add:
  Demon's Spear
  Sanctum Mace
  Aldia Hammer
- 30070000 Writhing Hammer
- 30080000 Scythe of Want
- 
-Add transmogrification system
  
 Change status Curse to block the AI's ability to attack + % damage
  Add Curse infusion
@@ -51,6 +47,8 @@ Add a friendly NPC to each level that you can rescue
 # WIP
 #-------------------------------------------------
 # Place
-30030000 Bewitched Alonne Sword
 30060000 Ancient Dragon Halberd
+30080000 Scythe of Want
 
+# Import
+30070000 Writhing Hammer
