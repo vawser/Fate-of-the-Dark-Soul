@@ -1913,13 +1913,27 @@ function ExecAttack(r1, r2, l1, l2, b1, b2, is_guard, blend_type, artsr1, artsr2
         b1 = "W_AttackBothLight1"
         b2 = "W_AttackBothHeavy1Start"
     end
+    
     if request == ATTACK_REQUEST_RIGHT_LIGHT then
         if artsr1 == TRUE then
             SetSwordArtsPointInfo(ACTION_ARM_R1, TRUE)
         end
+        
         if IsArtsSpAtk() == TRUE and r1 == "W_AttackRightLightStep" then
             r1 = "W_AttackRightLightStepSpecial"
         end
+        
+        if IsSpecialCategory("Curved Greatsword Alt") or 
+           IsSpecialCategory("Blade Bow") then
+            if r1 == "W_AttackRightLight1" then
+                r1 = "W_AttackRightLight1Alt"
+            elseif r1 == "W_AttackRightLightDash" then
+                r1 = "W_AttackRightLightDashAlt"
+			elseif r1 == "W_AttackRightLightStep" then
+                r1 = "W_AttackRightLightStepAlt"
+			end
+        end
+        
         ExecEventAllBody(r1)
     elseif request == ATTACK_REQUEST_LIGHT_KICK then
         if HAND_LEFT_BOTH <= style then
@@ -1931,7 +1945,12 @@ function ExecAttack(r1, r2, l1, l2, b1, b2, is_guard, blend_type, artsr1, artsr2
         if artsr2 == TRUE then
             SetSwordArtsPointInfo(ACTION_ARM_R2, TRUE)
         end
-        if IsWarcrySpAtk() == TRUE then
+        
+        if IsWarcrySpAtk() == TRUE or 
+           IsSpecialCategory("Beast Claw") or 
+           IsSpecialCategory("Fume Ultra Greatsword") or
+           IsSpecialCategory("Boom Hammer") or
+           IsSpecialCategory("Phosphorescent Pole Alt") then
             if r2 == "W_AttackRightHeavy1Start" then
                 r2 = "W_AttackRightHeavySpecial1Start"
             elseif r2 == "W_AttackRightHeavy1SubStart" then
@@ -1948,6 +1967,18 @@ function ExecAttack(r1, r2, l1, l2, b1, b2, is_guard, blend_type, artsr1, artsr2
                 r2 = "W_AttackRightHeavyWepBroken2Start"
             end
         end
+        
+        if IsSpecialCategory("Curved Greatsword Alt") or 
+           IsSpecialCategory("Blade Bow") then
+            if r2 == "W_AttackRightHeavy1Start" then
+                r2 = "W_AttackRightHeavy1StartAlt"
+            elseif r2 == "W_AttackRightHeavy1SubStart" then
+                r2 = "W_AttackRightHeavy1SubStartAlt"
+            elseif r2 == "W_AttackRightHeavy2Start" then
+                r2 = "W_AttackRightHeavy2StartAlt"
+            end		
+        end
+        
         ExecEventAllBody(r2)
     elseif request == ATTACK_REQUEST_HEAVY_KICK then
         if HAND_LEFT_BOTH <= style then
@@ -1981,9 +2012,23 @@ function ExecAttack(r1, r2, l1, l2, b1, b2, is_guard, blend_type, artsr1, artsr2
         if artsr1 == TRUE then
             SetSwordArtsPointInfo(ACTION_ARM_R1, TRUE)
         end
+        
         if IsArtsSpAtk() == TRUE and b1 == "W_AttackBothLightStep" then
             b1 = "W_AttackBothLightStepSpecial"
         end
+        
+        if IsSpecialCategory("Sunlight Greatsword") or 
+           IsSpecialCategory("Curved Greatsword Alt") or 
+           IsSpecialCategory("Blade Bow") then
+            if b1 == "W_AttackBothLight1" then
+                b1 = "W_AttackBothLight1Alt"
+            elseif b1 == "W_AttackBothDash" then
+                b1 = "W_AttackBothDashAlt"
+			elseif b1 == "W_AttackBothLightStep" then
+                b1 = "W_AttackBothLightStepAlt"
+			end
+        end
+        
         ExecEventAllBody(b1)
     elseif request == ATTACK_REQUEST_BOTH_LEFT then
         if r1 == "W_AttackRightLightDash" then
@@ -2000,7 +2045,11 @@ function ExecAttack(r1, r2, l1, l2, b1, b2, is_guard, blend_type, artsr1, artsr2
         if artsr2 == TRUE then
             SetSwordArtsPointInfo(ACTION_ARM_R2, TRUE)
         end
-        if IsWarcrySpAtk() == TRUE then
+        if IsWarcrySpAtk() == TRUE or 
+           IsSpecialCategory("Beast Claw") or 
+           IsSpecialCategory("Fume Ultra Greatsword") or
+           IsSpecialCategory("Boom Hammer") or
+           IsSpecialCategory("Phosphorescent Pole Alt") then
             if b2 == "W_AttackBothHeavy1Start" then
                 b2 = "W_AttackBothHeavySpecial1Start"
             elseif b2 == "W_AttackBothHeavy1SubStart" then
@@ -2017,6 +2066,20 @@ function ExecAttack(r1, r2, l1, l2, b1, b2, is_guard, blend_type, artsr1, artsr2
                 b2 = "W_AttackBothHeavyWepBroken2Start"
             end
         end
+        
+        if IsSpecialCategory("Kirkhammer") or 
+           IsSpecialCategory("Sunlight Greatsword") or 
+           IsSpecialCategory("Curved Greatsword Alt") or 
+           IsSpecialCategory("Blade Bow") then
+            if b2 == "W_AttackBothHeavy1Start" then
+                b2 = "W_AttackBothHeavy1StartAlt"
+            elseif b2 == "W_AttackBothHeavy1SubStart" then
+                b2 = "W_AttackBothHeavy1SubStartAlt"
+            elseif b2 == "W_AttackBothHeavy2Start" then
+                b2 = "W_AttackBothHeavy2StartAlt"
+            end		
+        end
+        
         ExecEventAllBody(b2)
     elseif request == ATTACK_REQUEST_ARROW_BOTH_RIGHT then
         if ExecHandChange(HAND_RIGHT, TRUE, blend_type) == TRUE then
@@ -2147,7 +2210,7 @@ function ExecAttack(r1, r2, l1, l2, b1, b2, is_guard, blend_type, artsr1, artsr2
         end
         
         -- Frostfall
-		if env(GetEquipWeaponSpecialCategoryNumber, hand) == 604 then
+		if IsSpecialCategory("Frostfall") then
 			ExecEventHalfBlend(Event_AttackSpinStart, UPPER)
 			return
 		else
@@ -2157,7 +2220,19 @@ function ExecAttack(r1, r2, l1, l2, b1, b2, is_guard, blend_type, artsr1, artsr2
         is_find_atk = FALSE
         is_atk_auto_aim = FALSE
         SetSwordArtsPointInfo(ACTION_ARM_L2, TRUE)
-        ExecEventAllBody("W_Warcry")
+        
+        -- Writhing Hammer: Low FP
+        if IsSpecialCategory("Writhing Hammer") and env(GetFP) < 50 then 
+            ExecEventAllBody("W_EndureRightHeavy")
+            return FALSE
+        -- Quarterstaff: Low FP
+        elseif IsSpecialCategory("Quarterstaff") and env(GetFP) < 85 then 
+            ExecEventAllBody("W_EndureRightHeavy")
+            return FALSE
+		else
+            ExecEventAllBody("W_Warcry")
+        end
+        
     elseif request == SWORDARTS_REQUEST_RIGHT_CHARGE or request == SWORDARTS_REQUEST_LEFT_CHARGE then
         SetSwordArtsPointInfo(ACTION_ARM_L2, TRUE)
         ExecEventHalfBlend(Event_Charge, ALLBODY)
@@ -13901,7 +13976,7 @@ function FourWayAttackHeavy_onUpdate()
     -- Adjustments: Effect
     ApplyEffect_SkillAttack()
     
-    if IsSpecialCategory("Nil Bow and Blade") then
+    if IsSpecialCategory("Blade Bow") then
         act(SetMovementScaleMult, 2)
     end	
 	
@@ -19445,7 +19520,7 @@ special_category_table["Sanctum Mace"] = 749
 special_category_table["Kirkhammer"] = 750
 special_category_table["Sunlight Greatsword"] = 751
 special_category_table["Curved Greatsword Alt"] = 752
-special_category_table["Nil Bow and Blade"] = 754
+special_category_table["Blade Bow"] = 754
 special_category_table["Carthus Shotel"] = 755
 
 -- Weapon Hold Positions

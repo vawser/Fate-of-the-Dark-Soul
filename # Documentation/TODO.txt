@@ -30,9 +30,6 @@ Weapons to add:
  Sanctum Mace
  Aldia Hammer
  
-Change status Curse to block the AI's ability to attack + % damage
- Add Curse infusion
- 
 Add a friendly NPC to each level that you can rescue
  Include dialogue to explain there predicatment
  The player will need to kill a special enemy once they've spoken to the NPC (this enemy is only shown after this talk)
@@ -48,7 +45,10 @@ Add a friendly NPC to each level that you can rescue
 #-------------------------------------------------
 # Place
 30060000 Ancient Dragon Halberd
-30080000 Scythe of Want
-
-# Import
 30070000 Writhing Hammer
+30080000 Scythe of Want
+30090000 Aldian Twinspears
+
+Change status Curse to block the AI's ability to attack + % damage
+ Add Curse infusion
+ 
